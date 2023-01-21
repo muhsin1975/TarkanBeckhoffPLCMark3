@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <Task Name="CanRecTask" Id="{82e3e826-bc6f-4fdb-9fb2-796d75c4792e}">
+    <!--CycleTime in micro seconds.-->
+    <CycleTime>2000</CycleTime>
+    <Priority>1</Priority>
+    <PouCall>
+      <Name>CanReceiver</Name>
+    </PouCall>
+    <TaskFBGuid>{f44f4902-ff3a-46b4-8822-0623cd7a3137}</TaskFBGuid>
+    <Fb_init>{da0ea3a5-bf6c-4913-95b7-9ebd2dd0b74d}</Fb_init>
+    <Fb_exit>{4a395b7a-bf08-4bfc-86a1-461d7b23a582}</Fb_exit>
+    <CycleUpdate>{6295bad9-e388-40bb-9a1f-cafcdfd1fd5a}</CycleUpdate>
+    <PostCycleUpdate>{934f07f1-580e-4411-aa2f-361197e2aca6}</PostCycleUpdate>
+  </Task>
+</TcPlcObject>

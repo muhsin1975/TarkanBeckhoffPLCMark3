@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="detectStabilizedAngle" Id="{825e6914-1b47-48e4-b465-321766633e7c}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION detectStabilizedAngle:LREAL
+VAR_INPUT
+	current_yaw:LREAL;
+END_VAR
+VAR_OUTPUT
+	stab_angle:LREAL;
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF ((current_yaw >= 0 AND current_yaw <= 45))THEN
+      stab_angle := 0;
+ 	robotdata.robot_direction := 0;
+    
+	ELSIF ((current_yaw >= 315 AND current_yaw <= 360))THEN
+      stab_angle := 360;
+	robotdata.robot_direction := 0;
+    
+    ELSIF ( (current_yaw >= 270 AND current_yaw <= 315)OR (current_yaw >= 225 AND current_yaw <= 270))  THEN
+      stab_angle := 270;
+     robotdata.robot_direction := 1;
+    ELSIF ((current_yaw <= 225 AND current_yaw >= 180)OR(current_yaw >= 135 AND current_yaw <= 180))  THEN
+      stab_angle := 180;
+     robotdata.robot_direction := 2;
+    
+    ELSE 
+     stab_angle := 90;
+	  robotdata.robot_direction := 3;
+    END_IF
+	detectStabilizedAngle:=stab_angle;]]></ST>
+    </Implementation>
+    <LineIds Name="detectStabilizedAngle">
+      <LineId Id="12" Count="1" />
+      <LineId Id="15" Count="3" />
+      <LineId Id="20" Count="3" />
+      <LineId Id="25" Count="2" />
+      <LineId Id="29" Count="3" />
+      <LineId Id="44" Count="0" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="34" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

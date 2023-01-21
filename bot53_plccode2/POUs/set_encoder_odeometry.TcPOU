@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="set_encoder_odeometry" Id="{61cff9ce-dc0e-4274-bf88-1480d24803a1}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC set_encoder_odeometry
+VAR
+	slave0_speed:LREAL;
+	slave1_speed:LREAL;
+	current_x_state:LREAL;
+	current_y_state:LREAL;
+	radius:LREAL;
+	icc_x:LREAL;
+	icc_y:LREAL;
+	yaw_prev:LREAL;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[	slave0_speed := Locomotion_1_velocity_actual_value;       
+	slave1_speed := (Locomotion_2_velocity_actual_value);   
+	slave1_speed:=-1 * slave1_speed;
+	robotdata.encoder_omega := (slave1_speed - slave0_speed) * RPM2MSN / ((ROBOT_RADIUS) * 2.0); //angular velocity
+	robotdata.encoder_v:= (slave1_speed + slave0_speed) * RPM2MSN / 2.0; // linear velocity
+
+
+	robotdata.encoder_slave0_speed := slave0_speed * RPM2MSN;
+	robotdata.encoder_slave1_speed := slave1_speed * RPM2MSN;
+	IF (slave0_speed<>slave1_speed) THEN
+	
+		current_x_state := robotdata.encoder_x;
+		current_y_state := robotdata.encoder_y;
+
+		radius:= (ROBOT_RADIUS) * (slave1_speed + slave0_speed) / (slave1_speed - slave0_speed);
+		icc_x := robotdata.encoder_x - (radius * SIN(robotdata.encoder_yaw)); //ICC
+		icc_y := robotdata.encoder_y + (radius * COS(robotdata.encoder_yaw)); //ICC
+		 IF(raw_qr_tag=0)THEN
+			robotdata.encoder_x := ((current_x_state - icc_x) * COS(robotdata.encoder_omega * GVL.PLC_CYCLE)) - (current_y_state - icc_y) * SIN(robotdata.encoder_omega * PLC_CYCLE) + icc_x;
+			robotdata.encoder_y := ((current_x_state - icc_x) * SIN(robotdata.encoder_omega * GVL.PLC_CYCLE)) + (current_y_state - icc_y) * COS(robotdata.encoder_omega * PLC_CYCLE) + icc_y;
+		END_IF
+		IF(raw_qr_tag<>0 AND  robotdata.qr_angle<>0)THEN
+			robotdata.encoder_yaw := robotdata.qr_yaw;
+		ELSE
+		robotdata.encoder_yaw := robotdata.encoder_yaw + (robotdata.encoder_omega * PLC_CYCLE); //heading
+		END_IF
+	
+
+	
+	ELSE
+	
+		robotdata.encoder_x := robotdata.encoder_x+(robotdata.encoder_v * PLC_CYCLE * COS(robotdata.encoder_yaw)); // x coordinate
+		robotdata.encoder_y := robotdata.encoder_y+(robotdata.encoder_v * PLC_CYCLE * SIN(robotdata.encoder_yaw)); // y coordinate
+	END_IF
+]]></ST>
+    </Implementation>
+    <LineIds Name="set_encoder_odeometry">
+      <LineId Id="10" Count="1" />
+      <LineId Id="13" Count="14" />
+      <LineId Id="82" Count="0" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="83" Count="3" />
+      <LineId Id="88" Count="0" />
+      <LineId Id="87" Count="0" />
+      <LineId Id="67" Count="0" />
+      <LineId Id="34" Count="5" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="54" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

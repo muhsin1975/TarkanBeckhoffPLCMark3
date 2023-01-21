@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="set_qr_info" Id="{2c1e8f8b-2e44-47c9-b13d-0d890683b045}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC set_qr_info
+
+VAR
+	modified_qr:DINT;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[  IF(raw_qr_tag<>0 AND ((robotdata.robot_direction MOD 2 =0 AND robotdata.qr_x<>0) OR (robotdata.robot_direction MOD 2 =1 AND robotdata.qr_y<>0))) THEN
+  	modified_qr:=raw_qr_tag;
+    IF(raw_qr_tag>=82 AND raw_qr_tag<102)  THEN
+      robotdata.qr_tag := raw_qr_tag-61;
+      grid_x := (robotdata.qr_tag-1)/5;
+      grid_y := (robotdata.qr_tag-1) MOD 5;
+    
+    ELSIF(raw_qr_tag>101)THEN
+      modified_qr := raw_qr_tag-102;
+      robotdata.qr_tag := raw_qr_tag-61;
+      grid_x := (modified_qr)/4;
+      grid_y := (modified_qr) MOD 4+5;
+    ELSIF(raw_qr_tag>40)THEN
+      grid_x := (robotdata.qr_tag-41)/4;
+      grid_y := (robotdata.qr_tag-41) MOD 4+5;
+     robotdata.qr_tag :=raw_qr_tag;
+    ELSE
+	grid_x := (robotdata.qr_tag-1)/5;
+    grid_y := (robotdata.qr_tag-1) MOD 5;
+	robotdata.qr_tag :=raw_qr_tag;
+	END_IF
+    robotdata.qr_yaw :=  LMOD((-robotdata.qr_angle * 0.1-PF_OFFSET) * PI / 180.0+(2*PI) , (2*PI));
+    robotdata.robot_x := (grid_x * GRID_DIM) + (robotdata.qr_x / 1000.0) + (robotdata.encoder_v * COS(robotdata.qr_yaw) * PLC_CYCLE ); //the constant at the end is based on the latency of the camera
+    robotdata.robot_yaw:=robotdata.qr_yaw;
+    IF(robotdata.qr_x<>0 AND  NOT winnerEvaluated AND ABS(robotdata.imu_state.imu_x-(grid_x * GRID_DIM)-(robotdata.qr_x / 1000.0))<ABS(robotdata.encoder_x-(grid_x * GRID_DIM)-(robotdata.qr_x / 1000.0))) THEN
+      imuXwins:=TRUE;
+    ELSIF(robotdata.qr_x<>0 AND  NOT winnerEvaluated AND ABS(robotdata.imu_state.imu_x-(grid_x * GRID_DIM)-(robotdata.qr_x / 1000.0))>ABS(robotdata.encoder_x-(grid_x * GRID_DIM)-(robotdata.qr_x / 1000.0))) THEN
+      imuXwins:=FALSE;
+	  END_IF
+    
+   IF(robotdata.qr_x<>0) THEN
+    robotdata.encoder_x := robotdata.robot_x;
+    robotdata.imu_state.imu_x := robotdata.robot_x;
+	END_IF
+	
+  
+  
+    robotdata.robot_y := (grid_y * GRID_DIM) + (robotdata.qr_y / 1000.0) + (robotdata.encoder_v * SIN(robotdata.qr_yaw) * PLC_CYCLE);
+    IF( robotdata.qr_y<>0 AND NOT winnerEvaluated AND  ABS(robotdata.imu_state.imu_y-(grid_y * GRID_DIM)-(robotdata.qr_y / 1000.0))<ABS(robotdata.encoder_y-(grid_y * GRID_DIM)-(robotdata.qr_y / 1000.0))) THEN
+      imuYwins:=TRUE;
+    ELSIF(robotdata.qr_y<>0 AND  NOT winnerEvaluated AND  ABS(robotdata.imu_state.imu_y-(grid_y * GRID_DIM)-(robotdata.qr_y / 1000.0))>ABS(robotdata.encoder_y-(grid_y * GRID_DIM)-(robotdata.qr_y / 1000.0))) THEN
+      imuYwins:=FALSE;
+	END_IF   
+  
+    winnerEvaluated:=TRUE;
+
+   //printf("%d-%d\n",imuXwins,imuYwins);
+    IF(robotdata.qr_y<>0) THEN
+    robotdata.encoder_y := robotdata.robot_y;
+    robotdata.imu_state.imu_y :=robotdata.robot_y;
+	END_IF
+	//robotdata.imu_state.imu_euler:=robotdata.robot_yaw;
+	//robotdata.encoder_yaw:=robotdata.robot_yaw;
+	//robotdata.encoder_yaw:=robotdata.qr_yaw;
+    //imu_odometry->imu_euler=qr_info->yaw_state;
+   ELSIF(raw_qr_tag=0) THEN
+    winnerEvaluated:=FALSE;
+	robotdata.qr_tag :=0;
+	END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="set_qr_info">
+      <LineId Id="12" Count="1" />
+      <LineId Id="16" Count="10" />
+      <LineId Id="151" Count="0" />
+      <LineId Id="29" Count="2" />
+      <LineId Id="116" Count="0" />
+      <LineId Id="32" Count="0" />
+      <LineId Id="137" Count="0" />
+      <LineId Id="115" Count="0" />
+      <LineId Id="155" Count="0" />
+      <LineId Id="154" Count="0" />
+      <LineId Id="74" Count="1" />
+      <LineId Id="77" Count="2" />
+      <LineId Id="117" Count="0" />
+      <LineId Id="83" Count="1" />
+      <LineId Id="156" Count="0" />
+      <LineId Id="86" Count="0" />
+      <LineId Id="161" Count="1" />
+      <LineId Id="89" Count="0" />
+      <LineId Id="144" Count="0" />
+      <LineId Id="91" Count="5" />
+      <LineId Id="101" Count="3" />
+      <LineId Id="163" Count="0" />
+      <LineId Id="105" Count="1" />
+      <LineId Id="164" Count="0" />
+      <LineId Id="129" Count="1" />
+      <LineId Id="122" Count="0" />
+      <LineId Id="109" Count="1" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="138" Count="0" />
+      <LineId Id="118" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

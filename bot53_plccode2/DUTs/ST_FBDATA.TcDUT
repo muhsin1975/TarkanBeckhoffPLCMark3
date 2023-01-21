@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="ST_FBDATA" Id="{a1cec916-ce4a-4332-aa8d-de8b9e32dba0}">
+    <Declaration><![CDATA[
+TYPE ST_FBDATA :
+STRUCT
+    robot_x:LREAL;
+	robot_y:LREAL;
+	robot_yaw:LREAL;
+	lifter:LREAL;
+	rotator:LREAL;
+	upcam_state:st_upcam;
+	batteryStatus:BYTE;
+	batteryVoltage:LREAL:=50;
+	batteryRequestCurrent:LREAL;
+	batterySOC:INT:=90;
+	batteryCurrentCons:LREAL;
+	batteryErrorFlag:INT;
+	qr_tag:DINT:=0;
+	qr_x:LREAL;
+	qr_y:LREAL;
+	qr_angle:INT;
+	qr_yaw:LREAL:=0;
+	imu_state:ST_IMU_STATE;
+	deviation_yaw:LREAL;
+	deviation_y:LREAL;
+	imu_r:LREAL;
+	imu_omega:LREAL;
+	imu_readtime:LREAL;
+	encoder_x:LREAL;
+	encoder_y:LREAL;
+	encoder_yaw:LREAL;
+	encoder_v:LREAL;
+	robot_direction:BYTE:=0;
+	motion_status :BYTE:=1;
+	activeState:BYTE:=1;
+	
+	motorError AT%I*:ARRAY[0..3] OF INT;
+	Jerk:LREAL:=JERK_LIMIT;
+	Acc:LREAL:=ACCELERATION_LIMIT;
+	Speed:LREAL:=SPEED_LIMIT;
+	controller:INT;
+	motorCword AT%Q*: ARRAY[0..3] OF INT;
+	yaw_error:LREAL;
+	encoder_omega:LREAL;
+	encoder_slave0_speed:LREAL;
+	encoder_slave1_speed:LREAL;
+	encoderx_rel:LREAL;
+	encodery_rel:LREAL;
+	imux_rel:LREAL;
+	imuy_rel:LREAL;
+	wc1:LREAL;
+	wc2:LREAL;
+	driverContactor                            AT%Q* : BOOL := TRUE;
+    pfEnableContactor                        AT%Q* : BOOL := TRUE;
+    chargerContactor                        AT%Q* : BOOL := FALSE;
+	lifterDistance AT%I* : INT := INT#0;
+    END_STRUCT
+	END_TYPE]]></Declaration>
+  </DUT>
+</TcPlcObject>

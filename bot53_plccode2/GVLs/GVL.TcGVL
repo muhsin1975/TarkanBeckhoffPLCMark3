@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <GVL Name="GVL" Id="{8ff233d5-5d6b-41d2-bbcd-a9d56e7bf022}">
+    <Declaration><![CDATA[//{attribute 'qualified_only'}
+VAR_GLOBAL CONSTANT
+COMMAND_LOCOMOTION_DISABLE:BYTE:=BYTE#2;
+COMMAND_LOCOMOTION_ENABLE:BYTE:=BYTE#4;
+COMMAND_LIFTER_DISABLE:BYTE:=BYTE#6;
+COMMAND_LIFTER_ENABLE:BYTE:=BYTE#7;
+COMMAND_ROTATOR_DISABLE:BYTE:=BYTE#8;
+COMMAND_ROTATOR_ENABLE:BYTE:=BYTE#9;
+COMMAND_PF_ENADIS:BYTE:=BYTE#11;
+COMMAND_DRIVER_ENADIS:BYTE:=BYTE#12;
+COMMAND_RESET_ERRORS:BYTE:=BYTE#1;
+COMMAND_TOGGLE_CONT:BYTE:=BYTE#33;
+MOTION_ONGOING:BYTE:=BYTE#0;
+GRID_DIM:INT:=INT#1;
+//QR_TX_INTERVAL:LREAL:=LREAL#25;
+MOTION_ENDED:BYTE:=BYTE#1;
+MOTION_INFINITE:BYTE:=BYTE#2;
+MOTION_HOLDED:BYTE:=BYTE#3;
+MOTION_ANGLE:BYTE:=BYTE#4;
+MOTION_LIFTER:BYTE:=BYTE#5;
+MOTION_CLOSING:BYTE:=BYTE#6;
+MOTION_OBSTACLE:BYTE:=BYTE#7;
+MOTION_ROTATE:BYTE:=BYTE#8;
+CHARGING:BYTE:=BYTE#9;
+
+ 
+
+MOTION_BRAKE:BYTE:=BYTE#10;
+IMU_RESET :BYTE:=BYTE#11;
+ANGLE_CORRECT:BYTE:=BYTE#12;
+LOCATION_CORRECT:BYTE:=BYTE#13;
+INIT:BYTE:=BYTE#14;
+LIFTING_DONE:BYTE:=BYTE#15;
+POD_ANGLE_CORRECT:BYTE:=BYTE#16;
+ENC_RESET :BYTE:=BYTE#17;
+PDO_CHARGE_OPENCLOSE:BYTE:=BYTE#18;
+STOP_ON_QR :BYTE:=BYTE#19;
+UPCAM_READ:BYTE:=BYTE#20;
+ANGLE_CORR_ENDED :BYTE:=BYTE#50;
+X_CORR_ENDED :BYTE:=BYTE#51;
+POD_CORR_ENDED:BYTE:=BYTE#52;
+IMU_RST_ENDED:BYTE:=BYTE#53;
+CONT_TOGGLE_ENDED :BYTE:=BYTE#54;
+MOVE_ENDED :BYTE:=BYTE#55;
+TURN_ENDED :BYTE:=BYTE#56;
+LIFT_ENDED :BYTE:=BYTE#57;
+ROTATE_ENDED :BYTE:=BYTE#58;
+SETLIMITS_ENDED :BYTE:=BYTE#59;
+CHARGE_ENDED:BYTE:=BYTE#60;
+UPCAM_READ_ENDED :BYTE:=BYTE#61;
+LOST:BYTE:=BYTE#100;
+MOTOR_ERROR:BYTE:=BYTE#105;
+PLC_ERROR:BYTE:=BYTE#106;
+IMU_ERROR:BYTE:=BYTE#107;
+NO_QR_TIMEOUT:DINT:=DINT#50000000;
+NO_ADS_TIMEOUT:DINT:=DINT#50;
+QRCAM_ERROR:BYTE:=BYTE#110;
+COMM_PROB:BYTE:=BYTE#111;
+CMD_TIMEOUT :BYTE:=BYTE#112;
+STOPPER_DOWN:BYTE:=BYTE#114;
+UPCAM_ERROR:BYTE:=BYTE#115; //error states starting from 100
+PLC_COMM_ERROR :BYTE:=BYTE#116;
+BMS_ERROR:BYTE:=BYTE#120;
+PDO_CHARGER_ERROR :BYTE:=BYTE#121;
+CRI_BATT:BYTE:=BYTE#125;
+OVER_CURR:BYTE:=BYTE#126;
+CHARGE_ERROR:BYTE:=BYTE#127;
+LOW_BATT:BYTE:=BYTE#130;
+MOTOR_OVER_TEMP:BYTE:=BYTE#135;
+BATT_ERROR:BYTE:=BYTE#150;
+LIFTER_STATE_INCORRECT:BYTE:=BYTE#160;
+
+ 
+
+SUCCESS:INT:=INT#0;
+FAILURE:INT:=INT#2;
+NEGATIVE_FAILURE:INT:=INT#3;
+NULL_POINTER:INT:=INT#4;
+ROBOT_RADIUS:LREAL:=LREAL#0.32;
+WHEEL_RADIUS:LREAL:=LREAL#0.08;
+REDUCER_RATIO:LREAL:=LREAL#12;
+ROTATOR_RADIUS:LREAL:=LREAL#0.466;
+TURN_JERK_LIMIT:LREAL:=LREAL#0.4;
+TURN_ACCELERATION_LIMIT:LREAL:=LREAL#0.2;
+TURN_VELOCITY_LIMIT:LREAL:=LREAL#0.2;
+JERK_LIMIT:LREAL:=LREAL#0.8;
+ACCELERATION_LIMIT:LREAL:=LREAL#1;
+DECELERATION_LIMIT:LREAL:=LREAL#1;
+SPEED_LIMIT:LREAL:=LREAL#1.5;
+PLC_CYCLE:LREAL:=LREAL#0.002;
+ROTATOR_REDUCER_RATIO:LREAL:=LREAL#14;
+ROTATOR_GEAR_RATIO:LREAL:=LREAL#7.6;
+ROTRAD2DEC:LREAL:=(10000.0 * (ROTATOR_REDUCER_RATIO) * (ROTATOR_GEAR_RATIO) / (2.0 * PI));
+DEC2R:LREAL:=LREAL#1/ROTRAD2DEC;
+M2DEC:LREAL:=((10000.0 * (REDUCER_RATIO)) / (2.0 * PI * (WHEEL_RADIUS)));
+DEC2M:LREAL:= (1.0 / (M2DEC));
+MSN2RPM:LREAL:= ((((REDUCER_RATIO) * 1.0 * 60.0) / (2.0 * PI * (WHEEL_RADIUS))));
+RPM2MSN:LREAL:=1/MSN2RPM;
+OMEGA_DIFF_MAX:LREAL:= ((1.5 * 1.5) / (ROBOT_RADIUS * ROBOT_RADIUS) * (PLC_CYCLE));
+
+END_VAR
+VAR_GLOBAL
+	Y_DEV_THRESHOLD:LREAL:=0.005;
+	PF_OFFSET:LREAL:=0.2;
+	AWAY_COEFF:LREAL:=LREAL#1;
+	TOWARDS_COEFF:LREAL:=LREAL#1;
+    current_yaw_deg:LREAL;
+    ads_lasttime:ULINT;
+    lateral_direction_sign:INT;
+    away:LREAL;
+raw_qr_tag:DINT;
+      stabilization_yaw_deg:LREAL;
+    winnerEvaluated:BOOL:=FALSE;
+    imuXwins:BOOL:=FALSE;
+    lastqrtime:ULINT;
+    controller_coeff:LREAL;
+    imuYwins:BOOL:=FALSE;
+    encoderx_rel:LREAL;
+    encodery_rel:LREAL;
+    imux_rel:LREAL;
+    imuy_rel:LREAL;
+	grid_x:LREAL;
+	grid_y:LREAL;
+    local_x_before_motion:LREAL:=0;
+     robotdata:ST_FBDATA;
+    st_command:ST_COMMAND;
+    command:ARRAY[0..5] OF LREAL;
+    motion_index :DINT;
+    max_location :DINT;
+    motion_left  :ARRAY[0..299999] OF DINT;
+	motion_lift  :ARRAY[0..299999] OF DINT;
+    motion_right :ARRAY[0..299999] OF DINT;
+    motion_vel :ARRAY[0..299999] OF LREAL;
+    motion  :ARRAY[0..299999] OF DINT;
+    deviation_y:LREAL;
+    deviation_yaw:LREAL;
+    KpY:LREAL:=120;
+    KpTht:LREAL:=0.03;
+    //Locomotion_1
+
+    Target_V:ST_TARGETS;
+    Locomotion_1_target_velocity             : DINT;
+    Locomotion_2_target_velocity              : DINT;
+    Locomotion_1_modesOfOperation             AT%Q* : SINT := SINT#9;
+    Locomotion_1_velocity_actual_value         AT%I*: DINT;
+    Locomotion_1_error_state_1                 AT%I* : UINT;
+    Locomotion_1_error_state_2                 AT%I* : UINT;
+    Locomotion_1_statusword                 AT%I* : UINT;
+    Locomotion_1_modesOfOperationDisplay     AT%I* : SINT;
+    //Locomotion_2
+
+    Locomotion_2_modesOfOperation             AT%Q* : SINT := SINT#9;
+    Locomotion_2_velocity_actual_value         AT%I* : DINT;
+    Locomotion_2_error_state_1                 AT%I* : UINT;
+    Locomotion_2_error_state_2                 AT%I* : UINT;
+    Locomotion_2_statusword                 AT%I* : UINT;
+    Locomotion_2_modesOfOperationDisplay     AT%I* : SINT;
+    //Rotator
+    Rotator_target_position                 AT%Q* : DINT;
+    Rotator_modesOfOperation                 AT%Q* : SINT := SINT#8;
+    Rotator_position_actual_value             AT%I* : DINT;
+    Rotator_error_state_1                     AT%I* : UINT;
+    Rotator_error_state_2                     AT%I* : UINT;
+    Rotator_statusword                         AT%I* : UINT;
+    Rotator_modesOfOperationDisplay         AT%I* : SINT;
+    //Lifter
+    Lifter_target_position                     AT%Q* : DINT;
+    Lifter_modesOfOperation                 AT%Q* : SINT := SINT#8;
+    Lifter_position_actual_value             AT%I* : DINT;
+    Lifter_error_state_1                     AT%I* : UINT;
+    Lifter_error_state_2                     AT%I* : UINT;
+    Lifter_statusword                         AT%I* : UINT;
+    Lifter_modesOfOperationDisplay             AT%I* : SINT;
+    receivedBytes :STRING;
+    sendReceiveTrigger : BOOL;
+
+    MQTT_ConnState:ETcIotMqttClientState;
+    MQTT_Command:FB_IoTCommand;
+
+    //Enable Signals for to be switched subsystems
+   
+
+ 
+
+
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

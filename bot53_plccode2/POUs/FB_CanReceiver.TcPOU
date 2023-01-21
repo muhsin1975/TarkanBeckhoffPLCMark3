@@ -1,0 +1,240 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_CanReceiver" Id="{041993e0-2e72-43c9-af04-aee71ebb36e5}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'c++_compatible'}
+FUNCTION_BLOCK FB_CanReceiver IMPLEMENTS ITcIoUdpProtocolRecv
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	{attribute 'TcInitSymbol'}
+	oid : OTCID; 
+	ipUdp : ITcIoUdpProtocol;
+	nUdpPort : UINT := 4444;
+	nReceivedPakets : UINT;
+	
+	hrInit : HRESULT;
+	hrSend  : HRESULT;  
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF ipUdp <> 0 THEN
+	ipUdp.CheckReceived();
+END_IF]]></ST>
+    </Implementation>
+    <Method Name="FB_exit" Id="{034723c2-00b9-4e87-989c-b9acafb60f8b}">
+      <Declaration><![CDATA[{attribute 'conditionalshow'}
+METHOD FB_exit : BOOL
+VAR_INPUT
+	bInCopyCode : BOOL; // if TRUE, the exit method is called for exiting an instance that is copied afterwards (online change).
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT bInCopyCode THEN // no online change
+	IF ipUdp <> 0 THEN 
+		ipUdp.UnregisterReceiver(nUdpPort); // Shutdown
+		FW_SafeRelease(ADR(ipUdp));
+		FB_exit := TRUE; 
+	END_IF
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{ad5f2988-039b-46f7-810e-05112868ac21}">
+      <Declaration><![CDATA[{attribute 'conditionalshow'}
+METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+VAR
+	ipSrv : ITComObjectServer;
+
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT bInCopyCode THEN // no online change
+	IF ipUdp = 0 AND oid <> 0 THEN
+	    hrInit := FW_ObjMgr_GetObjectInstance(	oid:=oid, 
+											iid:=TC_GLOBAL_IID_LIST.IID_ITcIoUdpProtocol, 
+											pipUnk:=ADR(ipUdp) );
+		IF SUCCEEDED(hrInit) THEN 
+			IF  SUCCEEDED(ipUdp.RegisterReceiver(nUdpPort, THIS^)) THEN //open port
+				FB_init := TRUE;
+			ELSE 
+				FB_init := FALSE; 
+				FW_SafeRelease(ADR(ipUdp));
+			END_IF
+		END_IF
+	ELSIF oid = 0 THEN 
+		FB_init := FALSE; 
+		hrInit := ERR_INVALID_PARAM; 				
+	END_IF
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_reinit" Id="{d7a267bf-e27e-44d1-90c3-68bb99d9abc4}">
+      <Declaration><![CDATA[{attribute 'conditionalshow'}
+METHOD FB_reinit : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (ipUdp <> 0) THEN 
+	ipUdp.RegisterReceiver(nUdpPort, THIS^);
+	FB_reinit := TRUE; 
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ReceiveData" Id="{38b03b34-befc-49c1-abbd-db8a5604b3a0}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'ReceiveData'}
+{attribute 'c++_compatible'}
+{attribute 'signature_flag' := '33554688'}
+{attribute 'pack_mode' := '4'}
+{attribute 'show'}
+{attribute 'minimal_input_size' := '4'}
+METHOD ReceiveData : HRESULT
+VAR_INPUT
+	ipAddr	: UDINT;
+	udpDestPort	: UINT;
+	udpSrcPort	: UINT;
+	nData	: UDINT;
+	pData	: PVOID;
+	pVlan	: POINTER TO ETYPE_VLAN_HEADER := 0;
+END_VAR
+VAR
+	receivedBytes:ARRAY[0..27]OF BYTE;
+	fbTime:FB_LocalSystemTime;
+	 tStruct: TIMESTRUCT;
+	  msec: DINT;
+	  datatype:BYTE;
+    dTime: DATE_AND_TIME;
+    eTime_sec: DINT;
+	FB_QR:set_qr_info();
+    eTime_msec: LINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[nReceivedPakets := nReceivedPakets+1;
+
+
+IF ipUdp <> 0 THEN
+	
+	MEMCPY( ADR(robotdata.qr_x), pData, 8 );
+	MEMCPY( ADR(robotdata.qr_y), pData+8, 8 );
+	MEMCPY( ADR(robotdata.qr_angle), pData+16, 2 );
+	MEMCPY( ADR(raw_qr_tag), pData+18, 4 );
+	fbTime(bEnable:=TRUE, dwCycle:=1, SystemTime=>tStruct);
+	msec := tStruct.wMilliseconds;
+	tStruct.wMilliseconds := 0;
+	dTime := SYSTEMTIME_TO_DT(tStruct);
+	eTime_sec := DT_TO_DINT(dTime);
+	lastQrtime := F_GetSystemTime() ;	
+	
+//LAST QR TIME ALINACAK
+	
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TcAddRef" Id="{4fdd9f7d-6aa9-4ce6-bedb-7d5475df17b2}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'TcAddRef'}
+{attribute 'c++_compatible'}
+{attribute 'signature_flag' := '33554688'}
+{attribute 'pack_mode' := '4'}
+{attribute 'show'}
+{attribute 'minimal_input_size' := '4'}
+METHOD TcAddRef : UDINT
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TcQueryInterface" Id="{8f259fa4-bf31-40a3-afed-965c091c143f}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'TcQueryInterface'}
+{attribute 'c++_compatible'}
+{attribute 'signature_flag' := '33554688'}
+{attribute 'pack_mode' := '4'}
+{attribute 'show'}
+{attribute 'minimal_input_size' := '4'}
+METHOD TcQueryInterface : HRESULT
+VAR_INPUT
+	iid	: REFERENCE TO IID;
+	pipItf	: POINTER TO PVOID;
+END_VAR
+VAR
+	ipUdpRecv : ITcIoUdpProtocolRecv;
+	ipUnknown : ITcUnknown;	
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF GuidsEqual(ADR(iid), ADR(TC_GLOBAL_IID_LIST.IID_ITcIoUdpProtocolRecv)) THEN
+	ipUdpRecv := THIS^; // cast to interface pointer
+	pipItf^ := ITCUNKNOWN_TO_PVOID(ipUdpRecv);
+	TcAddRef();
+	TcQueryInterface := S_OK;
+ELSIF GuidsEqual(ADR(iid), ADR(TC_GLOBAL_IID_LIST.IID_ITcUnknown)) THEN
+	ipUnknown := THIS^; // cast to interface pointer
+	pipItf^ := ITCUNKNOWN_TO_PVOID(ipUnknown);
+	TcAddRef();
+	TcQueryInterface := S_OK;
+ELSE
+	TcQueryInterface := E_HRESULTAdsErr.NOINTERFACE ; //Call super if this fb extends some other
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TcRelease" Id="{364a8127-a3ee-408d-b604-6c7753af584d}">
+      <Declaration><![CDATA[{attribute 'object_name' := 'TcRelease'}
+{attribute 'c++_compatible'}
+{attribute 'signature_flag' := '33554688'}
+{attribute 'pack_mode' := '4'}
+{attribute 'show'}
+{attribute 'minimal_input_size' := '4'}
+METHOD TcRelease : UDINT
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_CanReceiver">
+      <LineId Id="26" Count="1" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_CanReceiver.FB_exit">
+      <LineId Id="11" Count="5" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_CanReceiver.FB_init">
+      <LineId Id="15" Count="17" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_CanReceiver.FB_reinit">
+      <LineId Id="10" Count="2" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_CanReceiver.ReceiveData">
+      <LineId Id="34" Count="3" />
+      <LineId Id="136" Count="0" />
+      <LineId Id="144" Count="0" />
+      <LineId Id="57" Count="0" />
+      <LineId Id="77" Count="1" />
+      <LineId Id="101" Count="0" />
+      <LineId Id="103" Count="1" />
+      <LineId Id="106" Count="1" />
+      <LineId Id="100" Count="0" />
+      <LineId Id="143" Count="0" />
+      <LineId Id="79" Count="0" />
+      <LineId Id="98" Count="0" />
+      <LineId Id="18" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_CanReceiver.TcAddRef">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_CanReceiver.TcQueryInterface">
+      <LineId Id="20" Count="12" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_CanReceiver.TcRelease">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

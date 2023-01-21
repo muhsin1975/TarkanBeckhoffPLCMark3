@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="motion_controller" Id="{a32ceab8-0976-4358-8c4a-6a2f91b00484}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC motion_controller
+VAR
+  vc:LREAL;
+  wc:LREAL;
+
+  vreff:LREAL;
+  qrError:LREAL ;
+  imu_local_y:LREAL ;
+  enc_local_y:LREAL ;
+  local_x:LREAL:=0;
+  local_y:LREAL:=0;
+  
+  stabilization_lateral:LREAL;
+  motion_direction_sign:INT:=-1;
+  reference_position:LREAL := 0.0;
+  reference_velocity:LREAL := 0.0;
+  ref_temp:LREAL := 0.0;
+  cos_angle_diff:LREAL;
+  k_xx:LREAL;
+  k_xi:LREAL;
+  err_int:LREAL;
+  err_x:LREAL;
+  errY:LREAL;
+  
+  errTheta:LREAL;
+ currangle:LREAL;
+ 
+
+ wccoeff:INT;
+ l_wh_lin_speed:LREAL;
+ r_wh_lin_speed:LREAL;
+ rr:LREAL:=0;
+ omega:LREAL:=0;
+ left_arc:LREAL:=0;
+ right_arc:LREAL:=0;
+ l_arc_dec:DINT:=0;
+ r_arc_dec:DINT:=0;
+ omegasign:INT;
+ vsign:INT;
+ rpmL:DINT;
+ rpmR:DINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[ 
+  IF(robotdata.robot_direction MOD 2 =0) THEN
+    local_x := robotdata.encoder_x;
+    local_y := robotdata.robot_y;
+    IF(imuYwins=0) THEN
+      local_y := robotdata.encoder_y;
+	END_IF
+	  
+    imu_local_y:=robotdata.imu_state.imu_y;
+    enc_local_y:=robotdata.encoder_y;
+    IF(imuYwins=1) THEN
+      local_y := robotdata.imu_state.imu_y;
+	END_IF
+    IF(robotdata.qr_tag>0) THEN
+      qrError:=(-1)*(robotdata.qr_y)/1000;
+	END_IF
+  ELSIF(robotdata.robot_direction MOD 2 = 1) THEN
+  
+    local_x := robotdata.encoder_y;
+    local_y := robotdata.robot_x;
+    IF(imuXwins=0)THEN
+      local_y := robotdata.encoder_x;
+	END_IF
+ 
+    imu_local_y:=robotdata.imu_state.imu_x;
+    enc_local_y:=robotdata.encoder_y;
+ 
+    IF(imuXwins=1)THEN
+      local_y := robotdata.imu_state.imu_x;
+	END_IF
+    IF(robotdata.qr_tag>0)THEN
+      qrError:=(-1)*(robotdata.qr_x)/1000;
+	END_IF
+  END_IF
+
+  stabilization_lateral := GRID_DIM *LREAL_TO_DINT(local_y/GRID_DIM);
+ 
+  IF(robotdata.robot_direction = 0  OR robotdata.robot_direction = 3) THEN
+    motion_direction_sign := 1;
+  END_IF
+  IF(robotdata.robot_direction = 0 OR robotdata.robot_direction = 1)THEN
+    lateral_direction_sign := 1;
+  ELSE
+	  lateral_direction_sign := -1;
+  END_IF
+  
+  
+  // ERROR MODEL IMPLEMENTATION
+  
+    reference_position :=  ABS(motion_direction_sign * (motion[motion_index] * DEC2M) + local_x_before_motion);//local_x_before_motion move da set ediliyor 
+    ref_temp := reference_position;
+    reference_velocity :=  ABS(motion_vel[motion_index]);
+  
+  //this is temporary, will be optimized
+  cos_angle_diff := 0;
+  IF(robotdata.robot_direction = 1)THEN
+    cos_angle_diff := PI/2.0;
+  ELSIF (robotdata.robot_direction = 3)THEN
+    cos_angle_diff := -PI/2.0;
+  END_IF
+
+  vreff := reference_velocity;
+
+  //vc = vreff / cos(feedback_state->yaw_state+cos_angle_diff) + (copysign(1.0, err_x) * MIN(ACCELERATION_LIMIT * (g_app_config->ts_rollout), fabs(err_x)));
+  vc := vreff;
+  vc := MIN(ABS(vc), SPEED_LIMIT * 1.10);
+
+  // Stanley - Y controller
+  errY :=  lateral_direction_sign*(stabilization_lateral - local_y);
+  imu_local_y:=lateral_direction_sign*(stabilization_lateral - imu_local_y);
+  enc_local_y:=lateral_direction_sign*(stabilization_lateral - enc_local_y);
+  //double current_yaw_deg =feedback_state->yaw_state * 180.0 / M_PI;
+  
+
+  current_yaw_deg :=LMOD(robotdata.imu_state.imu_euler+2 * PI,2*PI)*180/PI;
+  IF(robotdata.qr_tag>0)THEN
+    current_yaw_deg:= robotdata.qr_yaw*180/PI;
+	END_IF
+  stabilization_yaw_deg:=detectStabilizedAngle(current_yaw:=current_yaw_deg);
+ // printf("%d,%lf,%lf,%lf\n",robot_direction,stabilization_yaw_deg,current_yaw_deg,feedback_state->local_yaw_error);
+  errTheta := stabilization_yaw_deg - current_yaw_deg;
+  IF(ABS(errTheta)>30 AND robotdata.motion_status=MOTION_ONGOING)THEN
+    errTheta:=0;
+  END_IF
+  
+  IF(robotdata.qr_tag>0 AND ABS(qrError)>0) THEN
+    errY:=lateral_direction_sign*qrError;
+  END_IF
+   robotdata.deviation_y:=errY;
+  robotdata.deviation_yaw:=errTheta*PI/180;
+  //printf("%lf,%lf,%lf\n",stabilization_yaw_deg,current_yaw_deg,feedback_state->local_yaw_error);
+ 
+  currangle:=constrain_angle(angle:=robotdata.imu_state.imu_euler);
+  
+  
+  robotdata.wc1 := (KpY*errY) * OMEGA_DIFF_MAX;
+   
+  // printf("Stab/Err:%lf/%lf ",stabilization_yaw_deg,imueuler);
+   away:=-1 * TOWARDS_COEFF;
+   IF(
+   (robotdata.robot_direction=0  AND errY<0 AND current_yaw_deg >0 AND current_yaw_deg<90)OR
+   (robotdata.robot_direction=0  AND errY>0 AND current_yaw_deg >270 AND current_yaw_deg<359.9)OR
+   (robotdata.robot_direction=1  AND errY<0 AND current_yaw_deg >270 AND current_yaw_deg<359.9)OR
+   (robotdata.robot_direction=1  AND errY>0 AND current_yaw_deg <270 AND current_yaw_deg>180)OR
+   (robotdata.robot_direction=2  AND errY<0 AND current_yaw_deg >180 AND current_yaw_deg<270)OR
+   (robotdata.robot_direction=2  AND errY>0 AND current_yaw_deg >90 AND current_yaw_deg<180)OR
+   (robotdata.robot_direction=3  AND errY<0 AND current_yaw_deg >90 AND current_yaw_deg<180)OR
+   (robotdata.robot_direction=3  AND errY>0 AND current_yaw_deg >0 AND current_yaw_deg<90))THEN
+   away:=AWAY_COEFF;
+   END_IF
+   IF(robotdata.wc1<0) THEN 
+	wccoeff:=-1;
+   ELSE
+	wccoeff:=1;
+   END_IF
+  
+   robotdata.wc2:=(wccoeff*away*KpTht*ABS(errTheta));
+   //if(copysign(1,wc)!=copysign(1,wc2))
+   // wc=0;
+  //else
+   wc:=robotdata.wc1+robotdata.wc2;   
+
+  IF ((ABS(errY)<Y_DEV_THRESHOLD) OR ABS(vc)<0.2) THEN
+    wc:=0;
+  END_IF  
+    
+  //wc=wc*fabs(feedback_state->v_state/SPEED_LIMIT); 
+  
+
+ 
+
+  
+  controller_coeff:=wc;
+
+
+  l_wh_lin_speed := ((2*vc) - (wc * 2.0 * (ROBOT_RADIUS))) / (2.0);
+  r_wh_lin_speed := ((2*vc) + (wc * 2.0 * (ROBOT_RADIUS))) / (2.0);
+  IF(l_wh_lin_speed>2*SPEED_LIMIT) THEN l_wh_lin_speed:=1.5*SPEED_LIMIT;END_IF;
+  IF(r_wh_lin_speed>2*SPEED_LIMIT)THEN r_wh_lin_speed:=1.5*SPEED_LIMIT;END_IF;
+  
+
+
+ 
+
+  IF (l_wh_lin_speed <> r_wh_lin_speed) THEN
+  
+    rr := ABS((robot_radius) * ((r_wh_lin_speed + l_wh_lin_speed) / (r_wh_lin_speed - l_wh_lin_speed)));
+    omega := (r_wh_lin_speed - l_wh_lin_speed) / ((robot_radius) * 2.0);
+	IF(omega<0) THEN 
+	omegasign:=-1;
+	ELSE
+		omegasign:=1;
+	END_IF
+    left_arc := (rr - (omegasign * (robot_radius))) * (ABS(omega) * (PLC_CYCLE));
+    right_arc := (rr + (omegasign * (robot_radius))) * (ABS(omega) * (PLC_CYCLE));
+
+    //printf("vl |> %lf \t vr |> %lf\n", l_wh_lin_speed, r_wh_lin_speed);
+
+    l_arc_dec := LREAL_TO_DINT(left_arc * M2DEC);
+    r_arc_dec := LREAL_TO_DINT(right_arc * M2DEC);
+  
+  else
+     l_arc_dec := LREAL_TO_DINT(l_wh_lin_speed * (PLC_CYCLE) * M2DEC);
+    r_arc_dec :=  LREAL_TO_DINT(r_wh_lin_speed * (PLC_CYCLE) * M2DEC);
+  END_IF
+
+  
+  IF (robotdata.controller=1 AND robotdata.motion_status = MOTION_ONGOING AND wc<>0) THEN
+  	IF(reference_velocity<0) THEN 
+	vsign:=-1;
+	ELSE
+	vsign:=1;	
+	END_IF
+    rpmL:= LREAL_TO_DINT(vsign * LREAL_TO_DINT((REDUCER_RATIO*l_wh_lin_speed*60)/(2*PI*WHEEL_RADIUS)));
+    rpmR:= LREAL_TO_DINT(vsign * LREAL_TO_DINT((REDUCER_RATIO*r_wh_lin_speed*60)/(2*PI*WHEEL_RADIUS)));
+   
+    motion_left[motion_index] :=rpmL;
+    motion_right[motion_index]:=rpmR;
+  END_IF
+  
+  
+ ]]></ST>
+    </Implementation>
+    <LineIds Name="motion_controller">
+      <LineId Id="433" Count="180" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

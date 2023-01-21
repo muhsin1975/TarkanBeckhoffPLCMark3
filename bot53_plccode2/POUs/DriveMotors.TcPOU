@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="DriveMotors" Id="{440e79fb-e6db-47fb-8392-83c913261ad6}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC DriveMotors
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF (robotdata.motion_status = MOTION_ANGLE) THEN
+		Target_v.Locomotion_1_target_velocity := motion_left[motion_index];
+		Target_v.Locomotion_2_target_velocity:= motion_right[motion_index];
+	
+		motion_index:=motion_index+1;
+		IF (motion_index = max_location) THEN
+			robotdata.motion_status := MOTION_ENDED;
+			robotdata.activeState:=TURN_ENDED;
+			Target_v.Locomotion_1_target_velocity:= 0;
+			Target_v.Locomotion_2_target_velocity:= 0;
+		END_IF
+ELSIF (robotdata.motion_status = MOTION_ONGOING) THEN
+	
+		Target_v.Locomotion_1_target_velocity := motion_left[motion_index];
+		Target_v.Locomotion_2_target_velocity:= -1*motion_right[motion_index];
+		motion_index:=motion_index+1;
+		IF (motion_index = max_location) THEN
+			robotdata.motion_status := MOTION_ENDED;
+				robotdata.activeState:=MOVE_ENDED;
+			Target_v.Locomotion_1_target_velocity:= 0;
+			Target_v.Locomotion_2_target_velocity:= 0;
+		END_IF
+
+ELSIF (robotdata.motion_status = MOTION_LIFTER) THEN
+	IF(motion_index = max_location) THEN
+		robotdata.motion_status:=MOTION_ENDED;
+		robotdata.activeState:=LIFT_ENDED;
+		motion_index:=max_location;
+	ELSE
+		Lifter_target_position := motion_lift[motion_index];
+		motion_index:=motion_index+1;
+	END_IF
+		
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="DriveMotors">
+      <LineId Id="26" Count="0" />
+      <LineId Id="11" Count="1" />
+      <LineId Id="46" Count="0" />
+      <LineId Id="13" Count="2" />
+      <LineId Id="41" Count="0" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="47" Count="0" />
+      <LineId Id="29" Count="4" />
+      <LineId Id="42" Count="0" />
+      <LineId Id="34" Count="3" />
+      <LineId Id="51" Count="1" />
+      <LineId Id="62" Count="0" />
+      <LineId Id="64" Count="4" />
+      <LineId Id="63" Count="0" />
+      <LineId Id="53" Count="0" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="roundToTwoDecimalPlaces" Id="{e7da07fe-d52a-4acf-9867-882ee4692ba3}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION roundToTwoDecimalPlaces:LREAL
+VAR_INPUT
+	val:LREAL;
+END_VAR
+VAR_OUTPUT
+	rval:LREAL;
+END_VAR
+VAR
+	value:LREAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[  value := LREAL_TO_DINT(val * 100 + 0.5);
+  rval:= value/100;
+  roundToTwoDecimalPlaces:=rval;]]></ST>
+    </Implementation>
+    <LineIds Name="roundToTwoDecimalPlaces">
+      <LineId Id="12" Count="0" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="14" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

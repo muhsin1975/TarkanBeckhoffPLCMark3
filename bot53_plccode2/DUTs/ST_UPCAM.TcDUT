@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="ST_UPCAM" Id="{fcb3fcd0-a8a4-4400-ba5c-30e722879d47}">
+    <Declaration><![CDATA[TYPE ST_UPCAM :
+STRUCT
+	up_camera_x:LREAL;
+	up_camera_y:LREAL;
+	up_camera_yaw:LREAL;
+	up_camera_tag:STRING[10];
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

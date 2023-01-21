@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_Mqtt" Id="{24274f08-1d80-488c-a0d7-2f098a3e80c3}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'c++_compatible'}
+FUNCTION_BLOCK PUBLIC FB_Mqtt EXTENDS FB_IotMqttClient
+VAR
+    (* received message *)
+    {attribute 'TcEncoding':='UTF-8'}
+    sTopicRcv   : STRING(255);
+    {attribute 'TcEncoding':='UTF-8'}
+    sPayloadRcv : STRING(255);
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="OnMqttMessage" Id="{0669bece-9ec6-40f6-ac97-c86ec1574824}">
+      <Declaration><![CDATA[{attribute 'c++_compatible'}
+{attribute 'pack_mode' := '4'}
+{attribute 'show'}
+{attribute 'minimal_input_size' := '4'}
+METHOD OnMqttMessage : HRESULT
+VAR_IN_OUT CONSTANT
+    topic    : STRING;
+END_VAR
+VAR_INPUT
+    payload  : PVOID;
+    length   : UDINT;
+    qos      : TcIotMqttQos;
+    repeated : BOOL;
+END_VAR
+VAR
+    nPayloadRcvLen : UDINT;
+	fbJsonDataType : FB_JsonReadWriteDataType;
+	fbreseterrors:reset_errors;
+	fbenadisloco:enable_disable_driver;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.nMessagesRcv := SUPER^.nMessagesRcv + 1;
+
+STRNCPY( ADR(sTopicRcv), ADR(topic), SIZEOF(sTopicRcv) );
+nPayloadRcvLen := MIN(length, DINT_TO_UDINT(SIZEOF(sPayloadRcv))-1);
+MEMCPY( ADR(sPayloadRcv), payload, nPayloadRcvLen );
+sPayloadRcv[nPayloadRcvLen] := 0;  // ensure a null termination of received string
+IF(fbJsonDataType.SetSymbolFromJson(sPayloadRcv, 'ST_COMMAND', SIZEOF(st_command), ADR(st_command)))THEN
+	IF(st_command.command=COMMAND_LOCOMOTION_DISABLE)THEN
+		fbenadisloco(DRIVER:=0,CWORD:=6);
+	ELSIF(st_command.command=COMMAND_LOCOMOTION_ENABLE)THEN
+		fbenadisloco(DRIVER:=0,CWORD:=47);
+	ELSIF(st_command.command=COMMAND_LIFTER_DISABLE)THEN
+		fbenadisloco(DRIVER:=1,CWORD:=6);
+	ELSIF(st_command.command=COMMAND_LIFTER_ENABLE)THEN
+		fbenadisloco(DRIVER:=1,CWORD:=47);
+	ELSIF(st_command.command=COMMAND_ROTATOR_DISABLE)THEN
+		fbenadisloco(DRIVER:=2,CWORD:=6);
+	ELSIF(st_command.command=COMMAND_ROTATOR_ENABLE)THEN
+		fbenadisloco(DRIVER:=2,CWORD:=47);
+	ELSIF(st_command.command=COMMAND_PF_ENADIS)THEN
+		robotdata.pfEnableContactor:=NOT robotdata.pfEnableContactor;
+	ELSIF(st_command.command=COMMAND_DRIVER_ENADIS)THEN
+		robotdata.driverContactor:=NOT robotdata.driverContactor;
+	ELSIF(st_command.command=COMMAND_RESET_ERRORS)THEN
+		fbreseterrors();
+	ELSIF(st_command.command=COMMAND_TOGGLE_CONT)THEN
+		robotdata.controller:=ABS(robotdata.controller-1);
+		st_command.command:=0;
+		robotdata.activeState:=CONT_TOGGLE_ENDED;
+	END_IF
+END_IF
+OnMqttMessage := S_OK;]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_Mqtt">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Mqtt.OnMqttMessage">
+      <LineId Id="18" Count="6" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="50" Count="0" />
+      <LineId Id="53" Count="1" />
+      <LineId Id="144" Count="3" />
+      <LineId Id="149" Count="2" />
+      <LineId Id="148" Count="0" />
+      <LineId Id="140" Count="3" />
+      <LineId Id="73" Count="1" />
+      <LineId Id="95" Count="0" />
+      <LineId Id="97" Count="1" />
+      <LineId Id="118" Count="0" />
+      <LineId Id="94" Count="0" />
+      <LineId Id="31" Count="0" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

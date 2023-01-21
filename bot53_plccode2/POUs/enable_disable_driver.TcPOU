@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="enable_disable_driver" Id="{60c35106-513c-4441-af37-097c93551c05}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC enable_disable_driver
+VAR_INPUT
+	DRIVER:INT;
+	CWORD:INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF(DRIVER=0) THEN
+	GVL.robotdata.motorCword[0]:=CWORD;
+	GVL.robotdata.motorCword[1]:=CWORD;
+ELSIF DRIVER=1 THEN
+	GVL.robotdata.motorCword[2]:=CWORD;
+ELSIF DRIVER=2 THEN
+	GVL.robotdata.motorCword[3]:=CWORD;
+END_IF
+
+st_command.command:=0;]]></ST>
+    </Implementation>
+    <LineIds Name="enable_disable_driver">
+      <LineId Id="22" Count="0" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="23" Count="0" />
+      <LineId Id="25" Count="0" />
+      <LineId Id="27" Count="1" />
+      <LineId Id="26" Count="0" />
+      <LineId Id="24" Count="0" />
+      <LineId Id="16" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

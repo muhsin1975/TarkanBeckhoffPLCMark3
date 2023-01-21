@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="ST_COMMAND" Id="{16b13aeb-8fe5-4128-82f5-02317289abe7}">
+    <Declaration><![CDATA[TYPE ST_COMMAND :
+STRUCT
+	command:INT;
+	distance:LREAL;
+	direction:INT;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="ST_TARGETS" Id="{a1ed68a9-c66d-4670-86bc-eac469a31a07}">
+    <Declaration><![CDATA[TYPE ST_TARGETS :
+STRUCT
+	Locomotion_1_target_velocity			AT%Q* : DINT;
+	Locomotion_2_target_velocity 			AT%Q* : DINT;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

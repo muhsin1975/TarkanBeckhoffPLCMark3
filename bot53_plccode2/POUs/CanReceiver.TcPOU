@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="CanReceiver" Id="{b267492c-8f20-4396-8f9a-bf5860142b18}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM CanReceiver
+VAR
+	fbUdp1 : FB_CanReceiver;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[fbUdp1(); ]]></ST>
+    </Implementation>
+    <LineIds Name="CanReceiver">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{9ffd701e-dddc-4f11-aab6-63eac6218bb2}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+
+
+VAR
+	FB_SET_ENCODER_ODEOMETRY:set_encoder_odeometry();
+	FB_DRIVE_MOTORS:DriveMotors();
+	FB_QR:set_qr_info();
+	FB_CONTROLLER:motion_controller;
+	dontcontinue:BOOL:=FALSE;
+	currtime:ULINT;
+	datediff:ULINT;
+
+END_VAR
+
+	
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//LATE/ERROR KONTROLÜ
+
+currtime:=F_GetSystemTime() ;	
+datediff:=(currtime/10000)-ads_lasttime;
+IF currtime-lastqrtime > NO_QR_TIMEOUT AND robotdata.motion_status=MOTION_ENDED THEN
+	robotdata.motion_status:=QRCAM_ERROR;
+	robotdata.activestate:=QRCAM_ERROR;
+ELSIF currtime-lastqrtime < NO_QR_TIMEOUT AND robotdata.motion_status=QRCAM_ERROR THEN
+	robotdata.motion_status:=MOTION_ENDED;
+	robotdata.activestate:=MOTION_ENDED;
+END_IF
+IF (currtime/10000)-ads_lasttime > NO_ADS_TIMEOUT AND (robotdata.motion_status>PLC_ERROR OR robotdata.motion_status=MOTION_ENDED) THEN
+	robotdata.motion_status:=PLC_ERROR;
+	robotdata.activestate:=PLC_ERROR;
+ELSIF (currtime/10000)-ads_lasttime < NO_ADS_TIMEOUT AND (robotdata.motion_status=PLC_ERROR) THEN
+robotdata.motion_status:=MOTION_ENDED;
+robotdata.activestate:=MOTION_ENDED;
+END_IF
+IF(robotdata.motorError[0]+robotdata.motorError[1]+robotdata.motorError[2]+robotdata.motorError[3]>0) AND robotdata.motion_status=MOTION_ENDED  THEN
+	robotdata.motion_status:=MOTOR_ERROR;
+ELSIF(robotdata.motorError[0]+robotdata.motorError[1]+robotdata.motorError[2]+robotdata.motorError[3]=0 AND robotdata.motion_status=MOTOR_ERROR)THEN
+robotdata.motion_status:=MOTION_ENDED;
+END_IF
+FB_SET_ENCODER_ODEOMETRY();
+
+FB_QR();
+robotdata.encoderx_rel:=robotdata.encoder_x-LREAL_TO_DINT(robotdata.encoder_x);
+robotdata.encodery_rel:=robotdata.encoder_y-LREAL_TO_DINT(robotdata.encoder_y);
+robotdata.imux_rel:=robotdata.imu_state.imu_x-LREAL_TO_DINT(robotdata.imu_state.imu_x);
+robotdata.imuy_rel:=robotdata.imu_state.imu_y-LREAL_TO_DINT(robotdata.imu_state.imu_y);
+IF(robotdata.qr_tag=0)THEN
+	robotdata.robot_x:=robotdata.encoder_x;
+	robotdata.robot_y:=robotdata.encoder_y;
+	robotdata.robot_yaw:=robotdata.imu_state.imu_euler;
+	winnerEvaluated:=false;
+END_IF
+FB_CONTROLLER();
+FB_DRIVE_MOTORS();
+]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="761" Count="29" />
+      <LineId Id="793" Count="7" />
+      <LineId Id="580" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

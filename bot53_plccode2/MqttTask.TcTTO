@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <Task Name="MqttTask" Id="{40279dc4-5dc1-497e-bb53-6e1af21ab6ef}">
+    <!--CycleTime in micro seconds.-->
+    <CycleTime>2000</CycleTime>
+    <Priority>2</Priority>
+    <PouCall>
+      <Name>MqttPrg</Name>
+    </PouCall>
+    <TaskFBGuid>{0ff43433-47c8-4059-ae3d-d1285ec6a73a}</TaskFBGuid>
+    <Fb_init>{96461a61-9ae7-4ea8-b916-c621c446a566}</Fb_init>
+    <Fb_exit>{be638d6e-a243-4f11-a485-c5e3ab646abf}</Fb_exit>
+    <CycleUpdate>{0d2aa71f-1cb7-4d0a-9836-5f93b1689ada}</CycleUpdate>
+    <PostCycleUpdate>{7eac3eb7-5fd4-4731-8021-89fce638f089}</PostCycleUpdate>
+  </Task>
+</TcPlcObject>

@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MqttPrg" Id="{420ba57b-26da-488f-a3a3-d7217117c9e9}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MqttPrg
+VAR
+    fbMqttClient  : FB_Mqtt;
+    bSetParameter : BOOL := TRUE;
+    bConnect      : BOOL := TRUE;
+	bSubscribed : BOOL;
+	sTopicPub : STRING(255) := 'FBDATA/BOT110';
+	sTopicSub   : STRING(255) := 'COMMAND/BOT110';
+    sPayloadPub : STRING(2000);
+	fbJson         : FB_JsonSaxWriter;
+  	fbJsonDataType : FB_JsonReadWriteDataType;
+	i: UDINT;
+    fbTimer : TON := (PT:=T#10MS);
+END_VAR
+
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF bSetParameter THEN
+    bSetParameter              := FALSE;
+    fbMqttClient.sHostName     := '192.168.8.80';
+    fbMqttClient.nHostPort     := 1883;
+    fbMqttClient.sClientId     := 'BOT110'; 
+    fbMqttClient.sTopicPrefix  := ''; 
+//  fbMqttClient.nKeepAlive    := 60; 
+//  fbMqttClient.sUserName     := ;
+//  fbMqttClient.sUserPassword := ; 
+//  fbMqttClient.stWill        := ; 
+//  fbMqttClient.stTLS         := ;
+END_IF
+
+fbMqttClient.Execute(bConnect);
+IF fbMqttClient.bConnected THEN
+    IF NOT bSubscribed THEN
+        bSubscribed := fbMqttClient.Subscribe(sTopic:=sTopicSub, eQoS:=TcIotMqttQos.AtMostOnceDelivery);
+    END_IF
+    fbTimer(IN:=TRUE);
+    IF fbTimer.Q THEN // publish new payload every second
+        fbTimer(IN:=FALSE);
+      	fbJson.ResetDocument();
+		fbJsonDataType.AddJsonValueFromSymbol(fbJson, 'ST_FBDATA', SIZEOF(robotdata), ADR(robotdata));
+		sPayloadPub := fbJson.GetDocument();
+		fbJson.CopyDocument(sPayloadPub, SIZEOF(sPayloadPub));
+        fbMqttClient.Publish(   sTopic:= sTopicPub, 
+                                pPayload:= ADR(sPayloadPub), nPayloadSize:= LEN2(ADR(sPayloadPub))+1, 
+                                eQoS:= TcIotMqttQos.AtMostOnceDelivery, bRetain:= FALSE, bQueue:= FALSE );
+    END_IF
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="MqttPrg">
+      <LineId Id="48" Count="12" />
+      <LineId Id="46" Count="0" />
+      <LineId Id="66" Count="6" />
+      <LineId Id="121" Count="0" />
+      <LineId Id="88" Count="0" />
+      <LineId Id="92" Count="0" />
+      <LineId Id="86" Count="0" />
+      <LineId Id="74" Count="0" />
+      <LineId Id="76" Count="2" />
+      <LineId Id="65" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
