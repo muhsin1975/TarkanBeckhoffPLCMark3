@@ -780,7 +780,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{8A670E50-189C-4F79-ADC2-9034F773F334}" Name="bot53_plccode2" PrjFilePath="bot53_plccode2\bot53_plccode2.plcproj" TmcFilePath="bot53_plccode2\bot53_plccode2.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="bot53_plccode2\bot53_plccode2.tmc" TmcHash="{C98A3559-BC43-6784-860D-758D88002B87}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="bot53_plccode2\bot53_plccode2.tmc" TmcHash="{93AB8131-A7C9-DC8A-F11E-092F3F014425}">
 					<Name>bot53_plccode2 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="2" ContextId="1" AreaNo="17">
@@ -845,10 +845,6 @@
 							<Type>UINT</Type>
 						</Var>
 						<Var>
-							<Name>GVL.Rotator_position_actual_value</Name>
-							<Type>DINT</Type>
-						</Var>
-						<Var>
 							<Name>GVL.Rotator_error_state_2</Name>
 							<Type>UINT</Type>
 						</Var>
@@ -859,10 +855,6 @@
 						<Var>
 							<Name>GVL.Rotator_modesOfOperationDisplay</Name>
 							<Type>SINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL.Lifter_position_actual_value</Name>
-							<Type>DINT</Type>
 						</Var>
 						<Var>
 							<Name>GVL.Lifter_error_state_1</Name>
@@ -888,6 +880,14 @@
 							<Name>GVL.robotdata.lifterDistance</Name>
 							<Type>INT</Type>
 						</Var>
+						<Var>
+							<Name>GVL.robotdata.Lifter_position_actual_value</Name>
+							<Type>DINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.robotdata.Rotator_position_actual_value</Name>
+							<Type>DINT</Type>
+						</Var>
 					</Vars>
 					<Vars VarGrpType="2" ContextId="2" AreaNo="33">
 						<Name>PlcTask Outputs</Name>
@@ -910,25 +910,25 @@
 						</Var>
 						<Var>
 							<Name>GVL.Rotator_modesOfOperation</Name>
-							<Type>SINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL.Rotator_target_position</Name>
 							<Comment><![CDATA[Rotator]]></Comment>
-							<Type>DINT</Type>
+							<Type>SINT</Type>
 						</Var>
 						<Var>
 							<Name>GVL.Lifter_modesOfOperation</Name>
-							<Type>SINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL.Lifter_target_position</Name>
 							<Comment><![CDATA[Lifter]]></Comment>
-							<Type>DINT</Type>
+							<Type>SINT</Type>
 						</Var>
 						<Var>
 							<Name>GVL.robotdata.chargerContactor</Name>
 							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL.robotdata.Lifter_target_position</Name>
+							<Type>DINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.robotdata.Rotator_target_position</Name>
+							<Type>DINT</Type>
 						</Var>
 					</Vars>
 					<Contexts>
@@ -1665,6 +1665,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 						<BootStrapData>0010000400140004</BootStrapData>
 						<DcMode>4672656572756e000000000000000000467265652052756e000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000</DcMode>
 						<DcMode>4443000000000000000000000000000044432d53796e6368726f6e00000000000000000000000000000000000000000040420f000000000000000000ffff00030100000000000000000000000000000000000000000000000000000000000000</DcMode>
+						<MBoxUserCmdData>0200030009000000080000000300000000000000000000000000000000000000207e60000100000080506f6c617269747900</MBoxUserCmdData>
 						<Pdo Name="TxPDO Mapping 1" Index="#x1a00" Flags="#x0000" SyncMan="3">
 							<Entry Name="Statusword" Index="#x6041">
 								<Type>UINT</Type>
@@ -1779,6 +1780,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 						<BootStrapData>0010000400140004</BootStrapData>
 						<DcMode>4672656572756e000000000000000000467265652052756e000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000</DcMode>
 						<DcMode>4443000000000000000000000000000044432d53796e6368726f6e00000000000000000000000000000000000000000040420f000000000000000000ffff00030100000000000000000000000000000000000000000000000000000000000000</DcMode>
+						<MBoxUserCmdData>0200030009000000080000000300000000000000000000000000000000000000207e60000100000080506f6c617269747900</MBoxUserCmdData>
 						<Pdo Name="TxPDO Mapping 1" Index="#x1a00" Flags="#x0000" SyncMan="3">
 							<Entry Name="Statusword" Index="#x6041">
 								<Type>UINT</Type>
@@ -3053,11 +3055,11 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 			<OwnerB Name="TIID^Device 3 (EtherCAT)^Lifter_Driver">
 				<Link VarA="MqttTask Outputs^GVL.robotdata.motorCword[2]" VarB="RxPDO Mapping 1^Controlword"/>
 				<Link VarA="PlcTask Inputs^GVL.Lifter_modesOfOperationDisplay" VarB="TxPDO Mapping 1^Modes of operation display"/>
-				<Link VarA="PlcTask Inputs^GVL.Lifter_position_actual_value" VarB="TxPDO Mapping 1^Position actual value"/>
 				<Link VarA="PlcTask Inputs^GVL.Lifter_statusword" VarB="TxPDO Mapping 1^Statusword"/>
+				<Link VarA="PlcTask Inputs^GVL.robotdata.Lifter_position_actual_value" VarB="TxPDO Mapping 1^Position actual value"/>
 				<Link VarA="PlcTask Inputs^GVL.robotdata.motorError[2]" VarB="TxPDO Mapping 1^Error code"/>
 				<Link VarA="PlcTask Outputs^GVL.Lifter_modesOfOperation" VarB="RxPDO Mapping 1^Modes of operation"/>
-				<Link VarA="PlcTask Outputs^GVL.Lifter_target_position" VarB="RxPDO Mapping 1^Target position"/>
+				<Link VarA="PlcTask Outputs^GVL.robotdata.Lifter_target_position" VarB="RxPDO Mapping 1^Target position"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 3 (EtherCAT)^Locomotion_1_Driver_L">
 				<Link VarA="MqttTask Outputs^GVL.robotdata.motorCword[0]" VarB="RxPDO Mapping 1^Controlword"/>
@@ -3080,11 +3082,11 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 			<OwnerB Name="TIID^Device 3 (EtherCAT)^Rotator_Driver">
 				<Link VarA="MqttTask Outputs^GVL.robotdata.motorCword[3]" VarB="RxPDO Mapping 1^Controlword"/>
 				<Link VarA="PlcTask Inputs^GVL.Rotator_modesOfOperationDisplay" VarB="TxPDO Mapping 1^Modes of operation display"/>
-				<Link VarA="PlcTask Inputs^GVL.Rotator_position_actual_value" VarB="TxPDO Mapping 1^Position actual value"/>
 				<Link VarA="PlcTask Inputs^GVL.Rotator_statusword" VarB="TxPDO Mapping 1^Statusword"/>
+				<Link VarA="PlcTask Inputs^GVL.robotdata.Rotator_position_actual_value" VarB="TxPDO Mapping 1^Position actual value"/>
 				<Link VarA="PlcTask Inputs^GVL.robotdata.motorError[3]" VarB="TxPDO Mapping 1^Error code"/>
 				<Link VarA="PlcTask Outputs^GVL.Rotator_modesOfOperation" VarB="RxPDO Mapping 1^Modes of operation"/>
-				<Link VarA="PlcTask Outputs^GVL.Rotator_target_position" VarB="RxPDO Mapping 1^Target position"/>
+				<Link VarA="PlcTask Outputs^GVL.robotdata.Rotator_target_position" VarB="RxPDO Mapping 1^Target position"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 3 (EtherCAT)^Term 1 (EK1960-2600)^Term 3 (EL3052)">
 				<Link VarA="PlcTask Inputs^GVL.robotdata.lifterDistance" VarB="AI Standard Channel 1^Value"/>

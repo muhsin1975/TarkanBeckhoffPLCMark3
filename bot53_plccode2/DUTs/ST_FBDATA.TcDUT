@@ -55,6 +55,10 @@ STRUCT
     pfEnableContactor                        AT%Q* : BOOL := TRUE;
     chargerContactor                        AT%Q* : BOOL := FALSE;
 	lifterDistance AT%I* : INT := INT#0;
+	Lifter_position_actual_value             AT%I* : DINT;
+	Lifter_target_position                     AT%Q* : DINT;
+	Rotator_target_position                 AT%Q* : DINT;
+	Rotator_position_actual_value             AT%I* : DINT;
     END_STRUCT
 	END_TYPE]]></Declaration>
   </DUT>

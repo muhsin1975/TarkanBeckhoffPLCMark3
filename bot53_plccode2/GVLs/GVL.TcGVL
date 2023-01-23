@@ -25,7 +25,8 @@ MOTION_CLOSING:BYTE:=BYTE#6;
 MOTION_OBSTACLE:BYTE:=BYTE#7;
 MOTION_ROTATE:BYTE:=BYTE#8;
 CHARGING:BYTE:=BYTE#9;
-
+LIFTER_DISTANCE_UP:INT:=INT#14879;
+LIFTER_DISTANCE_DOWN:INT:=INT#30000;
  
 
 MOTION_BRAKE:BYTE:=BYTE#10;
@@ -51,6 +52,8 @@ ROTATE_ENDED :BYTE:=BYTE#58;
 SETLIMITS_ENDED :BYTE:=BYTE#59;
 CHARGE_ENDED:BYTE:=BYTE#60;
 UPCAM_READ_ENDED :BYTE:=BYTE#61;
+LIFT_UP:BYTE:=BYTE#62;
+LIFT_DOWN:BYTE:=BYTE#63;
 LOST:BYTE:=BYTE#100;
 MOTOR_ERROR:BYTE:=BYTE#105;
 PLC_ERROR:BYTE:=BYTE#106;
@@ -132,6 +135,7 @@ raw_qr_tag:DINT;
     max_location :DINT;
     motion_left  :ARRAY[0..299999] OF DINT;
 	motion_lift  :ARRAY[0..299999] OF DINT;
+	motion_rotator  :ARRAY[0..299999] OF DINT;
     motion_right :ARRAY[0..299999] OF DINT;
     motion_vel :ARRAY[0..299999] OF LREAL;
     motion  :ARRAY[0..299999] OF DINT;
@@ -159,17 +163,17 @@ raw_qr_tag:DINT;
     Locomotion_2_statusword                 AT%I* : UINT;
     Locomotion_2_modesOfOperationDisplay     AT%I* : SINT;
     //Rotator
-    Rotator_target_position                 AT%Q* : DINT;
+   
     Rotator_modesOfOperation                 AT%Q* : SINT := SINT#8;
-    Rotator_position_actual_value             AT%I* : DINT;
+  
     Rotator_error_state_1                     AT%I* : UINT;
     Rotator_error_state_2                     AT%I* : UINT;
     Rotator_statusword                         AT%I* : UINT;
     Rotator_modesOfOperationDisplay         AT%I* : SINT;
     //Lifter
-    Lifter_target_position                     AT%Q* : DINT;
+  
     Lifter_modesOfOperation                 AT%Q* : SINT := SINT#8;
-    Lifter_position_actual_value             AT%I* : DINT;
+   
     Lifter_error_state_1                     AT%I* : UINT;
     Lifter_error_state_2                     AT%I* : UINT;
     Lifter_statusword                         AT%I* : UINT;
