@@ -31,7 +31,7 @@ END_VAR
 	robotdata.qr_tag :=raw_qr_tag;
 	END_IF
     robotdata.qr_yaw :=  LMOD((-robotdata.qr_angle * 0.1-PF_OFFSET) * PI / 180.0+(2*PI) , (2*PI));
-    robotdata.robot_x := (grid_x * GRID_DIM) + (robotdata.qr_x / 1000.0) + (robotdata.encoder_v * COS(robotdata.qr_yaw) * PLC_CYCLE ); //the constant at the end is based on the latency of the camera
+    robotdata.robot_x := (grid_x * GRID_DIM) + (robotdata.qr_x / 1000.0) + (robotdata.encoder_v * COS(robotdata.qr_yaw) * 0.05 ); //the constant at the end is based on the latency of the camera
     robotdata.robot_yaw:=robotdata.qr_yaw;
     IF(robotdata.qr_x<>0 AND  NOT winnerEvaluated AND ABS(robotdata.imu_state.imu_x-(grid_x * GRID_DIM)-(robotdata.qr_x / 1000.0))<ABS(robotdata.encoder_x-(grid_x * GRID_DIM)-(robotdata.qr_x / 1000.0))) THEN
       imuXwins:=TRUE;
@@ -46,7 +46,7 @@ END_VAR
 	
   
   
-    robotdata.robot_y := (grid_y * GRID_DIM) + (robotdata.qr_y / 1000.0) + (robotdata.encoder_v * SIN(robotdata.qr_yaw) * PLC_CYCLE);
+    robotdata.robot_y := (grid_y * GRID_DIM) + (robotdata.qr_y / 1000.0) + (robotdata.encoder_v * SIN(robotdata.qr_yaw) * 0.05);
     IF( robotdata.qr_y<>0 AND NOT winnerEvaluated AND  ABS(robotdata.imu_state.imu_y-(grid_y * GRID_DIM)-(robotdata.qr_y / 1000.0))<ABS(robotdata.encoder_y-(grid_y * GRID_DIM)-(robotdata.qr_y / 1000.0))) THEN
       imuYwins:=TRUE;
     ELSIF(robotdata.qr_y<>0 AND  NOT winnerEvaluated AND  ABS(robotdata.imu_state.imu_y-(grid_y * GRID_DIM)-(robotdata.qr_y / 1000.0))>ABS(robotdata.encoder_y-(grid_y * GRID_DIM)-(robotdata.qr_y / 1000.0))) THEN
