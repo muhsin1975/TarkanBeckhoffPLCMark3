@@ -58,6 +58,8 @@ IF(fbJsonDataType.SetSymbolFromJson(sPayloadRcv, 'ST_COMMAND', SIZEOF(st_command
 		robotdata.pfEnableContactor:=NOT robotdata.pfEnableContactor;
 	ELSIF(st_command.command=COMMAND_DRIVER_ENADIS)THEN
 		robotdata.driverContactor:=NOT robotdata.driverContactor;
+	ELSIF(st_command.command=STARTSTOP_CHARGE)THEN
+		robotdata.chargerContactor:=NOT robotdata.chargerContactor;
 	ELSIF(st_command.command=COMMAND_RESET_ERRORS)THEN
 		fbreseterrors();
 	ELSIF(st_command.command=COMMAND_TOGGLE_CONT)THEN
@@ -81,6 +83,7 @@ OnMqttMessage := S_OK;]]></ST>
       <LineId Id="149" Count="2" />
       <LineId Id="148" Count="0" />
       <LineId Id="140" Count="3" />
+      <LineId Id="171" Count="1" />
       <LineId Id="73" Count="1" />
       <LineId Id="95" Count="0" />
       <LineId Id="97" Count="1" />

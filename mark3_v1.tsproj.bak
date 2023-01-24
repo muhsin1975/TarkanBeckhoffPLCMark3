@@ -56,15 +56,6 @@
 			</ArrayInfo>
 		</DataType>
 		<DataType>
-			<Name GUID="{18071995-0000-0000-0000-002000000008}" IecBaseType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..0] OF BYTE</Name>
-			<BitSize>8</BitSize>
-			<BaseType GUID="{18071995-0000-0000-0000-000000000001}">BYTE</BaseType>
-			<ArrayInfo>
-				<LBound>0</LBound>
-				<Elements>1</Elements>
-			</ArrayInfo>
-		</DataType>
-		<DataType>
 			<Name GUID="{03010035-0000-0000-E000-000000000064}" TcBaseType="true">ITcIoEthProtocol</Name>
 			<BitSize X64="64">32</BitSize>
 			<BaseType GUID="{00000001-0000-0000-E000-000000000064}">ITcUnknown</BaseType>
@@ -780,9 +771,20 @@
 		</System>
 		<Plc>
 			<Project GUID="{8A670E50-189C-4F79-ADC2-9034F773F334}" Name="bot53_plccode2" PrjFilePath="bot53_plccode2\bot53_plccode2.plcproj" TmcFilePath="bot53_plccode2\bot53_plccode2.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="bot53_plccode2\bot53_plccode2.tmc" TmcHash="{4F51C901-10B8-88C5-9A1B-46CE4CB61A02}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="bot53_plccode2\bot53_plccode2.tmc" TmcHash="{F4B50F37-5080-989F-BA85-E03BF03E012C}">
 					<Name>bot53_plccode2 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+					<Vars VarGrpType="1" ContextId="1" AreaNo="16">
+						<Name>MqttTask Inputs</Name>
+						<Var>
+							<Name>GVL.robotdata.Lifter_position_actual_value</Name>
+							<Type>DINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.robotdata.Rotator_position_actual_value</Name>
+							<Type>DINT</Type>
+						</Var>
+					</Vars>
 					<Vars VarGrpType="2" ContextId="1" AreaNo="17">
 						<Name>MqttTask Outputs</Name>
 						<Var>
@@ -796,6 +798,18 @@
 						<Var>
 							<Name>GVL.robotdata.pfEnableContactor</Name>
 							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL.robotdata.chargerContactor</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL.robotdata.Lifter_target_position</Name>
+							<Type>DINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.robotdata.Rotator_target_position</Name>
+							<Type>DINT</Type>
 						</Var>
 					</Vars>
 					<Vars VarGrpType="1" ContextId="2" AreaNo="32">
@@ -880,14 +894,6 @@
 							<Name>GVL.robotdata.lifterDistance</Name>
 							<Type>INT</Type>
 						</Var>
-						<Var>
-							<Name>GVL.robotdata.Lifter_position_actual_value</Name>
-							<Type>DINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL.robotdata.Rotator_position_actual_value</Name>
-							<Type>DINT</Type>
-						</Var>
 					</Vars>
 					<Vars VarGrpType="2" ContextId="2" AreaNo="33">
 						<Name>PlcTask Outputs</Name>
@@ -917,18 +923,6 @@
 							<Name>GVL.Lifter_modesOfOperation</Name>
 							<Comment><![CDATA[Lifter]]></Comment>
 							<Type>SINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL.robotdata.chargerContactor</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL.robotdata.Lifter_target_position</Name>
-							<Type>DINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL.robotdata.Rotator_target_position</Name>
-							<Type>DINT</Type>
 						</Var>
 					</Vars>
 					<Contexts>
@@ -1882,20 +1876,20 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 						<CoeProfile ProfileNo="402"/>
 					</EtherCAT>
 				</Box>
-				<Box Id="14" BoxType="9099" BoxFlags="#x00000020">
-					<Name>Locomotion_2_Driver_R</Name>
+				<Box Id="6" BoxType="9099" BoxFlags="#x00000020">
+					<Name>Locomotion_R</Name>
 					<ImageId>1005</ImageId>
-					<EtherCAT SlaveType="2" PdiType="#x3e8d" MboxDataLinkLayer="true" CycleMBoxPolling="true" CoeType="15" FoeType="1" VendorId="#x000022d2" ProductCode="#x00000302" RevisionNo="#x0a00000c" InfoDataAddr="true" InfoDataSoeDS401="true" TimeoutMailbox2="6000" PortPhys="17" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="SOMANET Circulo CiA402 Drive safe motion" Desc="SOMANET Circulo SMM" PortABoxInfo="#x0100000d">
+					<EtherCAT SlaveType="2" PdiType="#x0e08" MboxDataLinkLayer="true" CycleMBoxPolling="true" CoeType="15" FoeType="1" VendorId="#x000022d2" ProductCode="#x00000201" RevisionNo="#x0a000002" InfoDataAddr="true" InfoDataSoeDS401="true" TimeoutMailbox2="6000" PortPhys="17" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="SOMANET CiA402 Drive" Desc="CiA402 Motor Control Device" PortABoxInfo="#x0100000d">
 						<SyncMan>001000042600010001000000000000000004001026010000</SyncMan>
 						<SyncMan>001400042200010002000000000000000004001422010000</SyncMan>
-						<SyncMan>00182e00640001000300000001002c012300001864010000</SyncMan>
-						<SyncMan>001c5000200001000400000001002c012f00001c20010000</SyncMan>
+						<SyncMan>001823006400010003000000000000000800001864010000</SyncMan>
+						<SyncMan>001c31002000010004000000000000000800001c20010000</SyncMan>
 						<Fmmu>0000000000000000001800020100000001000000000000000000000000000000</Fmmu>
 						<Fmmu>0000000000000000001c00010100000002000000000000000000000000000000</Fmmu>
 						<BootStrapData>0010000400140004</BootStrapData>
 						<DcMode>4672656572756e000000000000000000467265652052756e000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000</DcMode>
 						<DcMode>4443000000000000000000000000000044432d53796e6368726f6e00000000000000000000000000000000000000000040420f000000000000000000ffff00030100000000000000000000000000000000000000000000000000000000000000</DcMode>
-						<MBoxUserCmdData>0200030009000000080000000300000000000000000000000000000000000000207e60000100000040506f6c617269747900</MBoxUserCmdData>
+						<MBoxUserCmdData>0200030009000000080000000300000000000000000000000000000000000000207e60000100000080506f6c617269747900</MBoxUserCmdData>
 						<Pdo Name="TxPDO Mapping 1" Index="#x1a00" Flags="#x0000" SyncMan="3">
 							<Entry Name="Statusword" Index="#x6041">
 								<Type>UINT</Type>
@@ -1994,276 +1988,23 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 								<Type>DINT</Type>
 							</Entry>
 						</Pdo>
-						<Pdo Name="Status (Drive to PLC)" Index="#x1b00" Flags="#x0091" SyncMan="3">
-							<Entry Name="FSOE__FSoE Command" Index="#x6760" Sub="#x01">
-								<Type>USINT</Type>
-							</Entry>
-							<Entry Name="FSOE__STO state" Index="#x6640">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__SOS state" Index="#x6668" Sub="#x01">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__Error state" Index="#x6632">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__SS1 state" Index="#x6650" Sub="#x01">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__SS2 state" Index="#x6670" Sub="#x01">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__SLS Instance 1" Index="#x6690" Sub="#x01">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__SLS Instance 2" Index="#x6690" Sub="#x02">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__SLS Instance 3" Index="#x6690" Sub="#x03">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__SLS Instance 4" Index="#x6690" Sub="#x04">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__FSoE CRC_0" Index="#x6760" Sub="#x03">
-								<Type>UINT</Type>
-							</Entry>
-							<Entry Name="FSOE__Restart acknowledge required" Index="#x6630">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__SBC state" Index="#x6660">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__Temperature warning" Index="#x2600">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__Safe position valid" Index="#x2601" Flags="#x00008020">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__Safe speed valid" Index="#x2602" Flags="#x00008020">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__Safe input 1" Index="#x2603" Sub="#x01" Flags="#x00008020">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__Safe input 2" Index="#x2603" Sub="#x02">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__Safe input 3" Index="#x2603" Sub="#x03">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__Safe input 4" Index="#x2603" Sub="#x04">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__Safe output monitor 1" Index="#x2604" Sub="#x01">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__Safe output monitor 2" Index="#x2604" Sub="#x02">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__Analog diagnostic active (single channel)" Index="#x2605" Sub="#x01">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__Analog value valid" Index="#x2605" Sub="#x02">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__FSoE CRC_1" Index="#x6760" Sub="#x04">
-								<Type>UINT</Type>
-							</Entry>
-							<Entry Name="FSOE__Safe position actual value" Index="#x6611" Flags="#x00008020">
-								<Type>WORD</Type>
-							</Entry>
-							<Entry Name="FSOE__FSoE CRC_2" Index="#x6760" Sub="#x05">
-								<Type>UINT</Type>
-							</Entry>
-							<Entry Name="FSOE__Safe position actual value">
-								<Type>WORD</Type>
-							</Entry>
-							<Entry Name="FSOE__FSoE CRC_3" Index="#x6760" Sub="#x06">
-								<Type>UINT</Type>
-							</Entry>
-							<Entry Name="FSOE__Safe velocity actual value" Index="#x6613" Flags="#x00008020">
-								<Type>WORD</Type>
-							</Entry>
-							<Entry Name="FSOE__FSoE CRC_4" Index="#x6760" Sub="#x07">
-								<Type>UINT</Type>
-							</Entry>
-							<Entry Name="FSOE__Safe velocity actual value">
-								<Type>WORD</Type>
-							</Entry>
-							<Entry Name="FSOE__FSoE CRC_5" Index="#x6760" Sub="#x08">
-								<Type>UINT</Type>
-							</Entry>
-							<Entry Name="FSOE__Safe analog value (scaled)" Index="#x2605" Sub="#x03">
-								<Type>INT</Type>
-							</Entry>
-							<Entry Name="FSOE__FSoE CRC_6" Index="#x6760" Sub="#x09">
-								<Type>UINT</Type>
-							</Entry>
-							<Entry Name="FSOE__FSoE ConnectionID" Index="#x6760" Sub="#x02">
-								<Type>UINT</Type>
-							</Entry>
-						</Pdo>
-						<Pdo Name="Control (PLC to Drive)" Index="#x1700" InOut="1" Flags="#x0091" SyncMan="2">
-							<Entry Name="FSOE__FSoE Command" Index="#x6770" Sub="#x01">
-								<Type>USINT</Type>
-							</Entry>
-							<Entry Name="FSOE__STO" Index="#x6640">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__SS1" Index="#x6650" Sub="#x01">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__SS2" Index="#x6670" Sub="#x01">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__SOS" Index="#x6668" Sub="#x01">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__Error acknowledge" Index="#x6632">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__SLS Instance 1" Index="#x6690" Sub="#x01">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__SLS Instance 2" Index="#x6690" Sub="#x02">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__SLS Instance 3" Index="#x6690" Sub="#x03">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__SLS Instance 4" Index="#x6690" Sub="#x04">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__Restart acknowledge" Index="#x6630">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__SBC command" Index="#x6660">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__Reset position" Index="#x26a0">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__FSoE CRC_0" Index="#x6770" Sub="#x03">
-								<Type>UINT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000008}">ARRAY [0..0] OF BYTE</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__Safe output 1" Index="#x26f0" Sub="#x01">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__Safe output 2" Index="#x26f0" Sub="#x02">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__FSoE CRC_1" Index="#x6770" Sub="#x04">
-								<Type>UINT</Type>
-							</Entry>
-							<Entry Name="FSOE__FSoE ConnectionID" Index="#x6770" Sub="#x02">
-								<Type>UINT</Type>
-							</Entry>
-						</Pdo>
 						<CoeProfile ProfileNo="402"/>
-						<Slot Name="Slot 1">
-							<SlotData>0000010001000000010000001000000000000000000000000000000000000000</SlotData>
-							<ModuleIdent>67239937</ModuleIdent>
-							<Module Id="#x03090007" Type="CiA402 Dictionary" Class="">
-								<Name>Module 1 (CiA402 Dictionary)</Name>
-								<ImageId>410</ImageId>
-								<ModuleData>d222000001000204000004000000000000000000000000000000000000000000</ModuleData>
-								<CoeProfile ProfileNo="#x00000192"/>
-							</Module>
-						</Slot>
-						<Slot Name="Slot 2">
-							<SlotData>0000000001000000010000001000000000000000000000000000000000000000</SlotData>
-							<ModuleIdent>584187905</ModuleIdent>
-							<ModuleIdent>584187906</ModuleIdent>
-							<Module Id="#x03090008" Type="FSoE Module" Class="">
-								<Name>Module 2 (FSoE Module)</Name>
-								<ImageId>410</ImageId>
-								<ModuleData>d22200000100d22200000c000000000000000000000000000000000000000000</ModuleData>
-								<PdoIndex>6912</PdoIndex>
-								<PdoIndex>5888</PdoIndex>
-								<CoeProfile ProfileNo="#x00000316"/>
-							</Module>
-						</Slot>
 					</EtherCAT>
 				</Box>
-				<Box Id="15" BoxType="9099" BoxFlags="#x00000020">
-					<Name>Locomotion_1_Driver_L</Name>
+				<Box Id="7" BoxType="9099" BoxFlags="#x00000020">
+					<Name>Locomotion_L</Name>
 					<ImageId>1005</ImageId>
-					<EtherCAT SlaveType="2" PdiType="#x3e8d" MboxDataLinkLayer="true" CycleMBoxPolling="true" CoeType="15" FoeType="1" VendorId="#x000022d2" ProductCode="#x00000302" RevisionNo="#x0a00000c" InfoDataAddr="true" InfoDataSoeDS401="true" TimeoutMailbox2="6000" PortPhys="17" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="SOMANET Circulo CiA402 Drive safe motion" Desc="SOMANET Circulo SMM" PortABoxInfo="#x0100000e">
+					<EtherCAT SlaveType="2" PdiType="#x0e08" MboxDataLinkLayer="true" CycleMBoxPolling="true" CoeType="15" FoeType="1" VendorId="#x000022d2" ProductCode="#x00000201" RevisionNo="#x0a000002" InfoDataAddr="true" InfoDataSoeDS401="true" TimeoutMailbox2="6000" PortPhys="17" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="SOMANET CiA402 Drive" Desc="CiA402 Motor Control Device" PortABoxInfo="#x01000006">
 						<SyncMan>001000042600010001000000000000000004001026010000</SyncMan>
 						<SyncMan>001400042200010002000000000000000004001422010000</SyncMan>
-						<SyncMan>00182e00640001000300000001002c012300001864010000</SyncMan>
-						<SyncMan>001c5000200001000400000001002c012f00001c20010000</SyncMan>
+						<SyncMan>001823006400010003000000000000000800001864010000</SyncMan>
+						<SyncMan>001c31002000010004000000000000000800001c20010000</SyncMan>
 						<Fmmu>0000000000000000001800020100000001000000000000000000000000000000</Fmmu>
 						<Fmmu>0000000000000000001c00010100000002000000000000000000000000000000</Fmmu>
 						<BootStrapData>0010000400140004</BootStrapData>
 						<DcMode>4672656572756e000000000000000000467265652052756e000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000</DcMode>
 						<DcMode>4443000000000000000000000000000044432d53796e6368726f6e00000000000000000000000000000000000000000040420f000000000000000000ffff00030100000000000000000000000000000000000000000000000000000000000000</DcMode>
-						<MBoxUserCmdData>02000300090000000400000003000000000000000000000000000000000000002021200101000000005479706500</MBoxUserCmdData>
-						<MBoxUserCmdData>0200030009000000080000000300000000000000000000000000000000000000207e60000100000040506f6c617269747900</MBoxUserCmdData>
+						<MBoxUserCmdData>0200030009000000080000000300000000000000000000000000000000000000207e60000100000080506f6c617269747900</MBoxUserCmdData>
 						<Pdo Name="TxPDO Mapping 1" Index="#x1a00" Flags="#x0000" SyncMan="3">
 							<Entry Name="Statusword" Index="#x6041">
 								<Type>UINT</Type>
@@ -2362,259 +2103,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 								<Type>DINT</Type>
 							</Entry>
 						</Pdo>
-						<Pdo Name="Status (Drive to PLC)" Index="#x1b00" Flags="#x0091" SyncMan="3">
-							<Entry Name="FSOE__FSoE Command" Index="#x6760" Sub="#x01">
-								<Type>USINT</Type>
-							</Entry>
-							<Entry Name="FSOE__STO state" Index="#x6640">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__SOS state" Index="#x6668" Sub="#x01">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__Error state" Index="#x6632">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__SS1 state" Index="#x6650" Sub="#x01">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__SS2 state" Index="#x6670" Sub="#x01">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__SLS Instance 1" Index="#x6690" Sub="#x01">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__SLS Instance 2" Index="#x6690" Sub="#x02">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__SLS Instance 3" Index="#x6690" Sub="#x03">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__SLS Instance 4" Index="#x6690" Sub="#x04">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__FSoE CRC_0" Index="#x6760" Sub="#x03">
-								<Type>UINT</Type>
-							</Entry>
-							<Entry Name="FSOE__Restart acknowledge required" Index="#x6630">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__SBC state" Index="#x6660">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__Temperature warning" Index="#x2600">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__Safe position valid" Index="#x2601">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__Safe speed valid" Index="#x2602">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__Safe input 1" Index="#x2603" Sub="#x01">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__Safe input 2" Index="#x2603" Sub="#x02">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__Safe input 3" Index="#x2603" Sub="#x03">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__Safe input 4" Index="#x2603" Sub="#x04">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__Safe output monitor 1" Index="#x2604" Sub="#x01">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__Safe output monitor 2" Index="#x2604" Sub="#x02">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__Analog diagnostic active (single channel)" Index="#x2605" Sub="#x01">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__Analog value valid" Index="#x2605" Sub="#x02">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__FSoE CRC_1" Index="#x6760" Sub="#x04">
-								<Type>UINT</Type>
-							</Entry>
-							<Entry Name="FSOE__Safe position actual value" Index="#x6611">
-								<Type>WORD</Type>
-							</Entry>
-							<Entry Name="FSOE__FSoE CRC_2" Index="#x6760" Sub="#x05">
-								<Type>UINT</Type>
-							</Entry>
-							<Entry Name="FSOE__Safe position actual value">
-								<Type>WORD</Type>
-							</Entry>
-							<Entry Name="FSOE__FSoE CRC_3" Index="#x6760" Sub="#x06">
-								<Type>UINT</Type>
-							</Entry>
-							<Entry Name="FSOE__Safe velocity actual value" Index="#x6613">
-								<Type>WORD</Type>
-							</Entry>
-							<Entry Name="FSOE__FSoE CRC_4" Index="#x6760" Sub="#x07">
-								<Type>UINT</Type>
-							</Entry>
-							<Entry Name="FSOE__Safe velocity actual value">
-								<Type>WORD</Type>
-							</Entry>
-							<Entry Name="FSOE__FSoE CRC_5" Index="#x6760" Sub="#x08">
-								<Type>UINT</Type>
-							</Entry>
-							<Entry Name="FSOE__Safe analog value (scaled)" Index="#x2605" Sub="#x03">
-								<Type>INT</Type>
-							</Entry>
-							<Entry Name="FSOE__FSoE CRC_6" Index="#x6760" Sub="#x09">
-								<Type>UINT</Type>
-							</Entry>
-							<Entry Name="FSOE__FSoE ConnectionID" Index="#x6760" Sub="#x02">
-								<Type>UINT</Type>
-							</Entry>
-						</Pdo>
-						<Pdo Name="Control (PLC to Drive)" Index="#x1700" InOut="1" Flags="#x0091" SyncMan="2">
-							<Entry Name="FSOE__FSoE Command" Index="#x6770" Sub="#x01" Flags="#x00008020">
-								<Type>USINT</Type>
-							</Entry>
-							<Entry Name="FSOE__STO" Index="#x6640" Flags="#x00008020">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__SS1" Index="#x6650" Sub="#x01" Flags="#x00008020">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__SS2" Index="#x6670" Sub="#x01">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__SOS" Index="#x6668" Sub="#x01" Flags="#x00008020">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__Error acknowledge" Index="#x6632">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__SLS Instance 1" Index="#x6690" Sub="#x01">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__SLS Instance 2" Index="#x6690" Sub="#x02" Flags="#x00008020">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__SLS Instance 3" Index="#x6690" Sub="#x03">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__SLS Instance 4" Index="#x6690" Sub="#x04">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__Restart acknowledge" Index="#x6630">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__SBC command" Index="#x6660">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__Reset position" Index="#x26a0">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__FSoE CRC_0" Index="#x6770" Sub="#x03">
-								<Type>UINT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000008}">ARRAY [0..0] OF BYTE</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__Safe output 1" Index="#x26f0" Sub="#x01" Flags="#x00008020">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__Safe output 2" Index="#x26f0" Sub="#x02">
-								<Type>BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__">
-								<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-							</Entry>
-							<Entry Name="FSOE__FSoE CRC_1" Index="#x6770" Sub="#x04">
-								<Type>UINT</Type>
-							</Entry>
-							<Entry Name="FSOE__FSoE ConnectionID" Index="#x6770" Sub="#x02">
-								<Type>UINT</Type>
-							</Entry>
-						</Pdo>
 						<CoeProfile ProfileNo="402"/>
-						<Slot Name="Slot 1">
-							<SlotData>0000010001000000010000001000000000000000000000000000000000000000</SlotData>
-							<ModuleIdent>67239937</ModuleIdent>
-							<Module Id="#x03090009" Type="CiA402 Dictionary" Class="">
-								<Name>Module 1 (CiA402 Dictionary)</Name>
-								<ImageId>410</ImageId>
-								<ModuleData>d222000001000204000004000000000000000000000000000000000000000000</ModuleData>
-								<CoeProfile ProfileNo="#x00000192"/>
-							</Module>
-						</Slot>
-						<Slot Name="Slot 2">
-							<SlotData>0000000001000000010000001000000000000000000000000000000000000000</SlotData>
-							<ModuleIdent>584187905</ModuleIdent>
-							<ModuleIdent>584187906</ModuleIdent>
-							<Module Id="#x0309000a" Type="FSoE Module" Class="">
-								<Name>Module 2 (FSoE Module)</Name>
-								<ImageId>410</ImageId>
-								<ModuleData>d22200000100d22200000c000000000000000000000000000000000000000000</ModuleData>
-								<PdoIndex>6912</PdoIndex>
-								<PdoIndex>5888</PdoIndex>
-								<CoeProfile ProfileNo="#x00000316"/>
-							</Module>
-						</Slot>
 					</EtherCAT>
 				</Box>
 				<EtherCAT/>
@@ -3053,48 +2542,46 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 		<MappingInfo Identifier="{08502002-0020-0304-0020-500820000403}" Id="#x02030020" Watchdog="04000000040000000400000004000000"/>
 		<OwnerA Name="TIPC^bot53_plccode2^bot53_plccode2 Instance">
 			<OwnerB Name="TIID^Device 3 (EtherCAT)^Lifter_Driver">
+				<Link VarA="MqttTask Inputs^GVL.robotdata.Lifter_position_actual_value" VarB="TxPDO Mapping 1^Position actual value"/>
+				<Link VarA="MqttTask Outputs^GVL.robotdata.Lifter_target_position" VarB="RxPDO Mapping 1^Target position"/>
 				<Link VarA="MqttTask Outputs^GVL.robotdata.motorCword[2]" VarB="RxPDO Mapping 1^Controlword"/>
 				<Link VarA="PlcTask Inputs^GVL.Lifter_modesOfOperationDisplay" VarB="TxPDO Mapping 1^Modes of operation display"/>
 				<Link VarA="PlcTask Inputs^GVL.Lifter_statusword" VarB="TxPDO Mapping 1^Statusword"/>
-				<Link VarA="PlcTask Inputs^GVL.robotdata.Lifter_position_actual_value" VarB="TxPDO Mapping 1^Position actual value"/>
 				<Link VarA="PlcTask Inputs^GVL.robotdata.motorError[2]" VarB="TxPDO Mapping 1^Error code"/>
 				<Link VarA="PlcTask Outputs^GVL.Lifter_modesOfOperation" VarB="RxPDO Mapping 1^Modes of operation"/>
-				<Link VarA="PlcTask Outputs^GVL.robotdata.Lifter_target_position" VarB="RxPDO Mapping 1^Target position"/>
 			</OwnerB>
-			<OwnerB Name="TIID^Device 3 (EtherCAT)^Locomotion_1_Driver_L">
-				<Link VarA="MqttTask Outputs^GVL.robotdata.motorCword[0]" VarB="RxPDO Mapping 1^Controlword"/>
+			<OwnerB Name="TIID^Device 3 (EtherCAT)^Locomotion_L">
+				<Link VarA="MqttTask Outputs^GVL.robotdata.motorCword[1]" VarB="RxPDO Mapping 1^Controlword"/>
 				<Link VarA="PlcTask Inputs^GVL.Locomotion_1_modesOfOperationDisplay" VarB="TxPDO Mapping 1^Modes of operation display"/>
-				<Link VarA="PlcTask Inputs^GVL.Locomotion_1_statusword" VarB="TxPDO Mapping 1^Statusword"/>
 				<Link VarA="PlcTask Inputs^GVL.Locomotion_1_velocity_actual_value" VarB="TxPDO Mapping 1^Velocity actual value"/>
-				<Link VarA="PlcTask Inputs^GVL.robotdata.motorError[0]" VarB="TxPDO Mapping 1^Error code"/>
+				<Link VarA="PlcTask Inputs^GVL.robotdata.motorError[1]" VarB="TxPDO Mapping 1^Error code"/>
 				<Link VarA="PlcTask Outputs^GVL.Locomotion_1_modesOfOperation" VarB="RxPDO Mapping 1^Modes of operation"/>
 				<Link VarA="PlcTask Outputs^GVL.Target_V.Locomotion_1_target_velocity" VarB="RxPDO Mapping 1^Target velocity"/>
 			</OwnerB>
-			<OwnerB Name="TIID^Device 3 (EtherCAT)^Locomotion_2_Driver_R">
-				<Link VarA="MqttTask Outputs^GVL.robotdata.motorCword[1]" VarB="RxPDO Mapping 1^Controlword"/>
+			<OwnerB Name="TIID^Device 3 (EtherCAT)^Locomotion_R">
+				<Link VarA="MqttTask Outputs^GVL.robotdata.motorCword[0]" VarB="RxPDO Mapping 1^Controlword"/>
 				<Link VarA="PlcTask Inputs^GVL.Locomotion_2_modesOfOperationDisplay" VarB="TxPDO Mapping 1^Modes of operation display"/>
-				<Link VarA="PlcTask Inputs^GVL.Locomotion_2_statusword" VarB="TxPDO Mapping 1^Statusword"/>
 				<Link VarA="PlcTask Inputs^GVL.Locomotion_2_velocity_actual_value" VarB="TxPDO Mapping 1^Velocity actual value"/>
-				<Link VarA="PlcTask Inputs^GVL.robotdata.motorError[1]" VarB="TxPDO Mapping 1^Error code"/>
+				<Link VarA="PlcTask Inputs^GVL.robotdata.motorError[0]" VarB="TxPDO Mapping 1^Error code"/>
 				<Link VarA="PlcTask Outputs^GVL.Locomotion_2_modesOfOperation" VarB="RxPDO Mapping 1^Modes of operation"/>
 				<Link VarA="PlcTask Outputs^GVL.Target_V.Locomotion_2_target_velocity" VarB="RxPDO Mapping 1^Target velocity"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 3 (EtherCAT)^Rotator_Driver">
+				<Link VarA="MqttTask Inputs^GVL.robotdata.Rotator_position_actual_value" VarB="TxPDO Mapping 1^Position actual value"/>
+				<Link VarA="MqttTask Outputs^GVL.robotdata.Rotator_target_position" VarB="RxPDO Mapping 1^Target position"/>
 				<Link VarA="MqttTask Outputs^GVL.robotdata.motorCword[3]" VarB="RxPDO Mapping 1^Controlword"/>
 				<Link VarA="PlcTask Inputs^GVL.Rotator_modesOfOperationDisplay" VarB="TxPDO Mapping 1^Modes of operation display"/>
 				<Link VarA="PlcTask Inputs^GVL.Rotator_statusword" VarB="TxPDO Mapping 1^Statusword"/>
-				<Link VarA="PlcTask Inputs^GVL.robotdata.Rotator_position_actual_value" VarB="TxPDO Mapping 1^Position actual value"/>
 				<Link VarA="PlcTask Inputs^GVL.robotdata.motorError[3]" VarB="TxPDO Mapping 1^Error code"/>
 				<Link VarA="PlcTask Outputs^GVL.Rotator_modesOfOperation" VarB="RxPDO Mapping 1^Modes of operation"/>
-				<Link VarA="PlcTask Outputs^GVL.robotdata.Rotator_target_position" VarB="RxPDO Mapping 1^Target position"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 3 (EtherCAT)^Term 1 (EK1960-2600)^Term 3 (EL3052)">
 				<Link VarA="PlcTask Inputs^GVL.robotdata.lifterDistance" VarB="AI Standard Channel 1^Value"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 3 (EtherCAT)^Term 1 (EK1960-2600)^Term 4 (EL2008-0015)">
+				<Link VarA="MqttTask Outputs^GVL.robotdata.chargerContactor" VarB="Channel 3^Output"/>
 				<Link VarA="MqttTask Outputs^GVL.robotdata.driverContactor" VarB="Channel 1^Output"/>
 				<Link VarA="MqttTask Outputs^GVL.robotdata.pfEnableContactor" VarB="Channel 2^Output"/>
-				<Link VarA="PlcTask Outputs^GVL.robotdata.chargerContactor" VarB="Channel 3^Output"/>
 			</OwnerB>
 		</OwnerA>
 	</Mappings>
