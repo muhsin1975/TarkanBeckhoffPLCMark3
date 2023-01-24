@@ -9,7 +9,9 @@ END_VAR
       <ST><![CDATA[IF (robotdata.motion_status = MOTION_ANGLE) THEN
 		Target_v.Locomotion_1_target_velocity := motion_left[motion_index];
 		Target_v.Locomotion_2_target_velocity:= motion_right[motion_index];
-		robotdata.Rotator_Target_Position:= motion_rotator[motion_index];
+		IF(robotdata.lifterDistance<LIFTER_UP) THEN
+			robotdata.Rotator_Target_Position:= motion_rotator[motion_index];
+		END_IF
 		motion_index:=motion_index+1;
 		IF (motion_index = max_location) THEN
 			robotdata.motion_status := MOTION_ENDED;
@@ -30,7 +32,12 @@ ELSIF (robotdata.motion_status = MOTION_ONGOING) THEN
 		END_IF
 
 ELSIF (robotdata.motion_status = MOTION_LIFTER) THEN
-	IF(motion_index = max_location ) OR (robotdata.activeState=LIFT_UP AND robotdata.lifterDistance<LIFTER_DISTANCE_UP) OR(robotdata.activeState=LIFT_DOWN AND robotdata.lifterDistance>LIFTER_DISTANCE_DOWN)  THEN
+	IF(motion_index = max_location ) OR (robotdata.activeState=LIFT_UP AND robotdata.lifterDistance<LIFTER_UP_LIMIT) OR(robotdata.activeState=LIFT_DOWN AND robotdata.lifterDistance>LIFTER_DOWN_LIMIT)  THEN
+		IF(robotdata.activeState=LIFT_UP) THEN
+		 robotdata.lifter:=60;
+		ELSE
+			robotdata.lifter:=0;
+		END_IF
 		robotdata.motion_status:=MOTION_ENDED;
 		robotdata.activeState:=LIFT_ENDED;
 		motion_index:=max_location;
@@ -52,7 +59,9 @@ END_IF]]></ST>
     <LineIds Name="DriveMotors">
       <LineId Id="26" Count="0" />
       <LineId Id="11" Count="1" />
+      <LineId Id="94" Count="0" />
       <LineId Id="46" Count="0" />
+      <LineId Id="95" Count="0" />
       <LineId Id="13" Count="2" />
       <LineId Id="41" Count="0" />
       <LineId Id="21" Count="0" />
@@ -64,6 +73,7 @@ END_IF]]></ST>
       <LineId Id="42" Count="0" />
       <LineId Id="34" Count="3" />
       <LineId Id="51" Count="1" />
+      <LineId Id="96" Count="4" />
       <LineId Id="62" Count="0" />
       <LineId Id="64" Count="2" />
       <LineId Id="72" Count="0" />

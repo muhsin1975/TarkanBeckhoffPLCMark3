@@ -19,6 +19,8 @@ motion_index:=max_location;
 robotdata.motion_status:=MOTION_ENDED;
 Locomotion_1_target_velocity:=0;
 Locomotion_2_target_velocity:=0;
+robotdata.Lifter_target_position:=robotdata.Lifter_position_actual_value;
+robotdata.Rotator_target_position:=robotdata.Rotator_position_actual_value;
 
 st_command.command:=0;]]></ST>
     </Implementation>
@@ -30,6 +32,8 @@ st_command.command:=0;]]></ST>
       <LineId Id="43" Count="0" />
       <LineId Id="45" Count="2" />
       <LineId Id="44" Count="0" />
+      <LineId Id="65" Count="0" />
+      <LineId Id="64" Count="0" />
       <LineId Id="35" Count="0" />
     </LineIds>
   </POU>
