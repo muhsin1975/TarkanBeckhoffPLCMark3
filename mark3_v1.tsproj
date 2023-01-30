@@ -771,7 +771,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{8A670E50-189C-4F79-ADC2-9034F773F334}" Name="bot53_plccode2" PrjFilePath="bot53_plccode2\bot53_plccode2.plcproj" TmcFilePath="bot53_plccode2\bot53_plccode2.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="bot53_plccode2\bot53_plccode2.tmc" TmcHash="{32B55310-7BF6-B3A0-A313-801B4F7C94D6}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="bot53_plccode2\bot53_plccode2.tmc" TmcHash="{EDEEE79F-8752-28E9-B190-82E43BB6B6B3}">
 					<Name>bot53_plccode2 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1" ContextId="1" AreaNo="16">
