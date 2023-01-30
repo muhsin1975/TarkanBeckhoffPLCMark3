@@ -121,6 +121,7 @@ VAR_GLOBAL
     winnerEvaluated:BOOL:=FALSE;
     imuXwins:BOOL:=FALSE;
     lastqrtime:ULINT;
+	lastqrtagtime:ULINT;
     controller_coeff:LREAL;
     imuYwins:BOOL:=FALSE;
     encoderx_rel:LREAL;
