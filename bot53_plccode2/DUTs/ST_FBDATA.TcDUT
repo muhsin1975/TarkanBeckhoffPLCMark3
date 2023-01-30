@@ -11,7 +11,7 @@ STRUCT
 	rotator:LREAL;
 	upcam_state:st_upcam;
 	batteryStatus:BYTE;
-	batteryVoltage:LREAL:=50;
+	batteryVoltage :LREAL := 50;
 	batteryRequestCurrent:LREAL;
 	batterySOC:INT:=90;
 	batteryCurrentCons:LREAL;

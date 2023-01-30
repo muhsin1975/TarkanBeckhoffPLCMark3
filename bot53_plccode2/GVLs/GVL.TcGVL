@@ -26,7 +26,7 @@ MOTION_OBSTACLE:BYTE:=BYTE#7;
 MOTION_ROTATE:BYTE:=BYTE#8;
 CHARGING:BYTE:=BYTE#9;
 LIFTER_UP_LIMIT:INT:=INT#14879;
-LIFTER_DOWN_LIMIT:INT:=INT#30000;
+LIFTER_DOWN_LIMIT:INT:=INT#32000;
 LIFTER_UP:INT:=INT#16000;
 LIFTER_DOWN:INT:=INT#25000;
 
@@ -114,8 +114,9 @@ VAR_GLOBAL
     current_yaw_deg:LREAL;
     ads_lasttime:ULINT;
     lateral_direction_sign:INT;
+	batteryVoltageINT  AT%I*:UDINT;
     away:LREAL;
-raw_qr_tag:DINT;
+	raw_qr_tag:DINT;
       stabilization_yaw_deg:LREAL;
     winnerEvaluated:BOOL:=FALSE;
     imuXwins:BOOL:=FALSE;

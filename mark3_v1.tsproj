@@ -771,7 +771,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{8A670E50-189C-4F79-ADC2-9034F773F334}" Name="bot53_plccode2" PrjFilePath="bot53_plccode2\bot53_plccode2.plcproj" TmcFilePath="bot53_plccode2\bot53_plccode2.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="bot53_plccode2\bot53_plccode2.tmc" TmcHash="{F4B50F37-5080-989F-BA85-E03BF03E012C}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="bot53_plccode2\bot53_plccode2.tmc" TmcHash="{03E6050F-D571-8A06-33E2-674A62BF478B}">
 					<Name>bot53_plccode2 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1" ContextId="1" AreaNo="16">
@@ -814,6 +814,10 @@
 					</Vars>
 					<Vars VarGrpType="1" ContextId="2" AreaNo="32">
 						<Name>PlcTask Inputs</Name>
+						<Var>
+							<Name>GVL.batteryVoltageINT</Name>
+							<Type>UDINT</Type>
+						</Var>
 						<Var>
 							<Name>GVL.Locomotion_1_error_state_1</Name>
 							<Type>UINT</Type>
@@ -925,6 +929,20 @@
 							<Type>SINT</Type>
 						</Var>
 					</Vars>
+					<UnrestoredVarLinks ImportTime="2023-01-27T15:10:12">
+						<OwnerA Name="InputDst" Prefix="TIPC^bot53_plccode2^bot53_plccode2 Instance" Type="1">
+							<OwnerB Name="TIID^Device 3 (EtherCAT)^Lifter_Driver">
+								<Link VarA="GVL.robotdata.batteryVoltage" TypeA="UDINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000008}" VarB="TxPDO Mapping 1^batteryVoltage" RestoreInfo="TypeMismatch" OldTypeA="UDINT" OldGuidA="{18071995-0000-0000-0000-000000000008}" NewTypeA="LREAL" NewGuidA="{18071995-0000-0000-0000-00000000000E}"/>
+							</OwnerB>
+						</OwnerA>
+					</UnrestoredVarLinks>
+					<UnrestoredVarLinks ImportTime="2023-01-27T15:18:50">
+						<OwnerA Name="InputDst" Prefix="TIPC^bot53_plccode2^bot53_plccode2 Instance" Type="1">
+							<OwnerB Name="TIID^Device 3 (EtherCAT)^Lifter_Driver">
+								<Link VarA="GVL.robotdata.batteryVoltage" TypeA="LREAL" InOutA="0" GuidA="{18071995-0000-0000-0000-00000000000E}" VarB="TxPDO Mapping 1^batteryVoltage" Size="32" RestoreInfo="ANotFound"/>
+							</OwnerB>
+						</OwnerA>
+					</UnrestoredVarLinks>
 					<Contexts>
 						<Context>
 							<Id NeedCalleeCall="true">0</Id>
@@ -1653,7 +1671,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 						<SyncMan>001000042600010001000000000000000004001026010000</SyncMan>
 						<SyncMan>001400042200010002000000000000000004001422010000</SyncMan>
 						<SyncMan>001823006400010003000000000000000800001864010000</SyncMan>
-						<SyncMan>001c31002000010004000000000000000800001c20010000</SyncMan>
+						<SyncMan>001c35002000010004000000000000000800001c20010000</SyncMan>
 						<Fmmu>0000000000000000001800020100000001000000000000000000000000000000</Fmmu>
 						<Fmmu>0000000000000000001c00010100000002000000000000000000000000000000</Fmmu>
 						<BootStrapData>0010000400140004</BootStrapData>
@@ -1678,6 +1696,9 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 							</Entry>
 							<Entry Name="Error code" Index="#x603f">
 								<Type>UINT</Type>
+							</Entry>
+							<Entry Name="batteryVoltage" Index="#x6079">
+								<Type>UDINT</Type>
 							</Entry>
 						</Pdo>
 						<Pdo Name="TxPDO Mapping 2" Index="#x1a01" Flags="#x0000" SyncMan="3">
@@ -1889,7 +1910,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 						<BootStrapData>0010000400140004</BootStrapData>
 						<DcMode>4672656572756e000000000000000000467265652052756e000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000</DcMode>
 						<DcMode>4443000000000000000000000000000044432d53796e6368726f6e00000000000000000000000000000000000000000040420f000000000000000000ffff00030100000000000000000000000000000000000000000000000000000000000000</DcMode>
-						<MBoxUserCmdData>0200030009000000080000000300000000000000000000000000000000000000206400000100000040506f6c617269747900</MBoxUserCmdData>
+						<MBoxUserCmdData>0200030009000000080000000300000000000000000000000000000000000000207e60000100000040506f6c617269747900</MBoxUserCmdData>
 						<Pdo Name="TxPDO Mapping 1" Index="#x1a00" Flags="#x0000" SyncMan="3">
 							<Entry Name="Statusword" Index="#x6041">
 								<Type>UINT</Type>
@@ -2547,6 +2568,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 				<Link VarA="MqttTask Outputs^GVL.robotdata.motorCword[2]" VarB="RxPDO Mapping 1^Controlword"/>
 				<Link VarA="PlcTask Inputs^GVL.Lifter_modesOfOperationDisplay" VarB="TxPDO Mapping 1^Modes of operation display"/>
 				<Link VarA="PlcTask Inputs^GVL.Lifter_statusword" VarB="TxPDO Mapping 1^Statusword"/>
+				<Link VarA="PlcTask Inputs^GVL.batteryVoltageINT" VarB="TxPDO Mapping 1^batteryVoltage"/>
 				<Link VarA="PlcTask Inputs^GVL.robotdata.motorError[2]" VarB="TxPDO Mapping 1^Error code"/>
 				<Link VarA="PlcTask Outputs^GVL.Lifter_modesOfOperation" VarB="RxPDO Mapping 1^Modes of operation"/>
 			</OwnerB>

@@ -35,7 +35,7 @@ END_IF
 fbMqttClient.Execute(bConnect);
 IF fbMqttClient.bConnected THEN
     IF NOT bSubscribed THEN
-        bSubscribed := fbMqttClient.Subscribe(sTopic:=sTopicSub, eQoS:=TcIotMqttQos.AtMostOnceDelivery);
+        bSubscribed := fbMqttClient.Subscribe(sTopic:=sTopicSub, eQoS:=TcIotMqttQos.ExactlyOnceDelivery);
     END_IF
     fbTimer(IN:=TRUE);
     IF fbTimer.Q THEN // publish new payload every second

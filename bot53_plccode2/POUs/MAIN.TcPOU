@@ -19,7 +19,7 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[//LATE/ERROR KONTROLÜ
-
+robotdata.batteryVoltage:=DINT_TO_REAL(batteryVoltageINT)/1000;
 currtime:=F_GetSystemTime() ;	
 datediff:=(currtime/10000)-ads_lasttime;
 IF currtime-lastqrtime > NO_QR_TIMEOUT AND robotdata.motion_status=MOTION_ENDED THEN
