@@ -9,9 +9,11 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[  IF(raw_qr_tag<>0 AND ((robotdata.robot_direction MOD 2 =0 AND robotdata.qr_x<>0) OR (robotdata.robot_direction MOD 2 =1 AND robotdata.qr_y<>0))) THEN
+      <ST><![CDATA[  IF(raw_qr_tag<>0) THEN 
+	lastqrtagtime := F_GetSystemTime() ;
+  END_IF	
+  IF(raw_qr_tag<>0 AND ((robotdata.robot_direction MOD 2 =0 AND robotdata.qr_x<>0) OR (robotdata.robot_direction MOD 2 =1 AND robotdata.qr_y<>0))) THEN
   	modified_qr:=raw_qr_tag;
-	lastqrtagtime := F_GetSystemTime() ;	
     IF(raw_qr_tag>=82 AND raw_qr_tag<102)  THEN
       robotdata.qr_tag := raw_qr_tag-61;
       grid_x := (robotdata.qr_tag-1)/5;
@@ -73,8 +75,8 @@ END_VAR
 	END_IF]]></ST>
     </Implementation>
     <LineIds Name="set_qr_info">
+      <LineId Id="186" Count="2" />
       <LineId Id="12" Count="1" />
-      <LineId Id="179" Count="0" />
       <LineId Id="16" Count="10" />
       <LineId Id="151" Count="0" />
       <LineId Id="29" Count="2" />
