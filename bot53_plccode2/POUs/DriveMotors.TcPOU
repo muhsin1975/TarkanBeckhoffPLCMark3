@@ -7,28 +7,28 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[IF (robotdata.motion_status = MOTION_ANGLE) THEN
-		Target_v.Locomotion_1_target_velocity := motion_left[motion_index];
-		Target_v.Locomotion_2_target_velocity:= motion_right[motion_index];
+		robotdata.Position_Velocity.Locomotion_1_target_velocity := motion_left[motion_index];
+		robotdata.Position_Velocity.Locomotion_2_target_velocity:= motion_right[motion_index];
 		IF(robotdata.lifterDistance<LIFTER_UP) THEN
-			robotdata.Rotator_Target_Position:= motion_rotator[motion_index];
+			robotdata.Position_Velocity.Rotator_Target_Position:= motion_rotator[motion_index];
 		END_IF
 		motion_index:=motion_index+1;
 		IF (motion_index = max_location) THEN
 			robotdata.motion_status := MOTION_ENDED;
 			robotdata.activeState:=TURN_ENDED;
-			Target_v.Locomotion_1_target_velocity:= 0;
-			Target_v.Locomotion_2_target_velocity:= 0;
+			robotdata.Position_Velocity.Locomotion_1_target_velocity:= 0;
+			robotdata.Position_Velocity.Locomotion_2_target_velocity:= 0;
 		END_IF
 ELSIF (robotdata.motion_status = MOTION_ONGOING) THEN
 	
-		Target_v.Locomotion_1_target_velocity := motion_left[motion_index];
-		Target_v.Locomotion_2_target_velocity:= -1*motion_right[motion_index];
+		robotdata.Position_Velocity.Locomotion_1_target_velocity := motion_left[motion_index];
+		robotdata.Position_Velocity.Locomotion_2_target_velocity:= -1*motion_right[motion_index];
 		motion_index:=motion_index+1;
 		IF (motion_index = max_location) THEN
 			robotdata.motion_status := MOTION_ENDED;
 				robotdata.activeState:=MOVE_ENDED;
-			Target_v.Locomotion_1_target_velocity:= 0;
-			Target_v.Locomotion_2_target_velocity:= 0;
+			robotdata.Position_Velocity.Locomotion_1_target_velocity:= 0;
+			robotdata.Position_Velocity.Locomotion_2_target_velocity:= 0;
 		END_IF
 
 ELSIF (robotdata.motion_status = MOTION_LIFTER) THEN
@@ -42,7 +42,7 @@ ELSIF (robotdata.motion_status = MOTION_LIFTER) THEN
 		robotdata.activeState:=LIFT_ENDED;
 		motion_index:=max_location;
 	ELSE
-		robotdata.Lifter_target_position := motion_lift[motion_index];
+		robotdata.Position_Velocity.Lifter_target_position := motion_lift[motion_index];
 		motion_index:=motion_index+1;
 	END_IF
 ELSIF (robotdata.motion_status = MOTION_ROTATE) THEN
@@ -51,7 +51,7 @@ ELSIF (robotdata.motion_status = MOTION_ROTATE) THEN
 		robotdata.activeState:=ROTATE_ENDED;
 		motion_index:=max_location;
 		ELSE
-		robotdata.Rotator_Target_Position:= motion_rotator[motion_index];
+		robotdata.Position_Velocity.Rotator_Target_Position:= motion_rotator[motion_index];
 		motion_index:=motion_index+1;
 	END_IF		
 END_IF]]></ST>

@@ -124,6 +124,7 @@ IF ipUdp <> 0 THEN
 	MEMCPY( ADR(robotdata.qr_y), pData+8, 8 );
 	MEMCPY( ADR(robotdata.qr_angle), pData+16, 2 );
 	MEMCPY( ADR(raw_qr_tag), pData+18, 4 );
+	MEMCPY( ADR(pf_valid), pData+22, 1 );
 	fbTime(bEnable:=TRUE, dwCycle:=1, SystemTime=>tStruct);
 	msec := tStruct.wMilliseconds;
 	tStruct.wMilliseconds := 0;
@@ -217,6 +218,7 @@ METHOD TcRelease : UDINT
       <LineId Id="144" Count="0" />
       <LineId Id="57" Count="0" />
       <LineId Id="77" Count="1" />
+      <LineId Id="171" Count="0" />
       <LineId Id="101" Count="0" />
       <LineId Id="103" Count="1" />
       <LineId Id="106" Count="1" />

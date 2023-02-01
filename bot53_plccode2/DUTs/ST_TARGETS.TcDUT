@@ -5,6 +5,12 @@
 STRUCT
 	Locomotion_1_target_velocity			AT%Q* : DINT;
 	Locomotion_2_target_velocity 			AT%Q* : DINT;
+	Locomotion_1_actual_velocity			AT%I* : DINT;
+	Locomotion_2_actual_velocity 			AT%I* : DINT;
+	Lifter_position_actual_value             AT%I* : DINT;
+	Lifter_target_position                     AT%Q* : DINT;
+	Rotator_target_position                 AT%Q* : DINT;
+	Rotator_position_actual_value             AT%I* : DINT;
 END_STRUCT
 END_TYPE
 ]]></Declaration>

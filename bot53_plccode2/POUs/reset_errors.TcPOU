@@ -17,10 +17,10 @@ GVL.robotdata.motorCword[3]:=128;
 fbTimer(IN := bStart, PT := tTimerValue);
 motion_index:=max_location;
 robotdata.motion_status:=MOTION_ENDED;
-Locomotion_1_target_velocity:=0;
-Locomotion_2_target_velocity:=0;
-robotdata.Lifter_target_position:=robotdata.Lifter_position_actual_value;
-robotdata.Rotator_target_position:=robotdata.Rotator_position_actual_value;
+robotdata.Position_Velocity.Locomotion_1_target_velocity:=0;
+robotdata.Position_Velocity.Locomotion_2_target_velocity:=0;
+robotdata.Position_Velocity.Lifter_target_position:=robotdata.Position_Velocity.Lifter_position_actual_value;
+robotdata.Position_Velocity.Rotator_target_position:=robotdata.Position_Velocity.Rotator_position_actual_value;
 
 st_command.command:=0;]]></ST>
     </Implementation>

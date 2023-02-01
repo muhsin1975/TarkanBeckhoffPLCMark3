@@ -110,6 +110,7 @@ END_VAR
 VAR_GLOBAL
 	Y_DEV_THRESHOLD:LREAL:=0.005;
 	PF_OFFSET:LREAL:=-0.4;
+	pf_valid:byte;
 	AWAY_COEFF:LREAL:=LREAL#1;
 	TOWARDS_COEFF:LREAL:=LREAL#1;
     current_yaw_deg:LREAL;
@@ -149,12 +150,7 @@ VAR_GLOBAL
     KpY:LREAL:=120;
     KpTht:LREAL:=0.03;
     //Locomotion_1
-
-    Target_V:ST_TARGETS;
-    Locomotion_1_target_velocity             : DINT;
-    Locomotion_2_target_velocity              : DINT;
     Locomotion_1_modesOfOperation             AT%Q* : SINT := SINT#9;
-    Locomotion_1_velocity_actual_value         AT%I*: DINT;
     Locomotion_1_error_state_1                 AT%I* : UINT;
     Locomotion_1_error_state_2                 AT%I* : UINT;
     Locomotion_1_statusword                 AT%I* : UINT;
@@ -162,7 +158,6 @@ VAR_GLOBAL
     //Locomotion_2
 
     Locomotion_2_modesOfOperation             AT%Q* : SINT := SINT#9;
-    Locomotion_2_velocity_actual_value         AT%I* : DINT;
     Locomotion_2_error_state_1                 AT%I* : UINT;
     Locomotion_2_error_state_2                 AT%I* : UINT;
     Locomotion_2_statusword                 AT%I* : UINT;
