@@ -110,7 +110,8 @@ END_VAR
 VAR_GLOBAL
 	Y_DEV_THRESHOLD:LREAL:=0.005;
 	PF_OFFSET:LREAL:=-0.4;
-	pf_valid:byte;
+	pf_x_angle_valid:BYTE;
+	pf_y_tag_valid:BYTE;
 	AWAY_COEFF:LREAL:=LREAL#1;
 	TOWARDS_COEFF:LREAL:=LREAL#1;
     current_yaw_deg:LREAL;
