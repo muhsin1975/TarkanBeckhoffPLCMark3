@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="cholsl" Id="{906897ee-9a80-4bfe-b6ec-bfcf0eefd7d0}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION cholsl : INT
+VAR_INPUT
+	A:REFERENCE TO Array2DStaticMatrix;
+	aa:REFERENCE TO Array2DStaticMatrix;
+	p:REFERENCE TO Array2DStaticMatrix;
+	n:INT;
+END_VAR
+VAR
+ i,j,k:INT;
+ sum:LREAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[ IF (choldcsl(ADR(A),ADR(aa),ADR(p),n)=1) THEN
+	cholsl:= 1;
+END_IF
+    FOR i := 0 TO n DO
+        FOR j := i + 1  TO n DO 
+            aa[i*n+j] := 0.0;
+        END_FOR
+    END_FOR
+	
+    FOR i := 0 TO n DO 
+        aa[i*n+i] := aa[i*n+i] *aa[i*n+i];
+        FOR k := i + 1 TO n DO 
+            aa[i*n+i] :=  aa[i*n+i] + aa[k*n+i] * aa[k*n+i];
+		END_FOR
+        FOR j := i + 1 TO n DO 
+            FOR k := j TO  n DO
+                aa[i*n+j] := aa[i*n+j]+ aa[k*n+i] * aa[k*n+j];
+            END_FOR
+        END_FOR
+    END_FOR
+    FOR i := 0 TO n DO
+        FOR j := 0 TO i DO
+            aa[i*n+j] := aa[j*n+i];
+        END_FOR
+    END_FOR
+
+    cholsl:= 0;]]></ST>
+    </Implementation>
+    <LineIds Name="cholsl">
+      <LineId Id="15" Count="0" />
+      <LineId Id="38" Count="1" />
+      <LineId Id="16" Count="4" />
+      <LineId Id="40" Count="0" />
+      <LineId Id="21" Count="3" />
+      <LineId Id="41" Count="0" />
+      <LineId Id="25" Count="0" />
+      <LineId Id="27" Count="10" />
+      <LineId Id="7" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

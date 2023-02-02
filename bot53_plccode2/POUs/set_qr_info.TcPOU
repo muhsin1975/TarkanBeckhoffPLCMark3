@@ -63,6 +63,8 @@ END_VAR
 	robotdata.encoder_yaw:=robotdata.robot_yaw;
 	//robotdata.encoder_yaw:=robotdata.qr_yaw;
     //imu_odometry->imu_euler=qr_info->yaw_state;
+	qr_xstate:=robotdata.robot_x;
+	qr_ystate:=robotdata.robot_y;
    ELSE
     winnerEvaluated:=FALSE;
 	robotdata.qr_tag :=0;
@@ -96,7 +98,9 @@ END_VAR
       <LineId Id="106" Count="0" />
       <LineId Id="164" Count="0" />
       <LineId Id="171" Count="1" />
-      <LineId Id="109" Count="1" />
+      <LineId Id="109" Count="0" />
+      <LineId Id="208" Count="1" />
+      <LineId Id="110" Count="0" />
       <LineId Id="9" Count="0" />
       <LineId Id="138" Count="0" />
       <LineId Id="118" Count="0" />

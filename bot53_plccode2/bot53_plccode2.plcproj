@@ -47,6 +47,15 @@
     <Compile Include="POUs\CanReceiver.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\choldc1.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\choldcsl.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\cholsl.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\constrain_angle.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -63,6 +72,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FB_Mqtt.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\kalmanInit.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\kalmanStep.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
@@ -84,6 +99,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\set_qr_info.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\subMat.TcPOU">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -137,6 +155,10 @@
     <PlaceholderReference Include="Tc3_Module">
       <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc3_Module</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="TcMatrix">
+      <DefaultResolution>TcMatrix, * (Burks Engineering)</DefaultResolution>
+      <Namespace>TcMatrix</Namespace>
     </PlaceholderReference>
   </ItemGroup>
   <ItemGroup>
