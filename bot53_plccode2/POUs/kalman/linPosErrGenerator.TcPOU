@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="linPosErrGenerator" Id="{d130dc8c-8f03-41d6-b52f-fe490c08bffa}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION linPosErrGenerator : INT
+VAR_INPUT
+	lookingAngle,xGoal,yGoal,posFdbckX,posFdbckY:LREAL;
+modeEnable:INT;
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF (lookingAngle = 0) THEN
+    linPosErr := xGoal-posFdbckX;  
+  ELSIF (lookingAngle = 180 OR lookingAngle = -180) THEN
+    linPosErr := (xGoal-posFdbckX)*(-1);  
+  else
+    linPosErr := (yGoal-posFdbckY)*mySign(lookingAngle);
+	END_IF
+  // linPosErr = fabs(linPosErr);
+  IF (modeEnable = 4 OR  modeEnable = 5) THEN
+      // if (sqrt( ((xGoal-posFdbckX)*(xGoal-posFdbckX))+ ((yGoal-posFdbckY)*(yGoal-posFdbckY)) ) < 0.015)
+      IF(ABS(linPosErr) < 0.005) THEN
+          linPosErrGenerator:= 1;
+		  END_IF
+		  END_IF
+  linPosErrGenerator:= 0 ;   ]]></ST>
+    </Implementation>
+    <LineIds Name="linPosErrGenerator">
+      <LineId Id="12" Count="13" />
+      <LineId Id="7" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

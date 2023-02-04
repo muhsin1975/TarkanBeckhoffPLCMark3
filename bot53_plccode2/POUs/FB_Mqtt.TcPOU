@@ -41,33 +41,45 @@ nPayloadRcvLen := MIN(length, DINT_TO_UDINT(SIZEOF(sPayloadRcv))-1);
 MEMCPY( ADR(sPayloadRcv), payload, nPayloadRcvLen );
 sPayloadRcv[nPayloadRcvLen] := 0;  // ensure a null termination of received string
 IF(fbJsonDataType.SetSymbolFromJson(sPayloadRcv, 'ST_COMMAND', SIZEOF(st_command), ADR(st_command)))THEN
-	IF(st_command.command=COMMAND_LOCOMOTION_DISABLE)THEN
+	robotdata.activecommand:=st_command.command;
+	CASE st_command.command OF
+	COMMAND_LOCOMOTION_DISABLE:
 		fbenadisloco(DRIVER:=0,CWORD:=6);
-	ELSIF(st_command.command=COMMAND_LOCOMOTION_ENABLE)THEN
+	COMMAND_LOCOMOTION_ENABLE:
 		fbenadisloco(DRIVER:=0,CWORD:=47);
-	ELSIF(st_command.command=COMMAND_LIFTER_DISABLE)THEN
+	COMMAND_LIFTER_DISABLE:
 		fbenadisloco(DRIVER:=1,CWORD:=6);
-	ELSIF(st_command.command=COMMAND_LIFTER_ENABLE)THEN
+	COMMAND_LIFTER_ENABLE:
 		fbenadisloco(DRIVER:=1,CWORD:=47);
-	ELSIF(st_command.command=COMMAND_ROTATOR_DISABLE)THEN
+	COMMAND_ROTATOR_DISABLE:
 		fbenadisloco(DRIVER:=2,CWORD:=6);
-	ELSIF(st_command.command=COMMAND_ROTATOR_ENABLE)THEN
+	COMMAND_ROTATOR_ENABLE:
 		fbenadisloco(DRIVER:=2,CWORD:=47);
-	ELSIF(st_command.command=COMMAND_PF_ENADIS)THEN
+	COMMAND_PF_ENADIS:
 		robotdata.pfEnableContactor:=NOT robotdata.pfEnableContactor;
-	ELSIF(st_command.command=COMMAND_DRIVER_ENADIS)THEN
+	COMMAND_DRIVER_ENADIS:
 		robotdata.driverContactor:=NOT robotdata.driverContactor;
-	ELSIF(st_command.command=STARTSTOP_CHARGE)THEN
+	STARTSTOP_CHARGE:
 		robotdata.chargerContactor:=NOT robotdata.chargerContactor;
-	ELSIF(st_command.command=COMMAND_CANCEL_COMMAND)THEN
+	COMMAND_CANCEL_COMMAND:
 		cancelcommand:=true;
-	ELSIF(st_command.command=COMMAND_RESET_ERRORS)THEN
+	COMMAND_RESET_ERRORS:
 		fbreseterrors();
-	ELSIF(st_command.command=COMMAND_TOGGLE_CONT)THEN
+	COMMAND_TOGGLE_CONT:
 		robotdata.controller:=ABS(robotdata.controller-1);
 		st_command.command:=0;
 		robotdata.activeState:=CONT_TOGGLE_ENDED;
-	END_IF
+	END_CASE
+CASE st_command.command OF
+	3:
+    	forwardCommand:=st_command.distance;
+    	userCommand:=4;
+	10:
+    	IF(st_command.direction=0) THEN userCommand:=1;
+    	ELSIF(st_command.direction=1)then userCommand:=2;
+		END_IF
+		
+END_CASE
 END_IF
 OnMqttMessage := S_OK;]]></ST>
       </Implementation>
@@ -77,6 +89,8 @@ OnMqttMessage := S_OK;]]></ST>
     </LineIds>
     <LineIds Name="FB_Mqtt.OnMqttMessage">
       <LineId Id="19" Count="5" />
+      <LineId Id="213" Count="0" />
+      <LineId Id="233" Count="0" />
       <LineId Id="30" Count="0" />
       <LineId Id="50" Count="0" />
       <LineId Id="53" Count="1" />
@@ -91,7 +105,14 @@ OnMqttMessage := S_OK;]]></ST>
       <LineId Id="97" Count="1" />
       <LineId Id="118" Count="0" />
       <LineId Id="94" Count="0" />
-      <LineId Id="31" Count="0" />
+      <LineId Id="237" Count="0" />
+      <LineId Id="240" Count="1" />
+      <LineId Id="238" Count="0" />
+      <LineId Id="243" Count="1" />
+      <LineId Id="242" Count="0" />
+      <LineId Id="245" Count="1" />
+      <LineId Id="239" Count="0" />
+      <LineId Id="236" Count="0" />
       <LineId Id="5" Count="0" />
     </LineIds>
   </POU>

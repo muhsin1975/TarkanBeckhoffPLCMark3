@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="angSpdCommandLimiter" Id="{99b656ea-f8b3-409a-b618-aee19afa2417}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION angSpdCommandLimiter : LREAL
+VAR_INPUT
+	angSpdCommand:LREAL;
+END_VAR
+VAR
+angRate:lreal;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[angRate := (angSpdCommand - angSpdCommandShaped)/PLC_CYCLE;
+
+  IF (ANGSPDRATELIMIT < angRate)THEN
+    angRate := ANGSPDRATELIMIT;
+  END_IF
+
+  IF (-1*ANGSPDRATELIMIT > angRate)THEN
+    angRate := -1 * ANGSPDRATELIMIT;
+  END_IF
+
+angSpdCommandShaped := angSpdCommandShaped+angRate * PLC_CYCLE;
+
+IF(angSpdCommandShaped >= 40) THEN
+ angSpdCommandShaped := 40;
+ END_IF
+IF(angSpdCommandShaped <= -40) THEN
+ angSpdCommandShaped:= -40;
+ END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="angSpdCommandLimiter">
+      <LineId Id="9" Count="14" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="24" Count="1" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,299 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="kalmanStep" Id="{49da3f9a-63ad-4c0f-9a0d-d5b9dfc4c942}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK kalmanStep
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+tmp0:ARRAY[0..2,0..2] OF LREAL;
+tmp00:ARRAY[0..2,0..2] OF LREAL;
+tmp00s:ARRAY[0..2,0..2] OF LREAL;
+tmp00t:ARRAY[0..2,0..2] OF LREAL;
+tmp000:ARRAY[0..2,0..2] OF LREAL;
+Ft:ARRAY[0..2,0..2] OF LREAL;
+Ht:ARRAY[0..2,0..1] OF LREAL;
+Ht3:ARRAY[0..2,0..2] OF LREAL;
+tmp1:ARRAY[0..2,0..1] OF LREAL;
+tmp2:ARRAY[0..1,0..2] OF LREAL;
+tmp3:ARRAY[0..1,0..1] OF LREAL;
+tmp4:ARRAY[0..1,0..1] OF LREAL;
+tmp5:ARRAY[0..1,0..1] OF LREAL;
+tmp6:ARRAY[0..1,0..0] OF LREAL;
+tmp7:ARRAY[0..1,0..0] OF LREAL;
+tmp8:ARRAY[0..2,0..0] OF LREAL;
+tmp1_3,tmp2_3,tmp3_3,tmp4_3,tmp5_3,Kt3:ARRAY[0..2,0..2] OF LREAL;
+tmp6_3,tmp7_3:ARRAY[0..2] OF LREAL;
+Kt:ARRAY[0..1,0..2] OF LREAL;
+tmp3_m: Array2DStaticMatrix; 
+tmp1_m: Array2DStaticMatrix; 
+tmp4_m: Array2DStaticMatrix; 
+tmp7_m: Array2DStaticMatrix; 
+tmp3_3_m: Array2DStaticMatrix; 
+tmp00t_m,Ft_m,tmp00_m,tmp000_m,tmp6_m,tmp8_m,tmp0_m,kt_m,tmp2_m,tmp2_3_m,tmp1_3_m,tmp4_3_m,Ht3_m,ht_m: Array2DStaticMatrix; 
+fb_setIdealAngle:setIdealAngle;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[tmp1_m(Data:=tmp1);
+tmp2_m(Data:=tmp2);
+kt_m(Data:=kt);
+tmp4_m(Data:=tmp4);  
+tmp1_3_m(Data:=tmp1_3); tmp4_3_m(Data:=tmp4_3); 
+tmp2_3_m(Data:=tmp2_3); 
+ht_m(Data:=Ht); 
+tmp0_m(Data:=tmp0);
+tmp00t_m(Data:=tmp00t);
+tmp8_m(Data:=tmp8);
+tmp6_m(Data:=tmp6);
+tmp000_m(Data:=tmp000);
+tmp00_m(Data:=tmp00);
+Ft_m(Data:=Ft);
+tmp3_m(Data:=tmp3);
+tmp7_m(data:=z_kalman1);
+Ht3_m(Data:=Ht3); 
+tmp3_3_m(data:=tmp3_3);
+
+linSpdFdbckRobot := (rightWheelFdbck+leftWheelFdbck)*2*PI/60*WHEEL_RADIUS/2;
+//  posTheta_wrt_robot_enc :=((-1*encoder_odometry->positionR - encoder_odometry->positionL)/10000)*360*g_app_config->wheel_radius/(2*g_app_config->robot_radius)/g_app_config->reducer_ratio + ((-1*qr_ang*0.1)-90); 
+   posTheta_wrt_robot_enc :=robotdata.encoder_yaw;
+  z_kalman1[0,0]:=linSpdFdbckRobot;z_kalman1[1,0]:=robotdata.imu_state.acc_x;//ads ye ekle
+  z_kalman2[0]:=posTheta_wrt_robot_enc;z_kalman2[1]:=robotdata.imu_state.gyro_z*180/PI;//ads ye ekle
+
+  kalman12_x := kalman12_x + x_kalman1[0,0]*COS(x_kalman2[0,0]*PI/180)*PLC_CYCLE;
+  kalman12_y := kalman12_y + x_kalman1[0,0]*SIN(x_kalman2[0,0]*PI/180)*PLC_CYCLE;
+  z_kalman3[0] :=qr_xstate;z_kalman3[1] := qr_ystate;z_kalman3[2] := (-robotdata.qr_angle * 0.1-PF_OFFSET);
+      
+  IF (pf_x_angle_valid=0 OR pf_y_tag_valid=0)THEN
+        H_kalman3[0,0]:=0;H_kalman3[0,1]:=0;H_kalman3[0,2]:=0;
+        H_kalman3[1,0]:=0;H_kalman3[1,1]:=0;H_kalman3[1,2]:=0;
+        H_kalman3[2,0]:=0;H_kalman3[2,1]:=0;H_kalman3[2,2]:=0;
+  
+    else
+        H_kalman3[0,0]:=1;H_kalman3[0,1]:=0;H_kalman3[0,2]:=0;
+        H_kalman3[1,0]:=0;H_kalman3[1,1]:=1;H_kalman3[1,2]:=0;
+        H_kalman3[2,0]:=0;H_kalman3[2,1]:=0;H_kalman3[2,2]:=1;
+      END_IF
+      
+
+//*************************KALMAN - 1****************************************************************/
+
+  //*  K_kalman1 = P_kalman1*H_kalman1'*inv(H_kalman1*P_kalman1*H_kalman1'+R_kalman1);   
+    Matrix_Transpose(H_kalman1_M, ht_m);
+    Matrix_Product(P_kalman1_M, ht_m, tmp1_M);
+
+    Matrix_Product(H_kalman1_M, P_kalman1_M, tmp2_m);
+    Matrix_Product(tmp2_m, Ht_M, tmp3_m);
+
+
+	tmp3_m.ElementSum(R_kalman1_M);
+    IF (cholsl((tmp3), (tmp4), (tmp5), 2)=1) THEN 
+		RETURN;
+	END_IF
+    Matrix_Product(tmp1_m, tmp4_M, K_kalman1_m);
+
+    Matrix_Product(H_kalman1_m,x_kalman1_M,tmp6_M);
+	tmp7_m.ElementDifference(tmp6_m);
+    Matrix_Product(K_kalman1_m,tmp7_m,tmp8_m);
+	x_kalman1_m.ElementSum(tmp8_M);
+  
+  Matrix_Transpose(K_kalman1_m,kt_m);
+  Matrix_Product(R_kalman1_m,kt_m,tmp2_M);
+  Matrix_Product(K_kalman1_m,tmp2_M,tmp0_m);
+  
+  Matrix_Product(K_kalman1_m,H_kalman1_m,tmp00_m);
+  sub_mat(I,tmp00,tmp00,3,3);
+  Matrix_Transpose(tmp00_m,tmp00t_m);
+  Matrix_Product(P_kalman1_m,tmp00t_m,tmp00_m);
+  Matrix_Product(K_kalman1_m,H_kalman1_m,tmp000_m);
+  sub_Mat(I,(tmp000),(tmp000),3,3);
+  
+  Matrix_Product(tmp000_m,tmp00_m,P_kalman1_m);
+  P_kalman1_m.ElementSum(tmp0_m);
+  
+  Matrix_Product(F_kalman1_m,x_kalman1_m,tmp8_m);
+  Matrix_Product(Id,tmp8_M,x_kalman1_m);
+  Matrix_Product(F_kalman1_m, P_kalman1_m ,tmp0_m);
+  Matrix_Transpose(F_kalman1_m,Ft_m);
+  Matrix_Product(tmp0_m, Ft_m, P_kalman1_m);
+  P_kalman1_m.ElementSum(Q_kalman1_m);
+ 
+//*************************KALMAN - 2****************************************************************/
+
+  Matrix_Transpose(H_kalman2_m, ht_m);
+  Matrix_Product(P_kalman2_m, ht_m, tmp1_m);
+  Matrix_Product(H_kalman2_m, P_kalman2_M, tmp2_m);
+  Matrix_Product(tmp2_m, ht_m, tmp3_M);
+  tmp3_M.ElementSum(R_kalman2_m);  
+
+
+  IF (cholsl((tmp3), (tmp4), (tmp5), 2)=1) THEN
+      
+      RETURN;
+  END_IF
+  Matrix_Product(tmp1_m, tmp4_M, K_kalman2_m);
+  
+  err_kalman2[0,0] := errorDegreeCalculator(z_kalman2[0], x_kalman2[0,0]);
+  err_kalman2[1,0] := z_kalman2[1] - x_kalman2[1,0];
+
+  Matrix_Product(K_kalman2_m, err_kalman2_m, tmp8_m);
+  x_kalman2_m.ElementSum(tmp8_m);
+ 
+
+  Matrix_Transpose(K_kalman2_m,Kt_m);
+  Matrix_Product(R_kalman2_M,Kt_m,tmp2_m);
+  Matrix_Product(K_kalman2_M,tmp2_m,tmp0_m);
+  
+  Matrix_Product(K_kalman2_m,H_kalman2_m,tmp00_m);
+  sub_mat(I,(tmp00),(tmp00),3,3);
+  Matrix_Transpose(tmp00_m,tmp00t_m);
+  Matrix_Product(P_kalman2_m,tmp00t_m,tmp00_m);
+ 
+  Matrix_Product(K_kalman2_m,H_kalman2_m,tmp000_m);
+  sub_mat(I,(tmp000),(tmp000),3,3);
+  
+  Matrix_Product(tmp000_m,tmp00_m,P_kalman2_m);
+  P_kalman2_m.ElementSum(tmp0_m);
+ 
+  x_kalman2[0,0] := myfmod(x_kalman2[0,0] , 360);
+
+  Matrix_Product(F_kalman2_m,x_kalman2_M,tmp8_m);
+  Matrix_Product(Id,tmp8_m,x_kalman2_m);
+  Matrix_Product(F_kalman2_m, P_kalman2_m ,tmp0_m);
+  Matrix_Transpose(F_kalman2_m,Ft_m);
+  Matrix_Product(tmp0_m, Ft_m, P_kalman2_m);
+  P_kalman2_m.ElementSum(Q_kalman2_m);
+  kalLinSpd:=x_kalman1[0,0];
+  kalAngSpd:=x_kalman2[1,0];
+
+
+
+//*************************KALMAN - 3****************************************************************/
+
+
+    Matrix_Transpose(H_kalman3_M, Ht3_m);
+    Matrix_Product(P_kalman3_m, Ht3_m, tmp1_3_m);
+    Matrix_Product(H_kalman3_m, P_kalman3_m, tmp2_3_m);
+    Matrix_Product(tmp2_3_m, Ht3_m, tmp3_3_M);
+	
+	tmp3_3_m.ElementSum(R_kalman3_m);
+    IF (cholsl((tmp3_3), (tmp4_3), (tmp5_3), 3)=1) THEN
+      RETURN;
+    END_IF
+    
+    Matrix_Product(tmp1_3_m, tmp4_3_m, K_kalman3_m);    
+
+  
+  err_kalman3[0,0] := z_kalman3[0] - x_kalman3[0,0];
+  err_kalman3[1,0] := z_kalman3[1] - x_kalman3[1,0];
+  err_kalman3[2,0] := errorDegreeCalculator(z_kalman3[2], x_kalman3[2,0]); 
+
+  Matrix_Product(K_kalman3_m, err_kalman3_m, tmp8_M);
+  x_kalman3_m.ElementSum(tmp8_M);
+
+  x_kalman3[2,0] := myfmod(x_kalman3[2,0] , 360);
+
+ 
+    Matrix_Product(K_kalman3_m,H_kalman3_m,tmp0_m);
+    sub_mat(I,tmp0,tmp0,3,3);
+    Matrix_Product(tmp0_m,P_kalman3_m,tmp00_m);
+    Matrix_Product(tmp00_m,Id,P_kalman3_m);
+
+  x_kalman3[0,0] := x_kalman3[0,0] + x_kalman1[0,0]*COS(x_kalman3[2,0]*PI/180)*PLC_CYCLE;
+  x_kalman3[1,0] := x_kalman3[1,0] + x_kalman1[0,0]*SIN(x_kalman3[2,0]*PI/180)*PLC_CYCLE;
+  x_kalman3[2,0] := x_kalman3[2,0] + x_kalman2[1,0]*PLC_CYCLE;
+
+  IF ( x_kalman3[2,0] >=180 AND  x_kalman3[2,0] <= 360) THEN 
+    x_kalman3[2,0] :=x_kalman3[2,0]-360;
+  END_IF
+
+  F_kalman3[0,0]:=1;F_kalman3[0,1]:=0;F_kalman3[0,2]:= -1*x_kalman1[0,0]*COS(x_kalman2[0,0]*PI/180)*PLC_CYCLE;
+  F_kalman3[1,0]:=0;F_kalman3[1,1]:=1;F_kalman3[1,2]:= -1*x_kalman1[0,0]*SIN(x_kalman2[0,0]*PI/180)*PLC_CYCLE;
+  F_kalman3[2,0]:=0;F_kalman3[2,1]:=0;F_kalman3[2,2]:=1;
+    Matrix_Product(F_kalman3_m,P_kalman3_m,tmp0_m);
+    Matrix_Transpose(F_kalman3_m,Ft_m);   
+    Matrix_Product(tmp0_m,Ft_m,P_kalman3_M);
+	P_kalman3_M.ElementSum(Q_kalman3_m);
+ 
+    fb_setIdealAngle();
+
+    robotAngle := x_kalman3[2,0];
+    PosFdbckX := x_kalman3[0,0];
+    PosFdbckY := x_kalman3[1,0];]]></ST>
+    </Implementation>
+    <LineIds Name="kalmanStep">
+      <LineId Id="441" Count="1" />
+      <LineId Id="446" Count="0" />
+      <LineId Id="115" Count="0" />
+      <LineId Id="443" Count="2" />
+      <LineId Id="447" Count="0" />
+      <LineId Id="453" Count="0" />
+      <LineId Id="448" Count="4" />
+      <LineId Id="454" Count="0" />
+      <LineId Id="440" Count="0" />
+      <LineId Id="458" Count="0" />
+      <LineId Id="460" Count="0" />
+      <LineId Id="459" Count="0" />
+      <LineId Id="457" Count="0" />
+      <LineId Id="118" Count="1" />
+      <LineId Id="346" Count="0" />
+      <LineId Id="120" Count="11" />
+      <LineId Id="145" Count="0" />
+      <LineId Id="147" Count="12" />
+      <LineId Id="348" Count="0" />
+      <LineId Id="433" Count="0" />
+      <LineId Id="347" Count="0" />
+      <LineId Id="160" Count="0" />
+      <LineId Id="351" Count="0" />
+      <LineId Id="349" Count="0" />
+      <LineId Id="162" Count="1" />
+      <LineId Id="165" Count="0" />
+      <LineId Id="354" Count="0" />
+      <LineId Id="166" Count="0" />
+      <LineId Id="355" Count="0" />
+      <LineId Id="168" Count="1" />
+      <LineId Id="171" Count="6" />
+      <LineId Id="179" Count="3" />
+      <LineId Id="357" Count="0" />
+      <LineId Id="184" Count="0" />
+      <LineId Id="186" Count="1" />
+      <LineId Id="190" Count="2" />
+      <LineId Id="359" Count="0" />
+      <LineId Id="193" Count="0" />
+      <LineId Id="195" Count="1" />
+      <LineId Id="198" Count="4" />
+      <LineId Id="435" Count="0" />
+      <LineId Id="437" Count="0" />
+      <LineId Id="203" Count="5" />
+      <LineId Id="211" Count="2" />
+      <LineId Id="215" Count="0" />
+      <LineId Id="387" Count="0" />
+      <LineId Id="216" Count="1" />
+      <LineId Id="225" Count="12" />
+      <LineId Id="388" Count="0" />
+      <LineId Id="240" Count="2" />
+      <LineId Id="244" Count="1" />
+      <LineId Id="248" Count="2" />
+      <LineId Id="389" Count="0" />
+      <LineId Id="251" Count="0" />
+      <LineId Id="253" Count="6" />
+      <LineId Id="261" Count="3" />
+      <LineId Id="393" Count="0" />
+      <LineId Id="396" Count="0" />
+      <LineId Id="266" Count="1" />
+      <LineId Id="269" Count="3" />
+      <LineId Id="283" Count="4" />
+      <LineId Id="289" Count="0" />
+      <LineId Id="397" Count="0" />
+      <LineId Id="291" Count="2" />
+      <LineId Id="299" Count="1" />
+      <LineId Id="302" Count="15" />
+      <LineId Id="319" Count="1" />
+      <LineId Id="398" Count="0" />
+      <LineId Id="321" Count="0" />
+      <LineId Id="323" Count="3" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="kinematicSolution" Id="{7827fcd1-8536-415b-a2b4-5394e332c12a}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK kinematicSolution
+VAR_INPUT
+	 linSpdCommandShaped, angSpdCommand:LREAL;
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	v_left_radsec,v_right_radsec:LREAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[ v_right_radsec:=((2*linSpdCommandShaped)+((angSpdCommand*PI/180)*ROBOT_RADIUS*2))/(2*WHEEL_RADIUS);
+ rightMotorSpeedCommand:=LREAL_TO_DINT(ltrunc(v_right_radsec*60/(2*PI)*reducer_ratio));
+  //printf("%ld-%ld,",v_right_radsec*60/(2*M_PI),*rightmtrspdcommand_rpm);
+  v_left_radsec:=((2*linSpdCommandShaped)-((angSpdCommand*PI/180)*reducer_ratio*2))/(2*wheel_radius);
+  leftMotorSpeedCommand:=LREAL_TO_DINT(LTRUNC(v_left_radsec*60/(2*PI)*reducer_ratio));]]></ST>
+    </Implementation>
+    <LineIds Name="kinematicSolution">
+      <LineId Id="11" Count="3" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

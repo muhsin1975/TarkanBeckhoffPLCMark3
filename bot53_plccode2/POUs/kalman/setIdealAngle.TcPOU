@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="setIdealAngle" Id="{8ff8015a-e5b6-42f0-bd2c-8ca1de2f1647}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK setIdealAngle
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[  IF (missionCompleted=1 AND  readyFlag=1)THEN
+    IF((x_kalman3[2,0] <= 20 AND x_kalman3[2,0] >= 0) OR (x_kalman3[2,0]<0 AND x_kalman3[2,0] >= -20)) THEN idealAngle := 0;
+    ELSIF((x_kalman3[2,0] >= 70 AND x_kalman3[2,0] <= 110)) THEN idealAngle := 90;
+    ELSIF((x_kalman3[2,0] <= -70 AND x_kalman3[2,0] >= -110))THEN  idealAngle:= -90;
+    ELSIF ((x_kalman3[2,0] >= 160 AND x_kalman3[2,0] <= 180) OR (x_kalman3[2,0] < -160 AND x_kalman3[2,0] >= -180)) THEN  idealAngle := -180;
+	END_IF
+    IF (readyFlag=1) THEN 
+		readyFlag := 0;
+		
+	END_IF
+  END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="setIdealAngle">
+      <LineId Id="10" Count="6" />
+      <LineId Id="19" Count="0" />
+      <LineId Id="17" Count="1" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -22,7 +22,8 @@ robotdata.Position_Velocity.Locomotion_2_target_velocity:=0;
 robotdata.Position_Velocity.Lifter_target_position:=robotdata.Position_Velocity.Lifter_position_actual_value;
 robotdata.Position_Velocity.Rotator_target_position:=robotdata.Position_Velocity.Rotator_position_actual_value;
 
-st_command.command:=0;]]></ST>
+st_command.command:=0;
+robotdata.activecommand:=0;]]></ST>
     </Implementation>
     <LineIds Name="reset_errors">
       <LineId Id="10" Count="0" />
@@ -34,6 +35,7 @@ st_command.command:=0;]]></ST>
       <LineId Id="44" Count="0" />
       <LineId Id="65" Count="0" />
       <LineId Id="64" Count="0" />
+      <LineId Id="73" Count="0" />
       <LineId Id="35" Count="0" />
     </LineIds>
   </POU>

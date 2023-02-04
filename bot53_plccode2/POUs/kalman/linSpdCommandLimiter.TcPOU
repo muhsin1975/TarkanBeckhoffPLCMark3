@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="linSpdCommandLimiter" Id="{58335102-272b-48cb-a953-e6d487426c81}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION linSpdCommandLimiter : LREAL
+VAR_INPUT
+	LinSpdCmdIn:LREAL;
+END_VAR
+VAR
+	accOut,jerkCmd,accCmd,LinSpdCmdOut:LREAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[LinSpdCmdOut := 0;
+  IF (modeEnable = 4 OR modeEnable = 5) THEN
+  
+    accCmd := (LinSpdCmdIn - LinSpdFdbck) / PLC_CYCLE;
+    jerkCmd := (accCmd - accFdbck) / PLC_CYCLE;
+
+    IF (jerkCmd > LINJERKLIMIT) THEN
+      jerkCmd := LINJERKLIMIT;
+	END_IF
+    IF (jerkCmd < -1 * LINJERKLIMIT)THEN
+      jerkCmd := -1 * LINJERKLIMIT;
+	END_IF
+    accOut := accFdbck + jerkCmd * PLC_CYCLE;
+
+    IF (accOut > LINSPDRATELIMIT) THEN
+      accOut := LINSPDRATELIMIT;
+	  END_IF
+
+    IF (accOut < -1 * LINSPDRATELIMIT)THEN
+      accOut := -1 * LINSPDRATELIMIT;
+END_IF
+    LinSpdCmdOut := LinSpdFdbck + accOut * PLC_CYCLE;
+
+    if (LinSpdCmdOut > FORWARD_MAX_SPEED)
+    THEN
+      LinSpdCmdOut:= FORWARD_MAX_SPEED;
+      accOut := 0;
+    END_IF
+
+    if (LinSpdCmdOut < -1 * FORWARD_MAX_SPEED)
+    THEN
+      LinSpdCmdOut := -1 * FORWARD_MAX_SPEED;
+      accOut := 0;
+    END_IF
+
+    LinSpdFdbck := LinSpdCmdOut;
+    accFdbck := accOut;
+  END_IF
+
+  linSpdCommandLimiter:= LinSpdCmdOut;]]></ST>
+    </Implementation>
+    <LineIds Name="linSpdCommandLimiter">
+      <LineId Id="9" Count="15" />
+      <LineId Id="48" Count="0" />
+      <LineId Id="25" Count="21" />
+      <LineId Id="7" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -17,7 +17,8 @@ ELSIF DRIVER=2 THEN
 	GVL.robotdata.motorCword[3]:=CWORD;
 END_IF
 
-st_command.command:=0;]]></ST>
+st_command.command:=0;
+robotdata.activecommand:=0;]]></ST>
     </Implementation>
     <LineIds Name="enable_disable_driver">
       <LineId Id="22" Count="0" />
@@ -29,6 +30,7 @@ st_command.command:=0;]]></ST>
       <LineId Id="26" Count="0" />
       <LineId Id="24" Count="0" />
       <LineId Id="16" Count="0" />
+      <LineId Id="34" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

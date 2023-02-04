@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="kalmanController" Id="{d981cfdb-89fe-46a7-b0aa-9698b864aae4}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK kalmanController
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	 linSpdCommand,fwdMoveSpdCommand,angMoveSpdCommand,angFwdPosError,angMovePosError,angFwdPosCommand,linSpdCommandShaped,linMoveSpdCommand,angSpdCommand:LREAL;
+	 missionCompletedAng,missionCompletedLin:INT;
+	 fb_kinematicSolution:kinematicSolution;
+	 fb_localization:localization;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF(robotdata.controller=1)THEN
+    fb_localization();
+    missionCompletedLin := linPosErrGenerator(idealAngle,xGoal,yGoal,PosFdbckX,PosFdbckY,modeEnable);
+    linMoveSpdCommand:= linPosErr* LINPOS_Kp;
+    linSpdCommand := linSpdCommandMixer(modeEnable,linMoveSpdCommand,linPosErr);
+    linSpdCommandShaped := linSpdCommandLimiter(linSpdCommand);
+    angFwdPosCommand := forwardMovement(PosFdbckX,PosFdbckY,idealAngle);
+    angMovePosError := angErrorCalc(AngPosCommand,robotAngle);
+    angFwdPosError := angErrorCalc(angFwdPosCommand,robotAngle);
+    angMoveSpdCommand := angMovePosError * TURNANG_Kp;
+    fwdMoveSpdCommand := angFwdPosError* TURNFWD_Kp;
+    
+    missionCompletedAng:=angSpdCommandMixer(angMovePosError,modeEnable,angMoveSpdCommand,fwdMoveSpdCommand,angSpdCommand);
+    angSpdCommandLimiter(angSpdCommand);
+    missionCompleted:=(missionCompletedAng OR missionCompletedLin);
+    IF(missionCompleted=1) THEN
+		robotdata.motion_status:=MOTION_ENDED;
+	END_IF
+ 
+    fb_kinematicSolution(linSpdCommandShaped:=linSpdCommandShaped,angSpdCommand:=angSpdCommandShaped);
+
+    IF (missionCompleted=1) THEN
+       
+      robotdata.motion_status := MOTION_ENDED;
+	  robotdata.activeState:=MOVE_ENDED;
+	  robotdata.Position_Velocity.Locomotion_1_target_velocity:= 0;
+	  robotdata.Position_Velocity.Locomotion_2_target_velocity:= 0;
+	  ELSE
+		robotdata.Position_Velocity.Locomotion_1_target_velocity := leftMotorSpeedCommand;
+		robotdata.Position_Velocity.Locomotion_2_target_velocity:=-1*rightMotorSpeedCommand;
+	  END_IF
+   END_IF
+    
+  
+ 
+]]></ST>
+    </Implementation>
+    <LineIds Name="kalmanController">
+      <LineId Id="10" Count="0" />
+      <LineId Id="13" Count="1" />
+      <LineId Id="18" Count="3" />
+      <LineId Id="23" Count="8" />
+      <LineId Id="157" Count="1" />
+      <LineId Id="81" Count="3" />
+      <LineId Id="93" Count="0" />
+      <LineId Id="170" Count="0" />
+      <LineId Id="178" Count="0" />
+      <LineId Id="172" Count="0" />
+      <LineId Id="94" Count="0" />
+      <LineId Id="173" Count="1" />
+      <LineId Id="176" Count="0" />
+      <LineId Id="175" Count="0" />
+      <LineId Id="159" Count="0" />
+      <LineId Id="111" Count="0" />
+      <LineId Id="131" Count="0" />
+      <LineId Id="138" Count="0" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

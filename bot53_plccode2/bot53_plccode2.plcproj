@@ -47,15 +47,6 @@
     <Compile Include="POUs\CanReceiver.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\choldc1.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\choldcsl.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\cholsl.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\constrain_angle.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -74,10 +65,71 @@
     <Compile Include="POUs\FB_Mqtt.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\kalmanInit.TcPOU">
+    <Compile Include="POUs\kalman\angErrorCalc.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\kalmanStep.TcPOU">
+    <Compile Include="POUs\kalman\angSpdCommandLimiter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\kalman\angSpdCommandMixer.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\kalman\atan2.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\kalman\choldc1.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\kalman\choldcsl.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\kalman\cholsl.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\kalman\errorDegreeCalculator.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\kalman\forwardMovement.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\kalman\kalmanController.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\kalman\kalmanInit.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\kalman\kalmanStep.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="POUs\kalman\kinematicSolution.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\kalman\linPosErrGenerator.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\kalman\linSpdCommandLimiter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\kalman\linSpdCommandMixer.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\kalman\localization.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\kalman\myfmod.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\kalman\mySign.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\kalman\robotAutomation.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\kalman\setIdealAngle.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\kalman\sub_mat.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
@@ -101,13 +153,13 @@
     <Compile Include="POUs\set_qr_info.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\subMat.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
+    <Folder Include="POUs\kalman">
+      <ExcludeFromBuild>false</ExcludeFromBuild>
+    </Folder>
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>

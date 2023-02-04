@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="robotAutomation" Id="{6456eaca-18d3-42e2-8456-0ca2bb59e4b8}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM robotAutomation
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[    IF(missionCompleted=1)THEN          // Same as StopMovement??}
+      CASE userCommand OF
+		  1,2,3:
+		  	robotdata.activeState:=TURN_ENDED;
+		4,5:
+		robotdata.activeState:=MOVE_ENDED;
+	  END_CASE
+      robot_state:=0;
+      modeEnable:=0;
+      userCommand:=0;
+    
+    ELSIF(robot_state=0)THEN
+      CASE userCommand OF
+        1:  
+          robot_state:=1;
+          AngPosCommand:=myFmod(idealAngle+90,360)-180;
+          modeEnable:=1;
+          robotdata.motion_status:=MOTION_ANGLE;
+          xGoal:=PosFdbckX;
+          yGoal:=PosFdbckY;      
+         2:          //TURN LEFT
+          robot_state:=2;
+          AngPosCommand:=myFmod(idealAngle-90,360)-180;
+          modeEnable:=2;
+          robotdata.motion_status:=MOTION_ANGLE;
+          xGoal:=PosFdbckX;
+          yGoal:=PosFdbckY;
+         3:          //TURN BACK
+          robot_state:=3;
+          AngPosCommand:=myFmod(idealAngle+180,360);
+          IF (AngPosCommand = 270) THEN
+			AngPosCommand := -90;
+			END_IF
+          modeEnable:=3;
+          robotdata.motion_status:=MOTION_ANGLE;
+          xGoal:=PosFdbckX;
+          yGoal:=PosFdbckY;
+            
+        4:           //FORWARD   
+          robot_state:=4;
+          robotdata.motion_status:=MOTION_ONGOING;
+          xStart:=ltrunc(PosFdbckX);
+          yStart:=ltrunc(PosFdbckY);
+          xGoal:=xStart+COS(idealAngle*PI/180) * forwardCommand;
+          yGoal:=yStart+SIN(idealAngle*PI/180) * forwardCommand;
+          IF (xGoal >= 7) THEN
+			xGoal := 7;
+			END_IF
+          IF (xGoal <= 0) THEN
+			xGoal := 0;
+		END_IF
+          IF (yGoal >= 8) THEN 
+			yGoal := 8;
+			END_IF
+          IF (yGoal <= 0) THEN 
+			yGoal := 0;
+			END_IF
+
+          modeEnable:=4;
+          
+        5: // BACKWARD
+          robot_state:=5;
+          robotdata.motion_status:=MOTION_ONGOING;
+          xStart:=ltrunc(PosFdbckX);
+          yStart:=ltrunc(PosFdbckY);
+          xGoal:=xStart - COS(idealAngle*PI/180) * forwardCommand;
+          yGoal:=yStart - SIN(idealAngle*PI/180) * forwardCommand;
+          IF (xGoal >= 7) THEN xGoal := 7; END_IF
+          IF (xGoal <= 0) THEN xGoal := 0; END_IF
+          IF (yGoal >= 8) THEN yGoal := 8; END_IF
+          IF (yGoal <= 0) THEN yGoal := 0; END_IF
+			  
+		
+
+          modeEnable:=5;
+          
+      END_CASE
+    END_IF
+    
+  ]]></ST>
+    </Implementation>
+    <LineIds Name="robotAutomation">
+      <LineId Id="7" Count="0" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="101" Count="0" />
+      <LineId Id="103" Count="2" />
+      <LineId Id="102" Count="0" />
+      <LineId Id="17" Count="2" />
+      <LineId Id="21" Count="10" />
+      <LineId Id="33" Count="6" />
+      <LineId Id="41" Count="2" />
+      <LineId Id="88" Count="1" />
+      <LineId Id="44" Count="5" />
+      <LineId Id="54" Count="6" />
+      <LineId Id="90" Count="1" />
+      <LineId Id="61" Count="0" />
+      <LineId Id="92" Count="1" />
+      <LineId Id="62" Count="0" />
+      <LineId Id="94" Count="1" />
+      <LineId Id="63" Count="0" />
+      <LineId Id="96" Count="1" />
+      <LineId Id="64" Count="3" />
+      <LineId Id="72" Count="9" />
+      <LineId Id="98" Count="1" />
+      <LineId Id="82" Count="5" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

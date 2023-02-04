@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="kalmanInit" Id="{d7251438-6fe8-487a-a0f8-758520c23014}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK kalmanInit
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	tmp0:ARRAY[0..2,0..2] OF LREAL;
+	Ft_m,tmp_m,tmp1_m,tmp0_m:Array2DStaticMatrix;
+	Ft:ARRAY[0..2,0..2] OF LREAL;
+	tmp:ARRAY[0..2,0..0] OF LREAL;
+	tmp1:ARRAY[0..2,0..2] OF LREAL;
+
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[  Id.InitIdentity(3);
+  P_kalman1_M(Data:=P_kalman1);
+  Q_kalman1_M(Data:=Q_kalman1);
+  R_kalman1_M(Data:=R_kalman1);
+  F_kalman1_M(Data:=F_kalman1);
+  K_kalman1_M(Data:=K_kalman1);
+  H_kalman1_M(Data:=H_kalman1);
+  x_kalman1_m(Data:=x_kalman1);
+  P_kalman2_M(Data:=P_kalman2);
+  Q_kalman2_M(Data:=Q_kalman2);
+  R_kalman2_M(Data:=R_kalman2);
+  F_kalman2_M(Data:=F_kalman2);
+  K_kalman2_M(Data:=K_kalman2);
+  H_kalman2_M(Data:=H_kalman2);
+  x_kalman1_m(data:=x_kalman1);
+  x_kalman2_m(data:=x_kalman2);
+  err_kalman2_m(data:=err_kalman2);
+    err_kalman3_m(data:=err_kalman3);
+  Ft_m(data:=Ft);
+  tmp_m(data:=tmp);
+  tmp0_m(data:=tmp0);
+  tmp1_m(data:=tmp1);
+  Matrix_Product(F_kalman1_M,x_kalman1_m,tmp_m);
+  Matrix_Product(Id,tmp_m,x_kalman1_M);
+  x_kalman2[0,0]:=(-robotdata.qr_angle * 0.1-PF_OFFSET);
+
+  
+  Matrix_Product(F_kalman1_M, P_kalman1_M ,tmp0_m);
+  Matrix_Transpose(F_kalman1_M,Ft_m);
+  Matrix_Product(tmp0_m, Ft_m, P_kalman1_M);
+  P_kalman1_M.ElementSum(Q_kalman1_M);
+
+  Matrix_Product(F_kalman2_M,x_kalman2_M,tmp_m);
+  Matrix_Product(Id,tmp_m,x_kalman2_m);
+
+  Matrix_Product(F_kalman2_M, P_kalman2_M ,tmp0_m);
+  Matrix_Transpose(F_kalman2_M,Ft_m);
+  Matrix_Product(tmp0_m, Ft_m, P_kalman2_M);
+  P_kalman2_M.ElementSum(Q_kalman2_M);
+
+  F_kalman3[0,2]:= -1*x_kalman1[0,0]*COS(x_kalman2[0,0]*PI/180)*PLC_CYCLE;
+  F_kalman3[1,2]:= -1*x_kalman1[0,0]*SIN(x_kalman2[0,0]*PI/180)*PLC_CYCLE;
+  
+  x_kalman3[0,0]:=robotdata.robot_x+x_kalman1[0,0]*COS(x_kalman2[0,0]*PI/180)*PLC_CYCLE;
+  x_kalman3[1,0]:=robotdata.robot_y+x_kalman1[0,0]*SIN(x_kalman2[0,0]*PI/180)*PLC_CYCLE;
+  x_kalman3[2,0]:=(-robotdata.qr_angle * 0.1-PF_OFFSET)+x_kalman2[1,0]*PLC_CYCLE;
+	x_kalman3_m(data:=x_kalman3);
+  P_kalman3_M(Data:=P_kalman3);
+  Q_kalman3_M(Data:=Q_kalman3);
+  R_kalman3_M(Data:=R_kalman3);
+  F_kalman3_M(Data:=F_kalman3);
+  K_kalman3_M(Data:=K_kalman3);
+  H_kalman3_M(Data:=H_kalman3);
+ 
+  //P_kalman3 = Fk_kalman3*P_kalman3*Fk_kalman3'+Q_kalman3;
+  Matrix_Transpose(F_kalman3_M,Ft_m);
+  Matrix_Product(F_kalman3_M,P_kalman3_M,tmp0_m);//tmp0=k_kalman3*P_kalman3
+  Matrix_Product(tmp0_m,Ft_m,P_kalman3_M);//P_kalman3=tmp0*Fk_kalman3
+  P_kalman3_M.ElementSum(Q_kalman3_M);//P_kalman3=tmp0*Fk_kalman3+Q_kalman3
+  
+  kalman12_x :=robotdata.robot_x;
+  kalman12_y := robotdata.robot_y;]]></ST>
+    </Implementation>
+    <LineIds Name="kalmanInit">
+      <LineId Id="93" Count="0" />
+      <LineId Id="115" Count="0" />
+      <LineId Id="56" Count="1" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="58" Count="0" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="61" Count="0" />
+      <LineId Id="75" Count="0" />
+      <LineId Id="67" Count="0" />
+      <LineId Id="63" Count="2" />
+      <LineId Id="59" Count="0" />
+      <LineId Id="106" Count="1" />
+      <LineId Id="130" Count="1" />
+      <LineId Id="114" Count="0" />
+      <LineId Id="112" Count="0" />
+      <LineId Id="111" Count="0" />
+      <LineId Id="113" Count="0" />
+      <LineId Id="60" Count="0" />
+      <LineId Id="17" Count="1" />
+      <LineId Id="90" Count="0" />
+      <LineId Id="19" Count="0" />
+      <LineId Id="91" Count="0" />
+      <LineId Id="20" Count="1" />
+      <LineId Id="52" Count="0" />
+      <LineId Id="23" Count="14" />
+      <LineId Id="77" Count="0" />
+      <LineId Id="68" Count="0" />
+      <LineId Id="73" Count="0" />
+      <LineId Id="69" Count="3" />
+      <LineId Id="38" Count="7" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

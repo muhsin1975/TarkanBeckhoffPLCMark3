@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="linSpdCommandMixer" Id="{b0c81978-755d-467c-93bb-0e8c4fae62fd}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION linSpdCommandMixer : LREAL
+VAR_INPUT
+	modeEnable:INT;
+    linMoveSpdCommand, linPosErr:LREAL;
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF(modeEnable=0) THEN
+    linSpdCommandMixer:= 0;
+  ELSIF(modeEnable=4  OR modeEnable = 5)THEN
+    IF(ABS(linPosErr)<0.005) THEN
+       linSpdCommandMixer:=  0;
+    else
+       linSpdCommandMixer:=linMoveSpdCommand;   
+END_IF 
+  END_IF
+   linSpdCommandMixer:=  0; ]]></ST>
+    </Implementation>
+    <LineIds Name="linSpdCommandMixer">
+      <LineId Id="10" Count="6" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="7" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

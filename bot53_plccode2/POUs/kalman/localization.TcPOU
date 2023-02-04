@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="localization" Id="{a469907b-22b5-4700-97c8-7a42a957ca1f}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK localization
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	rightMtrFdbck:LREAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[  //linSpdFdbckRobot := (rightWheelFdbck+leftWheelFdbck)*2*M_PI/60*g_app_config->wheel_radius/2;
+  linSpdFdbckRobot := robotdata.encoder_v;
+  //angSpdFdbckRobot = ((rightWheelFdbck-leftWheelFdbck)*2*M_PI/60*g_app_config->wheel_radius/(2*g_app_config->robot_radius))*180/M_PI; // (Vr-Vl)*2*pi/60*R/L*180/pi
+  angSpdFdbckRobot:=robotdata.encoder_omega*180/PI;
+  angPosFdbckRobot := angPosFdbckRobot + (angSpdFdbckRobot+angSpdFdbckRobot_)/2*PLC_CYCLE;
+  angPosFdbckRobot_Abs:=angPosFdbckRobot_Abs + (angSpdFdbckRobot+angSpdFdbckRobot_)/2*PLC_CYCLE;
+  angSpdFdbckRobot_ := angSpdFdbckRobot;
+    
+  angPosFdbckRobot:= myFmod(angPosFdbckRobot,360);]]></ST>
+    </Implementation>
+    <LineIds Name="localization">
+      <LineId Id="15" Count="0" />
+      <LineId Id="23" Count="0" />
+      <LineId Id="16" Count="5" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

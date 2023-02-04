@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="angSpdCommandMixer" Id="{b34e1f03-6f97-4bd5-89fc-7a482c2763d9}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION angSpdCommandMixer : int
+VAR_INPUT
+	 angMovePosError:LREAL;
+modeEnable :INT;
+angMoveSpdCommand:LREAL;
+forwardMoveSpdCommand:LREAL;
+ 
+END_VAR
+VAR_IN_OUT
+ angSpdCommand:LREAL;
+END_VAR
+VAR
+	missionCompletedAng:INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[ missionCompletedAng := 0;
+  IF (modeEnable = 0) THEN
+      angSpdCommand := 0;
+  ELSIF (modeEnable = 4 OR modeEnable = 5) THEN
+      angSpdCommand := forwardMoveSpdCommand;   
+  ELSE 
+      IF (ABS(angMovePosError) < 0.2)THEN
+          missionCompletedAng := 1;
+          angSpdCommand := 0;
+      ELSE
+        angSpdCommand := angMoveSpdCommand;
+		END_IF
+  END_IF
+
+  IF (modeEnable = 4 OR modeEnable = 5)  THEN
+    ANGSPDRATELIMIT := 8;
+  else 
+    ANGSPDRATELIMIT := 50;
+END_IF
+  angSpdCommandMixer:= missionCompletedAng;]]></ST>
+    </Implementation>
+    <LineIds Name="angSpdCommandMixer">
+      <LineId Id="14" Count="9" />
+      <LineId Id="25" Count="0" />
+      <LineId Id="33" Count="0" />
+      <LineId Id="26" Count="6" />
+      <LineId Id="7" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

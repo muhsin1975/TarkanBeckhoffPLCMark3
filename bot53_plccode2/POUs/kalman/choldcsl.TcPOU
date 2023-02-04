@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="choldcsl" Id="{45c948c1-3e21-4f4a-94e1-87a2488099d2}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION choldcsl : INT
+VAR_IN_OUT
+	A:ARRAY[*,*] OF LREAL;
+	aa:ARRAY[*,*] OF LREAL;
+	p:ARRAY[*,*] OF LREAL;
+
+END_VAR
+VAR_INPUT
+		n:SINT;
+END_VAR
+VAR
+ i,j,k:INT;
+ sum:LREAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+FOR i := 0 TO n DO
+	FOR j := 0 TO n DO 
+    	aa[i,j] := A[i,j];
+    	IF (choldc1(aa, p, n)=1) THEN
+	 		choldcsl:=1;
+		END_IF
+	END_FOR
+END_FOR
+ 
+FOR i := 0 TO n DO
+         aa[i,i] := 1 / p[i,0];
+        FOR j := i + 1 TO n DO 
+            sum := 0;
+            FOR k := i TO j DO 
+                sum := sum-aa[j,k] * aa[k,i];
+            END_FOR
+            aa[j,i] := sum / p[j,0];
+        END_FOR
+END_FOR
+
+    choldcsl:= 0;]]></ST>
+    </Implementation>
+    <LineIds Name="choldcsl">
+      <LineId Id="14" Count="1" />
+      <LineId Id="17" Count="2" />
+      <LineId Id="31" Count="4" />
+      <LineId Id="20" Count="10" />
+      <LineId Id="7" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

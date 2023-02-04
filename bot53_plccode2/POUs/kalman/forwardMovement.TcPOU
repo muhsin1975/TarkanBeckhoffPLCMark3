@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="forwardMovement" Id="{8714ffc2-40a8-46af-825f-287d52add580}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION forwardMovement : LREAL
+VAR_INPUT
+	PosFdbckX,PosFdbckY,idealAngle:LREAL;
+END_VAR
+VAR
+	x2,y2,angForwardPosCommand,dist:LREAL;
+	rot:ARRAY[0..1]OF ARRAY[0..1]OF LREAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[  dist:=0.7;
+
+  rot[0][0]:=COS(idealAngle*PI/180);
+  rot[0][1]:=-1*SIN(idealAngle*PI/180);
+  rot[1][0]:=SIN(idealAngle*PI/180);
+  rot[1][1]:=COS(idealAngle*PI/180);
+
+  IF (idealAngle=0 OR idealAngle=180 OR idealAngle=-180)THEN // Horizontal Solution
+    IF ( modeEnable = 5)THEN
+      x2 := PosFdbckX - rot[0][0] * dist;
+      y2 := LTRUNC(PosFdbckY) - rot[1][0]*dist;
+    
+    ELSE
+      x2 := PosFdbckX + rot[0][0] * dist;
+      y2 := LTRUNC(PosFdbckY)+rot[1][0]*dist;
+    END_IF
+  
+  ELSE // Vertical Solution
+    IF(modeEnable = 5)THEN
+      x2 := LTRUNC(PosFdbckX)  - rot[0][0] *dist;
+      y2 := PosFdbckY - rot[1][0]*dist;
+    
+    ELSE 
+      x2 := LTRUNC(PosFdbckX) + rot[0][0] *dist;
+      y2 := PosFdbckY+rot[1][0]*dist;
+    END_IF
+  END_IF
+
+  angForwardPosCommand := ATAN2(y2-PosFdbckY, x2-PosFdbckX)*180/PI;
+
+
+  IF(modeEnable = 5)THEN
+    IF(idealAngle = 0 OR idealAngle = -90) THEN
+      forwardMovement:= angForwardPosCommand - 180;
+    else
+      forwardMovement:= angForwardPosCommand + 180;
+  END_IF
+  else
+    forwardMovement:=  angForwardPosCommand;
+	END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="forwardMovement">
+      <LineId Id="10" Count="7" />
+      <LineId Id="19" Count="20" />
+      <LineId Id="48" Count="8" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="59" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

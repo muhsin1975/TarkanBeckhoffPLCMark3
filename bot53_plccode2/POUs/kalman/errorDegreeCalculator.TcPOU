@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="errorDegreeCalculator" Id="{db278943-420b-4d97-b30a-1e9f21a18253}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION errorDegreeCalculator : LREAL
+VAR_INPUT
+	in1,in2:LREAL;
+END_VAR
+VAR
+	in1BigMapped,in2BigMapped,angPosDiff:LREAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[ IF (in1BigMapped > 180) THEN
+	in1BigMapped := in1BigMapped - 360;
+	END_IF
+  IF (in2BigMapped > 180) THEN
+	in2BigMapped := in2BigMapped - 360;
+	END_IF
+  angPosDiff := in1BigMapped - in2BigMapped;
+  IF (ABS(angPosDiff) > 180) THEN  errorDegreeCalculator:= angPosDiff - (mySign(angPosDiff) * 360);
+  ELSE 
+	errorDegreeCalculator:= angPosDiff;
+	end_if]]></ST>
+    </Implementation>
+    <LineIds Name="errorDegreeCalculator">
+      <LineId Id="10" Count="0" />
+      <LineId Id="14" Count="1" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="16" Count="1" />
+      <LineId Id="12" Count="1" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="18" Count="1" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

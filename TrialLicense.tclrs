@@ -2,32 +2,22 @@
 <TcLicenseInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2011/11/TcLicenseInfo">
 	<LicenseInfo>
 		<SystemId>{27250247-7B43-DEF7-35C9-484330722318}</SystemId>
-		<IssueTime>2023-01-30T05:43:00</IssueTime>
-		<ExpireTime>2023-02-07T00:00:00</ExpireTime>
-		<LicenseKey>000447549697aecafea9ff59f3c955256b80298e08ae617e2e0dc35d10370992a3dabf2d0a4bbf5300bbeaa20cc449b81729184f9c91cc89a3d302d87d69b4af9d026e1425062dd6623763255941b2e53068c8aaaadc642f8fecb5955a55b4f55197bb4fec4dd24d2502fa016183a966bd75b39f586fccb4f4f39207373617eb1ab03fc2f579952bc8892e6315e1d928c6e41c15b26bc43e51e09c10d13e392144c94638ee097be90569c94da34de0642b12c8d1a6e5c066eaaf897b27a1bc9388f3bd8fa2a141b3089eba4dc757121b211f8c99945430190b65e5d3b244e630b9a6d610ddba0e84a84ca6db360155550c4d769b24864af60c773c662bfd60df</LicenseKey>
+		<IssueTime>2023-02-03T07:02:00</IssueTime>
+		<ExpireTime>2023-02-11T00:00:00</ExpireTime>
+		<LicenseKey>d079780fc46a52c9f7350f00ca690b37b9b259956e692866e39b76a4d33d930aff807c3b24b30d760d442e81aa7b14bde280c07eb835de726e564ad5dbd24b470d96875afbe292c3b41748a30117189ceb4554c3f8ce3c14d4989b2eb056fa3d20a597d25ed77e5eb305c8d7fc116cbfdcdedca093961daa56a24156b68892c6bc3f6b5d9154f9fa5369c732645f74bce864eead435eeb298422064ca7956c5d0efbbcd309a5deca903010b82406f1675d9ffbdf1f9449190a963029f6568f26a2393ccbbbb70742d5b92ee0717945f8ecf229cd0fdd4840acee7ef84f66b6e8d7db3a6574596120263a255b5b7e7074f33826c316197f1f51c64e0dd3212320</LicenseKey>
 		<License>
-			<LicenseId>{4C256767-E6E6-4AF5-BD68-9F7ABAD0C200}</LicenseId>
-			<Name>TC3 ADS</Name>
-			<OrderNo>TC1000</OrderNo>
+			<LicenseId>{DEA72F0A-9EA0-48F4-ABB5-766516202B8E}</LicenseId>
+			<Name>TC3 NC I</Name>
+			<OrderNo>TF5100</OrderNo>
 		</License>
 		<License>
-			<LicenseId>{3FF18E97-7754-401B-93FB-70544DE28A13}</LicenseId>
-			<Name>TC3 IO</Name>
-			<OrderNo>TC1100</OrderNo>
-		</License>
-		<License>
-			<LicenseId>{66689887-CCBD-452C-AC9A-039D997C6E66}</LicenseId>
-			<Name>TC3 PLC</Name>
-			<OrderNo>TC1200</OrderNo>
+			<LicenseId>{973BA0B1-AADD-41C1-B518-302802473922}</LicenseId>
+			<Name>TC3 IoT MQTT Protocol</Name>
 		</License>
 		<License>
 			<LicenseId>{081AC839-28D0-49CA-9792-72680E1F3249}</LicenseId>
 			<Name>TC3 TCP/UDP RT</Name>
 			<OrderNo>TF6311</OrderNo>
-		</License>
-		<License>
-			<LicenseId>{973BA0B1-AADD-41C1-B518-302802473922}</LicenseId>
-			<Name>TC3 IoT MQTT Protocol</Name>
 		</License>
 		<License>
 			<LicenseId>{0ABFD2B0-EAE1-4DC7-AABE-03093B0786B7}</LicenseId>

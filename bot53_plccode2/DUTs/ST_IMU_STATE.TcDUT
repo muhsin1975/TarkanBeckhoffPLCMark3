@@ -6,8 +6,8 @@ STRUCT
 	imu_x:LREAL;
 	imu_y:LREAL;
 	imu_euler:LREAL;
-	acc_x:LRAL;
-	gyro_z:LRAL;
+	acc_x:LREAL;
+	gyro_z:LREAL;
 END_STRUCT
 END_TYPE
 ]]></Declaration>

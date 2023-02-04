@@ -12,6 +12,9 @@ VAR
 	dontcontinue:BOOL:=FALSE;
 	currtime:ULINT;
 	datediff:ULINT;
+	fb_kalmaninit:kalmanInit;
+	fb_kalmanStep:kalmanStep;
+	fb_kalmanController:kalmanController;
 
 END_VAR
 
@@ -19,6 +22,10 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[//LATE/ERROR KONTROLÜ
+IF CONTROLLER_TYPE=1 AND NOT KALMAN_INITIALIZED AND pf_x_angle_valid=1 AND pf_y_tag_valid=1 THEN
+	fb_kalmaninit();
+	KALMAN_INITIALIZED:=TRUE;
+END_IF
 robotdata.batteryVoltage:=DINT_TO_REAL(batteryVoltageINT)/1000;
 currtime:=F_GetSystemTime() ;
 datediff:=(currtime/10000)-ads_lasttime;
@@ -54,19 +61,33 @@ robotdata.encoderx_rel:=robotdata.encoder_x-LREAL_TO_DINT(robotdata.encoder_x);
 robotdata.encodery_rel:=robotdata.encoder_y-LREAL_TO_DINT(robotdata.encoder_y);
 robotdata.imux_rel:=robotdata.imu_state.imu_x-LREAL_TO_DINT(robotdata.imu_state.imu_x);
 robotdata.imuy_rel:=robotdata.imu_state.imu_y-LREAL_TO_DINT(robotdata.imu_state.imu_y);
-IF(pf_x_angle_valid=0 OR pf_y_tag_valid=0)THEN
-	robotdata.robot_x:=robotdata.encoder_x;
-	robotdata.robot_y:=robotdata.encoder_y;
-	robotdata.robot_yaw:=robotdata.imu_state.imu_euler;
-	winnerEvaluated:=false;
+
+IF(CONTROLLER_TYPE=0)THEN
+	IF(pf_x_angle_valid=0 OR pf_y_tag_valid=0)THEN
+		robotdata.robot_x:=robotdata.encoder_x;
+		robotdata.robot_y:=robotdata.encoder_y;
+		robotdata.robot_yaw:=robotdata.imu_state.imu_euler;
+		winnerEvaluated:=FALSE;
+	END_IF
+	FB_CONTROLLER();
+	FB_DRIVE_MOTORS();
+ELSIF(CONTROLLER_TYPE=1 AND KALMAN_INITIALIZED) THEN
+	fb_kalmanStep();
+	robotdata.robot_x:=PosFdbckX;
+	robotdata.robot_y:=PosFdbckY;
+	robotdata.robot_yaw:=robotAngle *PI/180;
+	fb_kalmanController();
 END_IF
-FB_CONTROLLER();
-FB_DRIVE_MOTORS();
 
 ]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="761" Count="3" />
+      <LineId Id="761" Count="0" />
+      <LineId Id="864" Count="0" />
+      <LineId Id="880" Count="0" />
+      <LineId Id="883" Count="0" />
+      <LineId Id="881" Count="0" />
+      <LineId Id="762" Count="2" />
       <LineId Id="846" Count="0" />
       <LineId Id="766" Count="5" />
       <LineId Id="830" Count="0" />
@@ -75,7 +96,15 @@ FB_DRIVE_MOTORS();
       <LineId Id="829" Count="0" />
       <LineId Id="823" Count="0" />
       <LineId Id="772" Count="18" />
-      <LineId Id="793" Count="7" />
+      <LineId Id="798" Count="0" />
+      <LineId Id="905" Count="0" />
+      <LineId Id="917" Count="4" />
+      <LineId Id="916" Count="0" />
+      <LineId Id="799" Count="1" />
+      <LineId Id="901" Count="0" />
+      <LineId Id="925" Count="0" />
+      <LineId Id="922" Count="2" />
+      <LineId Id="902" Count="1" />
       <LineId Id="818" Count="0" />
       <LineId Id="580" Count="0" />
     </LineIds>

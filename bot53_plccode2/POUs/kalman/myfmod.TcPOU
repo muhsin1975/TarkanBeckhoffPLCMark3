@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="myfmod" Id="{a0b56290-3c9e-4706-85fe-f22bd031e29e}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION myfmod : LREAL
+VAR_INPUT
+	x,y:LREAL;
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[myfmod:=x-floor(x/y)*y;]]></ST>
+    </Implementation>
+    <LineIds Name="myfmod">
+      <LineId Id="7" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
