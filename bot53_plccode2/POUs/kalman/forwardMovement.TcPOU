@@ -42,7 +42,7 @@ END_VAR
   angForwardPosCommand := ATAN2(y2-PosFdbckY, x2-PosFdbckX)*180/PI;
 
 
-  IF(modeEnable = 5)THEN
+ IF(modeEnable = 5)THEN
     IF(idealAngle = 0 OR idealAngle = -90) THEN
       forwardMovement:= angForwardPosCommand - 180;
     else

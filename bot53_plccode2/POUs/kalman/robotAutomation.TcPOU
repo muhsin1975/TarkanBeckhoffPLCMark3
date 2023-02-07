@@ -21,21 +21,21 @@ END_VAR
       CASE userCommand OF
         1:  
           robot_state:=1;
-          AngPosCommand:=myFmod(idealAngle+90,360)-180;
+          AngPosCommand:=myfmod(idealAngle+90,360)-180;
           modeEnable:=1;
           robotdata.motion_status:=MOTION_ANGLE;
           xGoal:=PosFdbckX;
           yGoal:=PosFdbckY;      
          2:          //TURN LEFT
           robot_state:=2;
-          AngPosCommand:=myFmod(idealAngle-90,360)-180;
+          AngPosCommand:=myfmod(idealAngle-90,360)-180;
           modeEnable:=2;
           robotdata.motion_status:=MOTION_ANGLE;
           xGoal:=PosFdbckX;
           yGoal:=PosFdbckY;
          3:          //TURN BACK
           robot_state:=3;
-          AngPosCommand:=myFmod(idealAngle+180,360);
+          AngPosCommand:=myfmod(idealAngle+180,360);
           IF (AngPosCommand = 270) THEN
 			AngPosCommand := -90;
 			END_IF

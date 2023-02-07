@@ -18,7 +18,8 @@ angPosCommand:=180;
   angPosDiff:=angPosCommand-angPosFdbck;
   IF(abs(angPosDiff)>180) THEN
     angErrorCalc:= angPosDiff-mySign(angPosDiff)*360;
-	END_IF
+	RETURN;
+  END_IF
   angErrorCalc:= angPosDiff;]]></ST>
     </Implementation>
     <LineIds Name="angErrorCalc">
@@ -27,6 +28,7 @@ angPosCommand:=180;
       <LineId Id="10" Count="0" />
       <LineId Id="15" Count="1" />
       <LineId Id="11" Count="2" />
+      <LineId Id="26" Count="0" />
       <LineId Id="18" Count="0" />
       <LineId Id="7" Count="0" />
     </LineIds>

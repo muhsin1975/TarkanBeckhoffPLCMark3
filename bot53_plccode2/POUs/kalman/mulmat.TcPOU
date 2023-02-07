@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="mulmat" Id="{2c006719-3bb5-447b-9203-17ddbb2c6f67}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION mulmat : BOOL
+VAR_IN_OUT
+	a:ARRAY[*,*] OF LREAL;
+	b:ARRAY[*,*] OF LREAL;
+	c:ARRAY[*,*] OF LREAL;
+END_VAR
+VAR_INPUT
+	arows,acols,bcols:SINT;
+END_VAR
+VAR
+	i, j,l:SINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[FOR i:=0 TO arows-1 DO
+        FOR j:=0 TO bcols-1 DO 
+            c[i,j] := 0;
+            FOR l:=0 TO acols-1 DO
+                c[i,j] := c[i,j]+a[i,l] * b[l,j];
+			END_FOR
+		END_FOR
+END_FOR
+mulmat:=TRUE;			
+        	 ]]></ST>
+    </Implementation>
+    <LineIds Name="mulmat">
+      <LineId Id="15" Count="8" />
+      <LineId Id="7" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

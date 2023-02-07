@@ -9,7 +9,7 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[   IF(pf_x_angle_valid=1 AND pf_y_tag_valid=1) THEN 
+      <ST><![CDATA[   IF(pf_valid=1) THEN 
 	lastqrtagtime := F_GetSystemTime() ;
  // END_IF	
  // IF(raw_qr_tag<>0 AND ((robotdata.robot_direction MOD 2 =0 AND robotdata.qr_x<>0) OR (robotdata.robot_direction MOD 2 =1 AND robotdata.qr_y<>0))) THEN

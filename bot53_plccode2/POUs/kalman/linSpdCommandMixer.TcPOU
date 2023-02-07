@@ -12,17 +12,25 @@ END_VAR
     <Implementation>
       <ST><![CDATA[IF(modeEnable=0) THEN
     linSpdCommandMixer:= 0;
-  ELSIF(modeEnable=4  OR modeEnable = 5)THEN
+	return;
+ ELSIF(modeEnable=4  OR modeEnable = 5)THEN
     IF(ABS(linPosErr)<0.005) THEN
        linSpdCommandMixer:=  0;
+	   RETURN;
     else
        linSpdCommandMixer:=linMoveSpdCommand;   
-END_IF 
+	   RETURN;
+	END_IF 
   END_IF
-   linSpdCommandMixer:=  0; ]]></ST>
+  linSpdCommandMixer:=  0; ]]></ST>
     </Implementation>
     <LineIds Name="linSpdCommandMixer">
-      <LineId Id="10" Count="6" />
+      <LineId Id="10" Count="1" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="12" Count="2" />
+      <LineId Id="26" Count="0" />
+      <LineId Id="15" Count="1" />
+      <LineId Id="27" Count="0" />
       <LineId Id="18" Count="0" />
       <LineId Id="17" Count="0" />
       <LineId Id="7" Count="0" />

@@ -15,7 +15,7 @@ END_VAR
       <ST><![CDATA[ v_right_radsec:=((2*linSpdCommandShaped)+((angSpdCommand*PI/180)*ROBOT_RADIUS*2))/(2*WHEEL_RADIUS);
  rightMotorSpeedCommand:=LREAL_TO_DINT(ltrunc(v_right_radsec*60/(2*PI)*reducer_ratio));
   //printf("%ld-%ld,",v_right_radsec*60/(2*M_PI),*rightmtrspdcommand_rpm);
-  v_left_radsec:=((2*linSpdCommandShaped)-((angSpdCommand*PI/180)*reducer_ratio*2))/(2*wheel_radius);
+  v_left_radsec:=((2*linSpdCommandShaped)-((angSpdCommand*PI/180)*ROBOT_RADIUS*2))/(2*wheel_radius);
   leftMotorSpeedCommand:=LREAL_TO_DINT(LTRUNC(v_left_radsec*60/(2*PI)*reducer_ratio));]]></ST>
     </Implementation>
     <LineIds Name="kinematicSolution">

@@ -19,8 +19,8 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[    FOR i:=0 TO m DO
-        FOR j:=0TO n DO
+      <ST><![CDATA[    FOR i:=0 TO m-1 DO
+        FOR j:=0 TO n-1 DO
             c[i,j] := a[i,j]-b[i,j];
 			END_FOR
 			END_FOR

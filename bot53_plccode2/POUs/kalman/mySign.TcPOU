@@ -9,7 +9,7 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[ IF (a < 0) THEN mySign:= -1;
+      <ST><![CDATA[	IF (a < 0) THEN mySign:= -1;
     ELSIF (a>0) THEN mySign:= 1;
     ELSE mySign:= 0;
 	

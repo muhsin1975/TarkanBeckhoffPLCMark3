@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="transpose" Id="{c5ce8849-9b23-4721-a64c-567b73b2f772}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION transpose : BOOL
+VAR_IN_OUT
+	a,att:ARRAY[*,*] OF LREAL;
+END_VAR
+VAR_INPUT
+	m,n:SINT;
+END_VAR
+VAR
+	i,j:SINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+    FOR i:=0 TO m-1 DO 
+        FOR j:=0 TO n-1 DO 
+            att[j,i] := a[i,j];
+        END_FOR
+	END_FOR
+	transpose:=true;]]></ST>
+    </Implementation>
+    <LineIds Name="transpose">
+      <LineId Id="18" Count="3" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="22" Count="1" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -103,7 +103,7 @@ VAR_INPUT
 	pVlan	: POINTER TO ETYPE_VLAN_HEADER := 0;
 END_VAR
 VAR
-	receivedBytes:ARRAY[0..27]OF BYTE;
+	receivedBytes:ARRAY[0..9]OF BYTE;
 	fbTime:FB_LocalSystemTime;
 	 tStruct: TIMESTRUCT;
 	  msec: DINT;
@@ -115,17 +115,15 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[nReceivedPakets := nReceivedPakets+1;
-
+        <ST><![CDATA[
 
 IF ipUdp <> 0 THEN
 	
-	MEMCPY( ADR(robotdata.qr_x), pData, 8 );
-	MEMCPY( ADR(robotdata.qr_y), pData+8, 8 );
-	MEMCPY( ADR(robotdata.qr_angle), pData+16, 2 );
-	MEMCPY( ADR(raw_qr_tag), pData+18, 4 );
-	MEMCPY( ADR(pf_y_tag_valid), pData+22, 1 );
-	MEMCPY( ADR(pf_x_angle_valid), pData+23, 1 );
+	MEMCPY( ADR(robotdata.qr_x), pData, 2 );
+	MEMCPY( ADR(robotdata.qr_y), pData+2, 2 );
+	MEMCPY( ADR(robotdata.qr_angle), pData+4, 2 );
+	MEMCPY( ADR(raw_qr_tag), pData+6, 2 );
+	MEMCPY( ADR(pf_valid), pData+8, 1 );
 	fbTime(bEnable:=TRUE, dwCycle:=1, SystemTime=>tStruct);
 	msec := tStruct.wMilliseconds;
 	tStruct.wMilliseconds := 0;
@@ -214,12 +212,11 @@ METHOD TcRelease : UDINT
       <LineId Id="5" Count="0" />
     </LineIds>
     <LineIds Name="FB_CanReceiver.ReceiveData">
-      <LineId Id="34" Count="3" />
+      <LineId Id="35" Count="2" />
       <LineId Id="136" Count="0" />
       <LineId Id="144" Count="0" />
       <LineId Id="57" Count="0" />
       <LineId Id="77" Count="1" />
-      <LineId Id="171" Count="0" />
       <LineId Id="198" Count="0" />
       <LineId Id="101" Count="0" />
       <LineId Id="103" Count="1" />

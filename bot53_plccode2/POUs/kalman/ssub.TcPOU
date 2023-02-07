@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="ssub" Id="{f7967b3c-d64b-4446-9fdc-053328cafd36}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION ssub : BOOL
+VAR_IN_OUT
+	a,b,c:ARRAY[*,*] OF LREAL;
+END_VAR
+VAR_INPUT
+	n:SINT;
+END_VAR
+VAR
+	j:SINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[FOR j:=0 TO n-1 DO 
+        c[0,j] := a[0,j] - b[0,j];
+	END_FOR
+	ssub:=true;]]></ST>
+    </Implementation>
+    <LineIds Name="ssub">
+      <LineId Id="16" Count="0" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="18" Count="1" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

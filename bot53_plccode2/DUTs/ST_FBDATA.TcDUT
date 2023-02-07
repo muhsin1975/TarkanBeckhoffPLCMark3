@@ -16,9 +16,9 @@ STRUCT
 	batterySOC:INT:=90;
 	batteryCurrentCons:LREAL;
 	batteryErrorFlag:INT;
-	qr_tag:DINT:=0;
-	qr_x:LREAL;
-	qr_y:LREAL;
+	qr_tag:INT:=0;
+	qr_x:INT;
+	qr_y:INT;
 	qr_angle:INT;
 	qr_yaw:LREAL:=0;
 	imu_state:ST_IMU_STATE;

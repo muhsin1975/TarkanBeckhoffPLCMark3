@@ -22,12 +22,15 @@ END_VAR
       // if (sqrt( ((xGoal-posFdbckX)*(xGoal-posFdbckX))+ ((yGoal-posFdbckY)*(yGoal-posFdbckY)) ) < 0.015)
       IF(ABS(linPosErr) < 0.005) THEN
           linPosErrGenerator:= 1;
+		  return;
 		  END_IF
 		  END_IF
   linPosErrGenerator:= 0 ;   ]]></ST>
     </Implementation>
     <LineIds Name="linPosErrGenerator">
-      <LineId Id="12" Count="13" />
+      <LineId Id="12" Count="11" />
+      <LineId Id="33" Count="0" />
+      <LineId Id="24" Count="1" />
       <LineId Id="7" Count="0" />
     </LineIds>
   </POU>

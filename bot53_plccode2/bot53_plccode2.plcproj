@@ -65,6 +65,9 @@
     <Compile Include="POUs\FB_Mqtt.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\kalman\accum.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\kalman\angErrorCalc.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -117,6 +120,9 @@
     <Compile Include="POUs\kalman\localization.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\kalman\mulmat.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\kalman\myfmod.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -129,7 +135,13 @@
     <Compile Include="POUs\kalman\setIdealAngle.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\kalman\ssub.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\kalman\sub_mat.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\kalman\transpose.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\MAIN.TcPOU">

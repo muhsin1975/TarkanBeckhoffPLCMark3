@@ -7,24 +7,25 @@ END_VAR
 VAR_OUTPUT
 END_VAR
 VAR
-	rightMtrFdbck:LREAL;
+	rightMtrFdbck,leftMtrFdbck:LREAL;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[  //linSpdFdbckRobot := (rightWheelFdbck+leftWheelFdbck)*2*M_PI/60*g_app_config->wheel_radius/2;
-  linSpdFdbckRobot := robotdata.encoder_v;
-  //angSpdFdbckRobot = ((rightWheelFdbck-leftWheelFdbck)*2*M_PI/60*g_app_config->wheel_radius/(2*g_app_config->robot_radius))*180/M_PI; // (Vr-Vl)*2*pi/60*R/L*180/pi
-  angSpdFdbckRobot:=robotdata.encoder_omega*180/PI;
+      <ST><![CDATA[ rightWheelFdbck:=-1 * robotdata.Position_Velocity.Locomotion_2_actual_velocity/reducer_ratio;
+  leftWheelFdbck := robotdata.Position_Velocity.Locomotion_1_actual_velocity/reducer_ratio;
+  linSpdFdbckRobot := (rightWheelFdbck+leftWheelFdbck)*2*PI/60*wheel_radius/2;
+  angPosFdbckRobot := angPosFdbckRobot + (angSpdFdbckRobot+angSpdFdbckRobot_)/2*PLC_CYCLE;
   angPosFdbckRobot := angPosFdbckRobot + (angSpdFdbckRobot+angSpdFdbckRobot_)/2*PLC_CYCLE;
   angPosFdbckRobot_Abs:=angPosFdbckRobot_Abs + (angSpdFdbckRobot+angSpdFdbckRobot_)/2*PLC_CYCLE;
   angSpdFdbckRobot_ := angSpdFdbckRobot;
     
-  angPosFdbckRobot:= myFmod(angPosFdbckRobot,360);]]></ST>
+  angPosFdbckRobot:= myfmod(angPosFdbckRobot,360);]]></ST>
     </Implementation>
     <LineIds Name="localization">
       <LineId Id="15" Count="0" />
-      <LineId Id="23" Count="0" />
-      <LineId Id="16" Count="5" />
+      <LineId Id="34" Count="0" />
+      <LineId Id="32" Count="0" />
+      <LineId Id="17" Count="4" />
       <LineId Id="9" Count="0" />
     </LineIds>
   </POU>

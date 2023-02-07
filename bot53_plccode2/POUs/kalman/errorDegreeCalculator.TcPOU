@@ -17,7 +17,8 @@ END_VAR
 	in2BigMapped := in2BigMapped - 360;
 	END_IF
   angPosDiff := in1BigMapped - in2BigMapped;
-  IF (ABS(angPosDiff) > 180) THEN  errorDegreeCalculator:= angPosDiff - (mySign(angPosDiff) * 360);
+  IF (ABS(angPosDiff) > 180) THEN  
+	errorDegreeCalculator:= angPosDiff - (mySign(angPosDiff) * 360);
   ELSE 
 	errorDegreeCalculator:= angPosDiff;
 	end_if]]></ST>
@@ -28,6 +29,7 @@ END_VAR
       <LineId Id="11" Count="0" />
       <LineId Id="16" Count="1" />
       <LineId Id="12" Count="1" />
+      <LineId Id="27" Count="0" />
       <LineId Id="7" Count="0" />
       <LineId Id="18" Count="1" />
     </LineIds>

@@ -7,7 +7,8 @@
 VAR
 	FB_SET_ENCODER_ODEOMETRY:set_encoder_odeometry();
 	FB_DRIVE_MOTORS:DriveMotors();
-
+	gyroZSum:LREAL:=0;
+	accXSum:LREAL:=0;
 	FB_CONTROLLER:motion_controller;
 	dontcontinue:BOOL:=FALSE;
 	currtime:ULINT;
@@ -22,14 +23,24 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[//LATE/ERROR KONTROLÜ
-IF CONTROLLER_TYPE=1 AND NOT KALMAN_INITIALIZED AND pf_x_angle_valid=1 AND pf_y_tag_valid=1 THEN
+IF(calibrationCount<500) THEN
+      gyroZSum:=gyroZSum+robotdata.imu_state.hr_gyro_z;
+      accXSum:=accXSum+robotdata.imu_state.hr_acc_x;
+      calibrationCount:=calibrationCount+1;
+ELSIF (calibrationCount=500)THEN
+      gyroZmean:=gyroZSum/500;
+      accXmean:=accXSum/500;
+      calibrationCount:=calibrationCount+1;
+    END_IF
+	
+IF CONTROLLER_TYPE=1 AND NOT KALMAN_INITIALIZED AND pf_valid=1 THEN
 	fb_kalmaninit();
 	KALMAN_INITIALIZED:=TRUE;
 END_IF
 robotdata.batteryVoltage:=DINT_TO_REAL(batteryVoltageINT)/1000;
 currtime:=F_GetSystemTime() ;
 datediff:=(currtime/10000)-ads_lasttime;
-IF (currtime-lastqrtime > NO_QR_TIMEOUT OR (pf_x_angle_valid=1 AND robotdata.qr_x=0 AND  robotdata.qr_angle=0) AND (pf_y_tag_valid=1 AND raw_qr_tag=0 AND robotdata.qr_y=0)) AND robotdata.motion_status=MOTION_ENDED THEN
+IF (currtime-lastqrtime > NO_QR_TIMEOUT OR (pf_valid=1 AND robotdata.qr_x=0 AND  robotdata.qr_angle=0 AND raw_qr_tag=0 AND robotdata.qr_y=0)) AND robotdata.motion_status=MOTION_ENDED THEN
 	robotdata.motion_status:=QRCAM_ERROR;
 	robotdata.activestate:=QRCAM_ERROR;
 ELSIF currtime-lastqrtime < NO_QR_TIMEOUT  AND robotdata.motion_status=QRCAM_ERROR THEN
@@ -63,7 +74,7 @@ robotdata.imux_rel:=robotdata.imu_state.imu_x-LREAL_TO_DINT(robotdata.imu_state.
 robotdata.imuy_rel:=robotdata.imu_state.imu_y-LREAL_TO_DINT(robotdata.imu_state.imu_y);
 
 IF(CONTROLLER_TYPE=0)THEN
-	IF(pf_x_angle_valid=0 OR pf_y_tag_valid=0)THEN
+	IF(pf_valid=0)THEN
 		robotdata.robot_x:=robotdata.encoder_x;
 		robotdata.robot_y:=robotdata.encoder_y;
 		robotdata.robot_yaw:=robotdata.imu_state.imu_euler;
@@ -83,6 +94,10 @@ END_IF
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="761" Count="0" />
+      <LineId Id="945" Count="3" />
+      <LineId Id="951" Count="3" />
+      <LineId Id="944" Count="0" />
+      <LineId Id="955" Count="0" />
       <LineId Id="864" Count="0" />
       <LineId Id="880" Count="0" />
       <LineId Id="883" Count="0" />

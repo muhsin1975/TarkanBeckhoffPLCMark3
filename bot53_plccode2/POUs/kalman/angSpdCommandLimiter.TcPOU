@@ -27,12 +27,14 @@ IF(angSpdCommandShaped >= 40) THEN
  END_IF
 IF(angSpdCommandShaped <= -40) THEN
  angSpdCommandShaped:= -40;
- END_IF]]></ST>
+ END_IF
+ angSpdCommandLimiter:=0;]]></ST>
     </Implementation>
     <LineIds Name="angSpdCommandLimiter">
       <LineId Id="9" Count="14" />
       <LineId Id="7" Count="0" />
       <LineId Id="24" Count="1" />
+      <LineId Id="33" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

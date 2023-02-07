@@ -69,7 +69,12 @@ IF(fbJsonDataType.SetSymbolFromJson(sPayloadRcv, 'ST_COMMAND', SIZEOF(st_command
 		robotdata.controller:=ABS(robotdata.controller-1);
 		st_command.command:=0;
 		robotdata.activeState:=CONT_TOGGLE_ENDED;
+	COMMAND_SET_MOTIONLIMITS:
+		ACCELERATION_LIMIT:=st_command.acc;
+		JERK_LIMIT:=st_command.jerk;
+		SPEED_LIMIT:=st_command.spd;
 	END_CASE
+	
 CASE st_command.command OF
 	3:
     	forwardCommand:=st_command.distance;
@@ -104,7 +109,9 @@ OnMqttMessage := S_OK;]]></ST>
       <LineId Id="95" Count="0" />
       <LineId Id="97" Count="1" />
       <LineId Id="118" Count="0" />
+      <LineId Id="267" Count="3" />
       <LineId Id="94" Count="0" />
+      <LineId Id="266" Count="0" />
       <LineId Id="237" Count="0" />
       <LineId Id="240" Count="1" />
       <LineId Id="238" Count="0" />

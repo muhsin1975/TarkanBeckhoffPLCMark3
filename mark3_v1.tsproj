@@ -772,11 +772,14 @@
 				<Task Id="5" Priority="3" CycleTime="20000" AmsPort="352" AdtTasks="true">
 					<Name>PlcTask</Name>
 				</Task>
+				<Task Id="6" Disabled="true" Priority="4" CycleTime="100000" AmsPort="353" AdtTasks="true">
+					<Name>kalmanTask</Name>
+				</Task>
 			</Tasks>
 		</System>
 		<Plc>
 			<Project GUID="{8A670E50-189C-4F79-ADC2-9034F773F334}" Name="bot53_plccode2" PrjFilePath="bot53_plccode2\bot53_plccode2.plcproj" TmcFilePath="bot53_plccode2\bot53_plccode2.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="bot53_plccode2\bot53_plccode2.tmc" TmcHash="{CB57F736-19D6-388D-3917-3476445B21BB}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="bot53_plccode2\bot53_plccode2.tmc" TmcHash="{277A9A70-5504-30ED-AB69-50468E4039AB}">
 					<Name>bot53_plccode2 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1" ContextId="1" AreaNo="16">
@@ -832,10 +835,6 @@
 							<Type>UDINT</Type>
 						</Var>
 						<Var>
-							<Name>GVL.Locomotion_1_error_state_1</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
 							<Name>GVL.robotdata.motorError</Name>
 							<Type GUID="{E1E90A9D-2E34-1B23-BC03-A5D169C28CE9}">ARRAY [0..3] OF INT</Type>
 						</Var>
@@ -852,6 +851,10 @@
 							<Type>DINT</Type>
 						</Var>
 						<Var>
+							<Name>GVL.Locomotion_1_error_state_1</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
 							<Name>GVL.Locomotion_1_error_state_2</Name>
 							<Type>UINT</Type>
 						</Var>
@@ -862,6 +865,10 @@
 						<Var>
 							<Name>GVL.Locomotion_1_modesOfOperationDisplay</Name>
 							<Type>SINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.Locomotion_1_actual_pos</Name>
+							<Type>DINT</Type>
 						</Var>
 						<Var>
 							<Name>GVL.Locomotion_2_error_state_1</Name>
@@ -878,6 +885,10 @@
 						<Var>
 							<Name>GVL.Locomotion_2_modesOfOperationDisplay</Name>
 							<Type>SINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.Locomotion_2_actual_pos</Name>
+							<Type>DINT</Type>
 						</Var>
 						<Var>
 							<Name>GVL.Rotator_error_state_1</Name>
@@ -2565,7 +2576,9 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 		</Io>
 	</Project>
 	<Mappings>
+		<MappingInfo Identifier="{00000000-2002-0850-0220-500811000403}" Id="#x02030030"/>
 		<MappingInfo Identifier="{00000000-2003-0850-0120-500820000403}" Id="#x02030010"/>
+		<MappingInfo Identifier="{08502002-0020-0304-0020-500820000403}" Id="#x02030020" Watchdog="00000000000000000000000000000000"/>
 		<OwnerA Name="TIPC^bot53_plccode2^bot53_plccode2 Instance">
 			<OwnerB Name="TIID^Device 3 (EtherCAT)^Lifter_Driver">
 				<Link VarA="MqttTask Inputs^GVL.robotdata.Position_Velocity.Lifter_position_actual_value" VarB="TxPDO Mapping 1^Position actual value"/>
@@ -2580,6 +2593,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 			<OwnerB Name="TIID^Device 3 (EtherCAT)^Locomotion_L">
 				<Link VarA="MqttTask Outputs^GVL.robotdata.Position_Velocity.Locomotion_1_target_velocity" VarB="RxPDO Mapping 1^Target velocity"/>
 				<Link VarA="MqttTask Outputs^GVL.robotdata.motorCword[1]" VarB="RxPDO Mapping 1^Controlword"/>
+				<Link VarA="PlcTask Inputs^GVL.Locomotion_1_actual_pos" VarB="TxPDO Mapping 1^Position actual value"/>
 				<Link VarA="PlcTask Inputs^GVL.Locomotion_1_modesOfOperationDisplay" VarB="TxPDO Mapping 1^Modes of operation display"/>
 				<Link VarA="PlcTask Inputs^GVL.robotdata.Position_Velocity.Locomotion_1_actual_velocity" VarB="TxPDO Mapping 1^Velocity actual value"/>
 				<Link VarA="PlcTask Inputs^GVL.robotdata.motorError[1]" VarB="TxPDO Mapping 1^Error code"/>
@@ -2588,6 +2602,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 			<OwnerB Name="TIID^Device 3 (EtherCAT)^Locomotion_R">
 				<Link VarA="MqttTask Outputs^GVL.robotdata.Position_Velocity.Locomotion_2_target_velocity" VarB="RxPDO Mapping 1^Target velocity"/>
 				<Link VarA="MqttTask Outputs^GVL.robotdata.motorCword[0]" VarB="RxPDO Mapping 1^Controlword"/>
+				<Link VarA="PlcTask Inputs^GVL.Locomotion_2_actual_pos" VarB="TxPDO Mapping 1^Position actual value"/>
 				<Link VarA="PlcTask Inputs^GVL.Locomotion_2_modesOfOperationDisplay" VarB="TxPDO Mapping 1^Modes of operation display"/>
 				<Link VarA="PlcTask Inputs^GVL.robotdata.Position_Velocity.Locomotion_2_actual_velocity" VarB="TxPDO Mapping 1^Velocity actual value"/>
 				<Link VarA="PlcTask Inputs^GVL.robotdata.motorError[0]" VarB="TxPDO Mapping 1^Error code"/>

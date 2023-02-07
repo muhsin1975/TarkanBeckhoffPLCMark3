@@ -3,8 +3,7 @@
   <POU Name="set_encoder_odeometry" Id="{61cff9ce-dc0e-4274-bf88-1480d24803a1}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC set_encoder_odeometry
 VAR
-	slave0_speed:LREAL;
-	slave1_speed:LREAL;
+	
 	current_x_state:LREAL;
 	current_y_state:LREAL;
 	radius:LREAL;

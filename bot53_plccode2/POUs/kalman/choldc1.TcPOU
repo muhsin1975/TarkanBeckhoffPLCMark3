@@ -4,7 +4,7 @@
     <Declaration><![CDATA[FUNCTION choldc1 : INT
 VAR_IN_OUT
 	a:ARRAY[*,*] OF LREAL;
-	p:ARRAY[*,*] OF LREAL;
+	p:ARRAY[*] OF LREAL;
 	
 END_VAR
 VAR_INPUT
@@ -16,21 +16,22 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[FOR i := 0 TO n DO
-            FOR j := i TO n DO
+      <ST><![CDATA[FOR i := 0 TO n-1 DO
+            FOR j := i TO n-1 DO
               sum := a[i,j];
-              FOR k := i - 1 TO -1 BY -1 DO
-                sum := sum - a[i,k] * a[j,k];
+              FOR k := i - 1 TO 0 BY -1 DO
+                sum := sum - (a[i,k] * a[j,k]);
 	      	  END_FOR
               IF (i = j) THEN
                 IF (sum <= 0) THEN
                   choldc1:=1;
+				  return;
 				  END_IF
 		
-                p[i,0] := SQRT(sum);
+                p[i] := SQRT(sum);
 	     
               ELSE 
-                a[j,i] := sum / p[i,0];
+                a[j,i] := sum / p[i];
 	      END_IF
 	    END_FOR
 	  END_FOR
@@ -38,6 +39,7 @@ END_VAR
     </Implementation>
     <LineIds Name="choldc1">
       <LineId Id="43" Count="8" />
+      <LineId Id="74" Count="0" />
       <LineId Id="59" Count="0" />
       <LineId Id="52" Count="6" />
       <LineId Id="29" Count="0" />
