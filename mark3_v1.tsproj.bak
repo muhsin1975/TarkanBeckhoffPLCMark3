@@ -779,7 +779,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{8A670E50-189C-4F79-ADC2-9034F773F334}" Name="bot53_plccode2" PrjFilePath="bot53_plccode2\bot53_plccode2.plcproj" TmcFilePath="bot53_plccode2\bot53_plccode2.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="bot53_plccode2\bot53_plccode2.tmc" TmcHash="{D8812153-7FE8-2C83-5251-4D5A8FA4E5C1}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="bot53_plccode2\bot53_plccode2.tmc" TmcHash="{70F3135C-CB79-0718-71E0-453CD36CE9AB}">
 					<Name>bot53_plccode2 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1" ContextId="1" AreaNo="16">
@@ -833,6 +833,22 @@
 						<Var>
 							<Name>GVL.batteryVoltageINT</Name>
 							<Type>UDINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.robotdata.motorError</Name>
+							<Type GUID="{E1E90A9D-2E34-1B23-BC03-A5D169C28CE9}">ARRAY [0..3] OF INT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.robotdata.lifterDistance</Name>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.robotdata.Position_Velocity.Locomotion_1_actual_velocity</Name>
+							<Type>DINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.robotdata.Position_Velocity.Locomotion_2_actual_velocity</Name>
+							<Type>DINT</Type>
 						</Var>
 						<Var>
 							<Name>GVL.Locomotion_1_error_state_1</Name>
@@ -905,22 +921,6 @@
 						<Var>
 							<Name>GVL.Lifter_modesOfOperationDisplay</Name>
 							<Type>SINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL.robotdata.motorError</Name>
-							<Type GUID="{E1E90A9D-2E34-1B23-BC03-A5D169C28CE9}">ARRAY [0..3] OF INT</Type>
-						</Var>
-						<Var>
-							<Name>GVL.robotdata.lifterDistance</Name>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>GVL.robotdata.Position_Velocity.Locomotion_1_actual_velocity</Name>
-							<Type>DINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL.robotdata.Position_Velocity.Locomotion_2_actual_velocity</Name>
-							<Type>DINT</Type>
 						</Var>
 					</Vars>
 					<Vars VarGrpType="2" ContextId="2" AreaNo="33">

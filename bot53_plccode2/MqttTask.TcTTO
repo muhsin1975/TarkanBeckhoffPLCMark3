@@ -7,6 +7,9 @@
     <PouCall>
       <Name>MqttPrg</Name>
     </PouCall>
+    <PouCall>
+      <Name>robotAutomation</Name>
+    </PouCall>
     <TaskFBGuid>{0ff43433-47c8-4059-ae3d-d1285ec6a73a}</TaskFBGuid>
     <Fb_init>{96461a61-9ae7-4ea8-b916-c621c446a566}</Fb_init>
     <Fb_exit>{be638d6e-a243-4f11-a485-c5e3ab646abf}</Fb_exit>

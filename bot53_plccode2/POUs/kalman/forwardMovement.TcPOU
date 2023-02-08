@@ -21,20 +21,20 @@ END_VAR
   IF (idealAngle=0 OR idealAngle=180 OR idealAngle=-180)THEN // Horizontal Solution
     IF ( modeEnable = 5)THEN
       x2 := PosFdbckX - rot[0][0] * dist;
-      y2 := LTRUNC(PosFdbckY) - rot[1][0]*dist;
+      y2 := LREAL_TO_INT(PosFdbckY) - rot[1][0]*dist;
     
     ELSE
       x2 := PosFdbckX + rot[0][0] * dist;
-      y2 := LTRUNC(PosFdbckY)+rot[1][0]*dist;
+      y2 := LREAL_TO_INT(PosFdbckY)+rot[1][0]*dist;
     END_IF
   
   ELSE // Vertical Solution
     IF(modeEnable = 5)THEN
-      x2 := LTRUNC(PosFdbckX)  - rot[0][0] *dist;
+      x2 := LREAL_TO_INT(PosFdbckX)  - rot[0][0] *dist;
       y2 := PosFdbckY - rot[1][0]*dist;
     
     ELSE 
-      x2 := LTRUNC(PosFdbckX) + rot[0][0] *dist;
+      x2 := LREAL_TO_INT(PosFdbckX) + rot[0][0] *dist;
       y2 := PosFdbckY+rot[1][0]*dist;
     END_IF
   END_IF

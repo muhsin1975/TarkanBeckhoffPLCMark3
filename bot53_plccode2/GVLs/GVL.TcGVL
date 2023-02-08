@@ -127,8 +127,8 @@ SPEED_LIMIT:LREAL:=LREAL#1.5;
 	calibrationCount:INT:=0;
 	gyroZmean:LREAL:=0;
 	accXmean:LREAL:=0; 
-	PosFdbckX:LREAL:=0;
-	PosFdbckY:LREAL:=0;
+	PosFdbckX,PosFdbckX_Rel:LREAL:=0;
+	PosFdbckY,PosFdbckY_Rel:LREAL:=0;
 	ThetaFdbck:LREAL:=0;
 	xStart:LREAL:=0;
 	yStart:LREAL:=0;
@@ -182,7 +182,7 @@ SPEED_LIMIT:LREAL:=LREAL#1.5;
 
 //******************KALMAN VARIABLES**********************************************
 
-	CONTROLLER_TYPE:BYTE:=0;
+	CONTROLLER_TYPE:BYTE:=1;
 	KALMAN_INITIALIZED:BOOL:=FALSE;
 	Y_DEV_THRESHOLD:LREAL:=0.005;
 	PF_OFFSET:LREAL:=-0.4;
@@ -199,6 +199,7 @@ SPEED_LIMIT:LREAL:=LREAL#1.5;
       stabilization_yaw_deg:LREAL;
     winnerEvaluated:BOOL:=FALSE;
     imuXwins:BOOL:=FALSE;
+	imuAngwins:BOOL:=FALSE;
     lastqrtime:ULINT;
 	lastqrtagtime:ULINT;
     controller_coeff:LREAL;

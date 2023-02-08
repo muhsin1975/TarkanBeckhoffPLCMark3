@@ -47,8 +47,8 @@ END_VAR
         4:           //FORWARD   
           robot_state:=4;
           robotdata.motion_status:=MOTION_ONGOING;
-          xStart:=ltrunc(PosFdbckX);
-          yStart:=ltrunc(PosFdbckY);
+          xStart:=LREAL_TO_INT(PosFdbckX);
+          yStart:=LREAL_TO_INT(PosFdbckY);
           xGoal:=xStart+COS(idealAngle*PI/180) * forwardCommand;
           yGoal:=yStart+SIN(idealAngle*PI/180) * forwardCommand;
           IF (xGoal >= 7) THEN
@@ -69,8 +69,8 @@ END_VAR
         5: // BACKWARD
           robot_state:=5;
           robotdata.motion_status:=MOTION_ONGOING;
-          xStart:=ltrunc(PosFdbckX);
-          yStart:=ltrunc(PosFdbckY);
+          xStart:=LREAL_TO_INT(PosFdbckX);
+          yStart:=LREAL_TO_INT(PosFdbckY);
           xGoal:=xStart - COS(idealAngle*PI/180) * forwardCommand;
           yGoal:=yStart - SIN(idealAngle*PI/180) * forwardCommand;
           IF (xGoal >= 7) THEN xGoal := 7; END_IF

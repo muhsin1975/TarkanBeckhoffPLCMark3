@@ -36,6 +36,12 @@ END_VAR
     robotdata.qr_yaw :=  LMOD((-robotdata.qr_angle * 0.1-PF_OFFSET) * PI / 180.0+(2*PI) , (2*PI));
     robotdata.robot_x := (grid_x * GRID_DIM) + (robotdata.qr_x / 1000.0) + (robotdata.encoder_v * COS(robotdata.qr_yaw) * PLC_CYCLE ); //the constant at the end is based on the latency of the camera
     robotdata.robot_yaw:=robotdata.qr_yaw;
+    IF(  NOT winnerEvaluated AND ABS(LMOD(robotdata.imu_state.imu_euler + 2*PI,2*PI)- robotdata.qr_yaw)<ABS(LMOD(robotdata.encoder_yaw + 2*PI,2*PI)-robotdata.qr_yaw)) THEN
+      imuAngwins:=TRUE;
+    ELSIF( NOT winnerEvaluated AND  ABS(LMOD(robotdata.imu_state.imu_euler + 2*PI,2*PI)- robotdata.qr_yaw)>ABS(LMOD(robotdata.encoder_yaw + 2*PI,2*PI)-robotdata.qr_yaw)) THEN
+      imuAngwins:=FALSE;
+    END_IF
+	  
     IF(  NOT winnerEvaluated AND ABS(robotdata.imux_rel-(robotdata.qr_x / 1000.0))<ABS(robotdata.encoderx_rel-(robotdata.qr_x / 1000.0))) THEN
       imuXwins:=TRUE;
     ELSIF( NOT winnerEvaluated AND ABS(robotdata.imux_rel-(robotdata.qr_x / 1000.0))>ABS(robotdata.encoderx_rel-(robotdata.qr_x / 1000.0))) THEN
@@ -83,7 +89,11 @@ END_VAR
       <LineId Id="115" Count="0" />
       <LineId Id="155" Count="0" />
       <LineId Id="154" Count="0" />
-      <LineId Id="74" Count="1" />
+      <LineId Id="74" Count="0" />
+      <LineId Id="218" Count="3" />
+      <LineId Id="216" Count="0" />
+      <LineId Id="222" Count="0" />
+      <LineId Id="75" Count="0" />
       <LineId Id="77" Count="2" />
       <LineId Id="117" Count="0" />
       <LineId Id="83" Count="0" />

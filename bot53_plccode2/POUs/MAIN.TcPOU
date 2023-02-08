@@ -70,6 +70,8 @@ FB_SET_ENCODER_ODEOMETRY();
 
 robotdata.encoderx_rel:=robotdata.encoder_x-LREAL_TO_DINT(robotdata.encoder_x);
 robotdata.encodery_rel:=robotdata.encoder_y-LREAL_TO_DINT(robotdata.encoder_y);
+PosFdbckX_Rel:=PosFdbckX-LREAL_TO_DINT(PosFdbckX);
+PosFdbckY_Rel:=PosFdbckY-LREAL_TO_DINT(PosFdbckY);
 robotdata.imux_rel:=robotdata.imu_state.imu_x-LREAL_TO_DINT(robotdata.imu_state.imu_x);
 robotdata.imuy_rel:=robotdata.imu_state.imu_y-LREAL_TO_DINT(robotdata.imu_state.imu_y);
 
@@ -110,7 +112,9 @@ END_IF
       <LineId Id="826" Count="1" />
       <LineId Id="829" Count="0" />
       <LineId Id="823" Count="0" />
-      <LineId Id="772" Count="18" />
+      <LineId Id="772" Count="16" />
+      <LineId Id="977" Count="1" />
+      <LineId Id="789" Count="1" />
       <LineId Id="798" Count="0" />
       <LineId Id="905" Count="0" />
       <LineId Id="917" Count="4" />
