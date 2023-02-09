@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="set_imu_odeometry" Id="{0ffc395a-db63-4236-a6b5-27a2e592800e}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION set_imu_odeometry : BOOL
+VAR_INPUT
+END_VAR
+VAR
+	rr,icc_x,icc_y,current_y_state,current_x_state:LREAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[current_x_state := robotdata.imu_state.imu_x;
+current_y_state := robotdata.imu_state.imu_y;
+IF (robotdata.imu_state.gyro_z = 0) THEN 
+	robotdata.imu_state.gyro_z := 0.0000000000001;
+END_IF
+			rr := robotdata.encoder_v / robotdata.imu_state.gyro_z;
+			icc_x :=  robotdata.imu_state.imu_x - (rr * SIN(robotdata.imu_state.imu_euler)); //instantaneous center of curvature
+			icc_y := robotdata.imu_state.imu_y + (rr * COS(robotdata.imu_state.imu_euler)); // --
+			 IF(pf_valid=0)THEN
+			robotdata.imu_state.imu_x := ((current_x_state - icc_x) * COS(robotdata.imu_state.gyro_z * robotdata.imu_state.timediff)) - (current_y_state - icc_y) * SIN(robotdata.imu_state.gyro_z * robotdata.imu_state.timediff) + icc_x;
+			robotdata.imu_state.imu_y := ((current_x_state - icc_x) * SIN(robotdata.imu_state.gyro_z * robotdata.imu_state.timediff)) + (current_y_state - icc_y) * COS(robotdata.imu_state.gyro_z * robotdata.imu_state.timediff) + icc_y;
+			END_IF
+			IF (ABS(robotdata.imu_state.gyro_z * robotdata.imu_state.timediff) > 0.00001)  THEN
+				robotdata.imu_state.imu_euler := robotdata.imu_state.imu_euler + ((robotdata.imu_state.euler_yaw - imu_euler_prev) * PI / 180);
+				imu_euler_prev := robotdata.imu_state.euler_yaw;
+				//imu_euler=fmod((imu_euler+hr_gyro_z * timediff)+(2*M_PI), 2*M_PI);
+			END_IF
+set_imu_odeometry:=TRUE;]]></ST>
+    </Implementation>
+    <LineIds Name="set_imu_odeometry">
+      <LineId Id="8" Count="2" />
+      <LineId Id="24" Count="1" />
+      <LineId Id="11" Count="2" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="14" Count="1" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="19" Count="0" />
+      <LineId Id="21" Count="1" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="27" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

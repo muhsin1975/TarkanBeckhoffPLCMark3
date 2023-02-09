@@ -162,6 +162,9 @@
     <Compile Include="POUs\set_encoder_odeometry.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\set_imu_odeometry.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\set_qr_info.TcPOU">
       <SubType>Code</SubType>
     </Compile>

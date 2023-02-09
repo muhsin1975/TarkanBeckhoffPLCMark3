@@ -772,14 +772,11 @@
 				<Task Id="5" Priority="3" CycleTime="20000" AmsPort="352" AdtTasks="true">
 					<Name>PlcTask</Name>
 				</Task>
-				<Task Id="6" Disabled="true" Priority="4" CycleTime="100000" AmsPort="353" AdtTasks="true">
-					<Name>kalmanTask</Name>
-				</Task>
 			</Tasks>
 		</System>
 		<Plc>
 			<Project GUID="{8A670E50-189C-4F79-ADC2-9034F773F334}" Name="bot53_plccode2" PrjFilePath="bot53_plccode2\bot53_plccode2.plcproj" TmcFilePath="bot53_plccode2\bot53_plccode2.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="bot53_plccode2\bot53_plccode2.tmc" TmcHash="{70F3135C-CB79-0718-71E0-453CD36CE9AB}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="bot53_plccode2\bot53_plccode2.tmc" TmcHash="{8BF09585-6AC1-A87E-A276-F4890F25D809}">
 					<Name>bot53_plccode2 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1" ContextId="1" AreaNo="16">
@@ -831,10 +828,6 @@
 					<Vars VarGrpType="1" ContextId="2" AreaNo="32">
 						<Name>PlcTask Inputs</Name>
 						<Var>
-							<Name>GVL.batteryVoltageINT</Name>
-							<Type>UDINT</Type>
-						</Var>
-						<Var>
 							<Name>GVL.robotdata.motorError</Name>
 							<Type GUID="{E1E90A9D-2E34-1B23-BC03-A5D169C28CE9}">ARRAY [0..3] OF INT</Type>
 						</Var>
@@ -849,6 +842,10 @@
 						<Var>
 							<Name>GVL.robotdata.Position_Velocity.Locomotion_2_actual_velocity</Name>
 							<Type>DINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.batteryVoltageINT</Name>
+							<Type>UDINT</Type>
 						</Var>
 						<Var>
 							<Name>GVL.Locomotion_1_error_state_1</Name>

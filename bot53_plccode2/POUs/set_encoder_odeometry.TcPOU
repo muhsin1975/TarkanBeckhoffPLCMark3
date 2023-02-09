@@ -31,11 +31,11 @@ END_VAR
 		radius:= (ROBOT_RADIUS) * (slave1_speed + slave0_speed) / (slave1_speed - slave0_speed);
 		icc_x := robotdata.encoder_x - (radius * SIN(robotdata.encoder_yaw)); //ICC
 		icc_y := robotdata.encoder_y + (radius * COS(robotdata.encoder_yaw)); //ICC
-		 IF(raw_qr_tag=0)THEN
+		 IF(pf_valid=0)THEN
 			robotdata.encoder_x := ((current_x_state - icc_x) * COS(robotdata.encoder_omega * GVL.PLC_CYCLE)) - (current_y_state - icc_y) * SIN(robotdata.encoder_omega * PLC_CYCLE) + icc_x;
 			robotdata.encoder_y := ((current_x_state - icc_x) * SIN(robotdata.encoder_omega * GVL.PLC_CYCLE)) + (current_y_state - icc_y) * COS(robotdata.encoder_omega * PLC_CYCLE) + icc_y;
 		END_IF
-		IF(raw_qr_tag<>0 AND  robotdata.qr_angle<>0)THEN
+		IF(pf_valid=1)THEN
 			robotdata.encoder_yaw := robotdata.qr_yaw;
 		ELSE
 		robotdata.encoder_yaw := robotdata.encoder_yaw + (robotdata.encoder_omega * PLC_CYCLE); //heading

@@ -10,6 +10,8 @@ STRUCT
 	gyro_z:LREAL;
 	hr_acc_x:LREAL;
 	hr_gyro_z:LREAL;
+	timediff:LREAL;
+	euler_yaw:LREAL;
 END_STRUCT
 END_TYPE
 ]]></Declaration>

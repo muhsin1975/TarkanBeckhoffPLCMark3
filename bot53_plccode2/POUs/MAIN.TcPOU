@@ -33,7 +33,7 @@ ELSIF (calibrationCount=500)THEN
       calibrationCount:=calibrationCount+1;
     END_IF
 	
-IF CONTROLLER_TYPE=1 AND NOT KALMAN_INITIALIZED AND pf_valid=1 THEN
+IF NOT KALMAN_INITIALIZED AND pf_valid=1 THEN
 	fb_kalmaninit();
 	KALMAN_INITIALIZED:=TRUE;
 END_IF
@@ -42,6 +42,7 @@ currtime:=F_GetSystemTime() ;
 datediff:=(currtime/10000)-ads_lasttime;
 IF (currtime-lastqrtime > NO_QR_TIMEOUT OR (pf_valid=1 AND robotdata.qr_x=0 AND  robotdata.qr_angle=0 AND raw_qr_tag=0 AND robotdata.qr_y=0)) AND robotdata.motion_status=MOTION_ENDED THEN
 	robotdata.motion_status:=QRCAM_ERROR;
+	pf_valid:=0;
 	robotdata.activestate:=QRCAM_ERROR;
 ELSIF currtime-lastqrtime < NO_QR_TIMEOUT  AND robotdata.motion_status=QRCAM_ERROR THEN
 	robotdata.motion_status:=MOTION_ENDED;
@@ -66,7 +67,9 @@ ELSIF(robotdata.motorError[0]+robotdata.motorError[1]+robotdata.motorError[2]+ro
 robotdata.motion_status:=MOTION_ENDED;
 END_IF
 FB_SET_ENCODER_ODEOMETRY();
-
+IF(KALMAN_INITIALIZED)THEN
+	fb_kalmanStep();
+END_IF
 
 robotdata.encoderx_rel:=robotdata.encoder_x-LREAL_TO_DINT(robotdata.encoder_x);
 robotdata.encodery_rel:=robotdata.encoder_y-LREAL_TO_DINT(robotdata.encoder_y);
@@ -85,7 +88,6 @@ IF(CONTROLLER_TYPE=0)THEN
 	FB_CONTROLLER();
 	FB_DRIVE_MOTORS();
 ELSIF(CONTROLLER_TYPE=1 AND KALMAN_INITIALIZED) THEN
-	fb_kalmanStep();
 	robotdata.robot_x:=PosFdbckX;
 	robotdata.robot_y:=PosFdbckY;
 	robotdata.robot_yaw:=robotAngle *PI/180;
@@ -106,13 +108,19 @@ END_IF
       <LineId Id="881" Count="0" />
       <LineId Id="762" Count="2" />
       <LineId Id="846" Count="0" />
-      <LineId Id="766" Count="5" />
+      <LineId Id="766" Count="0" />
+      <LineId Id="1000" Count="0" />
+      <LineId Id="767" Count="4" />
       <LineId Id="830" Count="0" />
       <LineId Id="824" Count="0" />
       <LineId Id="826" Count="1" />
       <LineId Id="829" Count="0" />
       <LineId Id="823" Count="0" />
-      <LineId Id="772" Count="16" />
+      <LineId Id="772" Count="12" />
+      <LineId Id="998" Count="0" />
+      <LineId Id="785" Count="0" />
+      <LineId Id="999" Count="0" />
+      <LineId Id="786" Count="2" />
       <LineId Id="977" Count="1" />
       <LineId Id="789" Count="1" />
       <LineId Id="798" Count="0" />
@@ -121,7 +129,6 @@ END_IF
       <LineId Id="916" Count="0" />
       <LineId Id="799" Count="1" />
       <LineId Id="901" Count="0" />
-      <LineId Id="925" Count="0" />
       <LineId Id="922" Count="2" />
       <LineId Id="902" Count="1" />
       <LineId Id="818" Count="0" />

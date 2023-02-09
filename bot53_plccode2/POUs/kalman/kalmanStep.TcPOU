@@ -27,18 +27,19 @@ tmp5_3:ARRAY[0..2] OF LREAL;
 tmp1_3,tmp2_3,tmp3_3,tmp4_3,Kt3:ARRAY[0..2,0..2] OF LREAL;
 tmp6_3,tmp7_3:ARRAY[0..2] OF LREAL;
 Kt:ARRAY[0..1,0..2] OF LREAL;
-
+	 fb_localization:localization;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[//linSpdFdbckRobot := (rightWheelFdbck+leftWheelFdbck)*2*PI/60*wheel_radius/2;
+      <ST><![CDATA[  fb_localization();
+  linSpdFdbckRobot := (rightWheelFdbck+leftWheelFdbck)*2*PI/60*wheel_radius/2;
   posTheta_wrt_robot_enc :=((-1*Locomotion_2_actual_pos - Locomotion_1_actual_pos)/10000)*360*wheel_radius/(2*robot_radius)/reducer_ratio + (-1*robotdata.qr_angle * 0.1); 
   //posTheta_wrt_robot_enc :=robotdata.encoder_omega*180/PI;
-  linSpdFdbckRobot :=robotdata.encoder_v; 
+  //linSpdFdbckRobot :=robotdata.encoder_v; 
   z_kalman1[0,0]:=linSpdFdbckRobot;
-  z_kalman1[1,0]:=robotdata.imu_state.hr_acc_x-accXmean;
+  z_kalman1[1,0]:=robotdata.imu_state.hr_acc_x;
   z_kalman2[0,0]:=posTheta_wrt_robot_enc;
-  z_kalman2[1,0]:=(robotdata.imu_state.hr_gyro_z-gyrozmean)*180/PI;
+  z_kalman2[1,0]:=(robotdata.imu_state.hr_gyro_z)*180/PI;
 
   kalman12_x := kalman12_x + x_kalman1[0,0]*COS(x_kalman2[0,0]*PI/180)*PLC_CYCLE;
   kalman12_y := kalman12_y + x_kalman1[0,0]*SIN(x_kalman2[0,0]*PI/180)*PLC_CYCLE;
@@ -215,6 +216,7 @@ END_VAR
   x_kalman3[1,0] := x_kalman3[1,0] + x_kalman1[0,0]*SIN(x_kalman3[2,0]*PI/180)*PLC_CYCLE;
   IF (pf_valid=0)THEN
   	x_kalman3[2,0] := x_kalman3[2,0] + x_kalman2[1,0]*PLC_CYCLE;
+	//x_kalman3[2,0] := LMOD(robotdata.imu_state.imu_euler+2 * PI,2*PI)*180/PI;
   ELSE
 	  x_kalman3[2,0] :=-1*robotdata.qr_angle * 0.1;
   END_IF
@@ -239,7 +241,9 @@ END_VAR
     PosFdbckY :=  x_kalman3[1,0];]]></ST>
     </Implementation>
     <LineIds Name="kalmanStep">
-      <LineId Id="494" Count="2" />
+      <LineId Id="494" Count="0" />
+      <LineId Id="778" Count="0" />
+      <LineId Id="495" Count="1" />
       <LineId Id="716" Count="0" />
       <LineId Id="704" Count="0" />
       <LineId Id="707" Count="0" />
@@ -260,6 +264,7 @@ END_VAR
       <LineId Id="646" Count="38" />
       <LineId Id="745" Count="0" />
       <LineId Id="685" Count="0" />
+      <LineId Id="777" Count="0" />
       <LineId Id="747" Count="1" />
       <LineId Id="746" Count="0" />
       <LineId Id="686" Count="17" />

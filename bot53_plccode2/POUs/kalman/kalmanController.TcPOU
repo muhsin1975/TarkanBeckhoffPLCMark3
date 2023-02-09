@@ -11,10 +11,15 @@ VAR
 	 missionCompletedAng,missionCompletedLin:INT;
 	 fb_kinematicSolution:kinematicSolution;
 	 fb_localization:localization;
+	 FB_DRIVE_MOTORS:DriveMotors();
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF(robotdata.controller=1)THEN
+      <ST><![CDATA[IF (robotdata.motion_status = MOTION_ONGOING OR robotdata.motion_status = MOTION_ANGLE) AND (robotdata.activecommand=COMMAND_X_CORR OR robotdata.activecommand=COMMAND_ANG_CORR) THEN
+	FB_DRIVE_MOTORS();
+
+
+ELSIF(robotdata.controller=1)THEN
     fb_localization();
     missionCompletedLin := linPosErrGenerator(idealAngle,xGoal,yGoal,PosFdbckX,PosFdbckY,modeEnable);
     linMoveSpdCommand:= linPosErr* LINPOS_Kp;
@@ -44,14 +49,18 @@ END_VAR
 	  ELSE
 		robotdata.Position_Velocity.Locomotion_1_target_velocity := leftMotorSpeedCommand;
 		robotdata.Position_Velocity.Locomotion_2_target_velocity:=-1*rightMotorSpeedCommand;
-	  END_IF
-   END_IF
+	 END_IF
+  END_IF
     
   
  
 ]]></ST>
     </Implementation>
     <LineIds Name="kalmanController">
+      <LineId Id="241" Count="0" />
+      <LineId Id="239" Count="0" />
+      <LineId Id="242" Count="0" />
+      <LineId Id="240" Count="0" />
       <LineId Id="10" Count="0" />
       <LineId Id="13" Count="1" />
       <LineId Id="18" Count="3" />
@@ -60,12 +69,13 @@ END_VAR
       <LineId Id="81" Count="3" />
       <LineId Id="93" Count="0" />
       <LineId Id="170" Count="0" />
-      <LineId Id="178" Count="0" />
+      <LineId Id="238" Count="0" />
       <LineId Id="172" Count="0" />
       <LineId Id="94" Count="0" />
-      <LineId Id="173" Count="1" />
-      <LineId Id="176" Count="0" />
-      <LineId Id="175" Count="0" />
+      <LineId Id="173" Count="0" />
+      <LineId Id="191" Count="0" />
+      <LineId Id="213" Count="0" />
+      <LineId Id="224" Count="0" />
       <LineId Id="159" Count="0" />
       <LineId Id="111" Count="0" />
       <LineId Id="131" Count="0" />
