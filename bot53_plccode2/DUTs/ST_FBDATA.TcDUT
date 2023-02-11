@@ -54,6 +54,9 @@ STRUCT
 	driverContactor                            AT%Q* : BOOL := TRUE;
     pfEnableContactor                        AT%Q* : BOOL := TRUE;
     chargerContactor                        AT%Q* : BOOL := FALSE;
+	locomotionQuickStop						AT%Q*	: BOOL := FALSE;
+	animationBit_1							AT%Q*	: BOOL := FALSE;
+	animationBit_2							AT%Q*	: BOOL := FALSE;
 	lifterDistance AT%I* : INT := INT#0;
 	Position_Velocity:ST_TARGETS;
 	activecommand:int;
