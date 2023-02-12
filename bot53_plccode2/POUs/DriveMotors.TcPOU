@@ -9,7 +9,7 @@ END_VAR
       <ST><![CDATA[IF (robotdata.motion_status = MOTION_ANGLE) THEN
 		robotdata.Position_Velocity.Locomotion_1_target_velocity := motion_left[motion_index];
 		robotdata.Position_Velocity.Locomotion_2_target_velocity:= motion_right[motion_index];
-		IF(robotdata.lifterDistance<LIFTER_UP) THEN
+		IF(robotdata.lifterDistance>LIFTER_UP) THEN
 			robotdata.Position_Velocity.Rotator_Target_Position:= motion_rotator[motion_index];
 		END_IF
 		motion_index:=motion_index+1;
@@ -21,8 +21,8 @@ END_VAR
 		END_IF
 ELSIF (robotdata.motion_status = MOTION_ONGOING) THEN
 	
-		robotdata.Position_Velocity.Locomotion_1_target_velocity := motion_left[motion_index];
-		robotdata.Position_Velocity.Locomotion_2_target_velocity:= -1*motion_right[motion_index];
+		robotdata.Position_Velocity.Locomotion_1_target_velocity := motion_left[motion_index]*2730;
+		robotdata.Position_Velocity.Locomotion_2_target_velocity:= -1*motion_right[motion_index]*2730;
 		motion_index:=motion_index+1;
 		IF (motion_index = max_location) THEN
 			robotdata.motion_status := MOTION_ENDED;
@@ -32,7 +32,7 @@ ELSIF (robotdata.motion_status = MOTION_ONGOING) THEN
 		END_IF
 
 ELSIF (robotdata.motion_status = MOTION_LIFTER) THEN
-	IF(motion_index = max_location ) OR (robotdata.activeState=LIFT_UP AND robotdata.lifterDistance<LIFTER_UP_LIMIT) OR(robotdata.activeState=LIFT_DOWN AND robotdata.lifterDistance>LIFTER_DOWN_LIMIT)  THEN
+	IF(motion_index = max_location ) OR (robotdata.activeState=LIFT_UP AND robotdata.lifterDistance>LIFTER_UP_LIMIT) OR(robotdata.activeState=LIFT_DOWN AND robotdata.lifterDistance<LIFTER_DOWN_LIMIT)  THEN
 		IF(robotdata.activeState=LIFT_UP) THEN
 		 robotdata.lifter:=60;
 		ELSE
