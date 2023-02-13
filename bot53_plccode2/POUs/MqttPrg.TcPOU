@@ -23,7 +23,7 @@ END_VAR
     bSetParameter              := FALSE;
     fbMqttClient.sHostName     := '192.168.8.80';
     fbMqttClient.nHostPort     := 1883;
-    fbMqttClient.sClientId     := 'BOT110'; 
+    fbMqttClient.sClientId     := 'BOT120'; 
     fbMqttClient.sTopicPrefix  := ''; 
 //  fbMqttClient.nKeepAlive    := 60; 
 //  fbMqttClient.sUserName     := ;
