@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<TcSmItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.35" ClassName="CFlbTermDef" SubType="9099">
+	<ImageDatas>
+		<ImageData Id="1000">424de6000000000000007600000028000000100000000e000000010004000000000070000000000000000000000000000000000000000000000000008000008000000080800080000000800080008080000080808000c0c0c0000000ff0000ff000000ffff00ff000000ff00ff00ffff0000ffffff00ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff9f9f9f9f9f99f9999f9f9f9f99fff9f999ff9f9f99fff9f999ff9f9f99fff9f999ff9f999f99f9999f5fffffffffffff9f9f9fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</ImageData>
+	</ImageDatas>
+	<Box Id="8" BoxType="9099" BoxFlags="#x00000020">
+		<Name>__FILENAME__</Name>
+		<ImageId>1000</ImageId>
+		<EtherCAT SlaveType="2" PdiType="#x0405" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="13" FoeType="1" VendorId="#x00681168" ProductCode="#x00464445" RevisionNo="#x000001f9" InfoDataAddr="true" InfoDataSoeDS401="true" InfoDataDcTimes="true" TimeoutStateChange1="2000" TimeoutStateChange2="9000" TimeoutMailbox1="1000" TimeoutMailbox2="2000" PortPhys="17" IdentificationAdo="308" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="FD Drive" Desc="Kinco FD">
+			<SyncMan>0010800026000100010000002200c0008000001026010000</SyncMan>
+			<SyncMan>0014800022000100020000002200c0008000001422010000</SyncMan>
+			<SyncMan>001821006400010003000000000000000000001864010000</SyncMan>
+			<SyncMan>001c17002000010004000000000000000000001c20010000</SyncMan>
+			<Fmmu>0000000000000000001800020100000001000000000000000000000000000000</Fmmu>
+			<Fmmu>0000000000000000001c00010100000002000000000000000000000000000000</Fmmu>
+			<Fmmu>00000000000000000d0800010100000003000000000000000000000000000000</Fmmu>
+			<DcData>0003000000000000000000000000000001000000000000000000000000000000</DcData>
+			<DcMode>446353796e633000000000000000000044432d53796e6368726f6e6f7573000000000000000000000000000000000000000000000000000000000000000000030100000000000000000000000000000000000000000000000000000000000000</DcMode>
+			<DcMode>4672656552554e0000000000000000004672656552554e00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</DcMode>
+			<Pdo Name="TXPDO" Index="#x1a00" Flags="#x0000" SyncMan="3">
+				<Entry Name="Actual position" Index="#x6064">
+					<Type>DINT</Type>
+				</Entry>
+				<Entry Name="Status word" Index="#x6041">
+					<Type>UINT</Type>
+				</Entry>
+				<Entry Name="Error Code" Index="#x603f">
+					<Type>UINT</Type>
+				</Entry>
+				<Entry Name="mode of operation display" Index="#x6061">
+					<Type>SINT</Type>
+				</Entry>
+				<Entry Name="Touch probe status" Index="#x60b9">
+					<Type>UINT</Type>
+				</Entry>
+				<Entry Name="Touch probe Rising1" Index="#x60ba">
+					<Type>DINT</Type>
+				</Entry>
+				<Entry Name="Digital Inputs" Index="#x60fd">
+					<Type>UDINT</Type>
+				</Entry>
+				<Entry Name="Velocity_actual_value" Index="#x606c">
+					<Type>DINT</Type>
+				</Entry>
+			</Pdo>
+			<Pdo Name="TXPDO" Index="#x1a01" Flags="#x0000">
+				<ExcludePdo>#x1a00</ExcludePdo>
+				<Entry Name="Actual position" Index="#x6064">
+					<Type>DINT</Type>
+				</Entry>
+				<Entry Name="Status word" Index="#x6041">
+					<Type>UINT</Type>
+				</Entry>
+				<Entry Name="mode of operation display" Index="#x6061">
+					<Type>SINT</Type>
+				</Entry>
+				<Entry Name="Actual Velocity" Index="#x606c">
+					<Type>DINT</Type>
+				</Entry>
+				<Entry Name="Input status" Index="#x2010" Sub="#x0a">
+					<Type>UINT</Type>
+				</Entry>
+				<Entry Name="Error status" Index="#x2601">
+					<Type>UINT</Type>
+				</Entry>
+				<Entry Name="Error status2" Index="#x2602">
+					<Type>UINT</Type>
+				</Entry>
+			</Pdo>
+			<Pdo Name="RxPDO" Index="#x1600" InOut="1" Flags="#x0000" SyncMan="2">
+				<Entry Name="Target Position" Index="#x607a">
+					<Type>DINT</Type>
+				</Entry>
+				<Entry Name="Control Word" Index="#x6040">
+					<Type>UINT</Type>
+				</Entry>
+				<Entry Name="Touch probe function" Index="#x60b8">
+					<Type>UINT</Type>
+				</Entry>
+			</Pdo>
+			<Pdo Name="RxPDO" Index="#x1601" InOut="1" Flags="#x0000" SyncMan="2">
+				<Entry Name="Target Position" Index="#x607a">
+					<Type>DINT</Type>
+				</Entry>
+				<Entry Name="Control Word" Index="#x6040">
+					<Type>UINT</Type>
+				</Entry>
+				<Entry Name="Operation mode" Index="#x6060">
+					<Type>SINT</Type>
+				</Entry>
+				<Entry Name="Profile_Acce" Index="#x6083">
+					<Type>UDINT</Type>
+				</Entry>
+				<Entry Name="Profile_Dece" Index="#x6084">
+					<Type>UDINT</Type>
+				</Entry>
+				<Entry Name="Touch probe function" Index="#x60b8">
+					<Type>UINT</Type>
+				</Entry>
+			</Pdo>
+			<Pdo Name="RxPDO" Index="#x1602" InOut="1" Flags="#x0000" SyncMan="2">
+				<Entry Name="Profile velocity" Index="#x6081">
+					<Type>DINT</Type>
+				</Entry>
+				<Entry Name="Target velocity" Index="#x60ff">
+					<Type>DINT</Type>
+				</Entry>
+			</Pdo>
+			<CoeProfile ProfileNo="402"/>
+		</EtherCAT>
+	</Box>
+</TcSmItem>

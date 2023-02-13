@@ -751,11 +751,11 @@
 		<ImageData Id="1005">424de6000000000000007600000028000000100000000e000000010004000000000070000000000000000000000000000000000000000000000000008000008000000080800080000000800080008080000080808000c0c0c0000000ff0000ff000000ffff00ff000000ff00ff00ffff0000ffffff00ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff9f9f9f9f9f99f9999f9f9f9f99fff9f999ff9f9f99fff9f999ff9f9f99fff9f999ff9f999f99f9999f5fffffffffffff9f9f9fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</ImageData>
 		<ImageData Id="1006">424de6000000000000007600000028000000100000000e000000010004000000000070000000000000000000000000000000000000000000000000008000008000000080800080000000800080008080000080808000c0c0c0000000ff0000ff000000ffff00ff000000ff00ff00ffff0000ffffff00ffffffffffffffffff788833338887ffff78883bb38887ffffffff3bb3ffffffffffff8778fffffffffffffffffffffffffffffffff999ffff78f78fffffffffff78f78ffff999ffff78f7888fffffffff78f78f78f999ffff78f78f78ffffffff78f7888ff999ffffffffffffffffff</ImageData>
 	</ImageDatas>
-	<Project ProjectGUID="{69EC154D-F8E3-40E4-B841-7FB5CA225D24}" TargetNetId="169.254.139.155.1.1" Target64Bit="true" ShowHideConfigurations="#x106">
+	<Project ProjectGUID="{69EC154D-F8E3-40E4-B841-7FB5CA225D24}" TargetNetId="169.254.139.155.1.1" ShowHideConfigurations="#x106">
 		<System>
 			<Settings>
 				<Cpu BaseTime="1000"/>
-				<IoIdleTask CycleTime="20000"/>
+				<IoIdleTask CycleTime="1000"/>
 			</Settings>
 			<Licenses>
 				<Target>

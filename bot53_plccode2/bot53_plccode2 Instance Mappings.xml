@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<VarLinks>
+	<OwnerA Name="InputDst" Prefix="TIPC^bot53_plccode2^bot53_plccode2 Instance" Type="1">
+		<OwnerB Name="TIID^Device 3 (EtherCAT)^Lifter">
+			<Link VarA="GVL.robotdata.Position_Velocity.Lifter_position_actual_value" GrpA="MqttTask Inputs" TypeA="DINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000009}" VarB="TXPDO^Actual position"/>
+		</OwnerB>
+		<OwnerB Name="TIID^Device 3 (EtherCAT)^Rotator">
+			<Link VarA="GVL.robotdata.Position_Velocity.Rotator_position_actual_value" GrpA="MqttTask Inputs" TypeA="DINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000009}" VarB="TXPDO^Actual position"/>
+		</OwnerB>
+		<OwnerB Name="TIID^Device 3 (EtherCAT)^Lifter">
+			<Link VarA="GVL.Lifter_modesOfOperationDisplay" GrpA="PlcTask Inputs" TypeA="SINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000003}" VarB="TXPDO^mode of operation display"/>
+			<Link VarA="GVL.robotdata.motorError[2]" GrpA="PlcTask Inputs" TypeA="INT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000006}" VarB="TXPDO^Error Code"/>
+		</OwnerB>
+		<OwnerB Name="TIID^Device 3 (EtherCAT)^Locomotion_Left">
+			<Link VarA="GVL.Locomotion_1_modesOfOperationDisplay" GrpA="PlcTask Inputs" TypeA="SINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000003}" VarB="TXPDO^mode of operation display"/>
+			<Link VarA="GVL.robotdata.Position_Velocity.Locomotion_1_actual_velocity" GrpA="PlcTask Inputs" TypeA="DINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000009}" VarB="TXPDO^Velocity_actual_value"/>
+			<Link VarA="GVL.robotdata.motorError[0]" GrpA="PlcTask Inputs" TypeA="INT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000006}" VarB="TXPDO^Error Code"/>
+		</OwnerB>
+		<OwnerB Name="TIID^Device 3 (EtherCAT)^Locomotion_Right">
+			<Link VarA="GVL.Locomotion_2_modesOfOperationDisplay" GrpA="PlcTask Inputs" TypeA="SINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000003}" VarB="TXPDO^mode of operation display"/>
+			<Link VarA="GVL.robotdata.Position_Velocity.Locomotion_2_actual_velocity" GrpA="PlcTask Inputs" TypeA="DINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000009}" VarB="TXPDO^Velocity_actual_value"/>
+			<Link VarA="GVL.robotdata.motorError[1]" GrpA="PlcTask Inputs" TypeA="INT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000006}" VarB="TXPDO^Error Code"/>
+		</OwnerB>
+		<OwnerB Name="TIID^Device 3 (EtherCAT)^Rotator">
+			<Link VarA="GVL.Rotator_modesOfOperationDisplay" GrpA="PlcTask Inputs" TypeA="SINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000003}" VarB="TXPDO^mode of operation display"/>
+			<Link VarA="GVL.robotdata.motorError[3]" GrpA="PlcTask Inputs" TypeA="INT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000006}" VarB="TXPDO^Error Code"/>
+		</OwnerB>
+		<OwnerB Name="TIID^Device 3 (EtherCAT)^Term 1 (EK1960-2600)^Term 3 (EL3052)">
+			<Link VarA="GVL.robotdata.lifterDistance" GrpA="PlcTask Inputs" TypeA="INT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000006}" VarB="AI Standard Channel 1^Value"/>
+		</OwnerB>
+	</OwnerA>
+	<OwnerA Name="OutputSrc" Prefix="TIPC^bot53_plccode2^bot53_plccode2 Instance" Type="2">
+		<OwnerB Name="TIID^Device 3 (EtherCAT)^Lifter">
+			<Link VarA="GVL.robotdata.Position_Velocity.Lifter_target_position" GrpA="MqttTask Outputs" TypeA="DINT" InOutA="1" GuidA="{18071995-0000-0000-0000-000000000009}" VarB="RxPDO_1^Target Position"/>
+			<Link VarA="GVL.robotdata.motorCword[2]" GrpA="MqttTask Outputs" TypeA="INT" InOutA="1" GuidA="{18071995-0000-0000-0000-000000000006}" VarB="RxPDO_1^Control Word"/>
+		</OwnerB>
+		<OwnerB Name="TIID^Device 3 (EtherCAT)^Locomotion_Left">
+			<Link VarA="GVL.robotdata.Position_Velocity.Locomotion_1_target_velocity" GrpA="MqttTask Outputs" TypeA="DINT" InOutA="1" GuidA="{18071995-0000-0000-0000-000000000009}" VarB="RxPDO_2^Target velocity"/>
+			<Link VarA="GVL.robotdata.motorCword[0]" GrpA="MqttTask Outputs" TypeA="INT" InOutA="1" GuidA="{18071995-0000-0000-0000-000000000006}" VarB="RxPDO_1^Control Word"/>
+		</OwnerB>
+		<OwnerB Name="TIID^Device 3 (EtherCAT)^Locomotion_Right">
+			<Link VarA="GVL.robotdata.Position_Velocity.Locomotion_2_target_velocity" GrpA="MqttTask Outputs" TypeA="DINT" InOutA="1" GuidA="{18071995-0000-0000-0000-000000000009}" VarB="RxPDO_2^Target velocity"/>
+			<Link VarA="GVL.robotdata.motorCword[1]" GrpA="MqttTask Outputs" TypeA="INT" InOutA="1" GuidA="{18071995-0000-0000-0000-000000000006}" VarB="RxPDO_1^Control Word"/>
+		</OwnerB>
+		<OwnerB Name="TIID^Device 3 (EtherCAT)^Rotator">
+			<Link VarA="GVL.robotdata.Position_Velocity.Rotator_target_position" GrpA="MqttTask Outputs" TypeA="DINT" InOutA="1" GuidA="{18071995-0000-0000-0000-000000000009}" VarB="RxPDO_1^Target Position"/>
+			<Link VarA="GVL.robotdata.motorCword[3]" GrpA="MqttTask Outputs" TypeA="INT" InOutA="1" GuidA="{18071995-0000-0000-0000-000000000006}" VarB="RxPDO_1^Control Word"/>
+		</OwnerB>
+		<OwnerB Name="TIID^Device 3 (EtherCAT)^Term 1 (EK1960-2600)^Term 4 (EL2008-0015)">
+			<Link VarA="GVL.robotdata.chargerContactor" GrpA="MqttTask Outputs" TypeA="BOOL" InOutA="1" GuidA="{18071995-0000-0000-0000-000000000030}" VarB="Channel 3^Output" Size="1"/>
+			<Link VarA="GVL.robotdata.driverContactor" GrpA="MqttTask Outputs" TypeA="BOOL" InOutA="1" GuidA="{18071995-0000-0000-0000-000000000030}" VarB="Channel 1^Output" Size="1"/>
+			<Link VarA="GVL.robotdata.pfEnableContactor" GrpA="MqttTask Outputs" TypeA="BOOL" InOutA="1" GuidA="{18071995-0000-0000-0000-000000000030}" VarB="Channel 2^Output" Size="1"/>
+		</OwnerB>
+		<OwnerB Name="TIID^Device 3 (EtherCAT)^Lifter">
+			<Link VarA="GVL.Lifter_modesOfOperation" GrpA="PlcTask Outputs" TypeA="SINT" InOutA="1" GuidA="{18071995-0000-0000-0000-000000000003}" VarB="RxPDO_1^Operation mode"/>
+		</OwnerB>
+		<OwnerB Name="TIID^Device 3 (EtherCAT)^Locomotion_Left">
+			<Link VarA="GVL.Locomotion_1_modesOfOperation" GrpA="PlcTask Outputs" TypeA="SINT" InOutA="1" GuidA="{18071995-0000-0000-0000-000000000003}" VarB="RxPDO_1^Operation mode"/>
+		</OwnerB>
+		<OwnerB Name="TIID^Device 3 (EtherCAT)^Locomotion_Right">
+			<Link VarA="GVL.Locomotion_2_modesOfOperation" GrpA="PlcTask Outputs" TypeA="SINT" InOutA="1" GuidA="{18071995-0000-0000-0000-000000000003}" VarB="RxPDO_1^Operation mode"/>
+		</OwnerB>
+		<OwnerB Name="TIID^Device 3 (EtherCAT)^Rotator">
+			<Link VarA="GVL.Rotator_modesOfOperation" GrpA="PlcTask Outputs" TypeA="SINT" InOutA="1" GuidA="{18071995-0000-0000-0000-000000000003}" VarB="RxPDO_1^Operation mode"/>
+		</OwnerB>
+		<OwnerB Name="TIID^Device 3 (EtherCAT)^Term 1 (EK1960-2600)^Term 4 (EL2008-0015)">
+			<Link VarA="GVL.robotdata.animationBit_1" GrpA="PlcTask Outputs" TypeA="BOOL" InOutA="1" GuidA="{18071995-0000-0000-0000-000000000030}" VarB="Channel 5^Output" Size="1"/>
+			<Link VarA="GVL.robotdata.animationBit_2" GrpA="PlcTask Outputs" TypeA="BOOL" InOutA="1" GuidA="{18071995-0000-0000-0000-000000000030}" VarB="Channel 6^Output" Size="1"/>
+			<Link VarA="GVL.robotdata.locomotionQuickStop" GrpA="PlcTask Outputs" TypeA="BOOL" InOutA="1" GuidA="{18071995-0000-0000-0000-000000000030}" VarB="Channel 4^Output" Size="1"/>
+		</OwnerB>
+	</OwnerA>
+</VarLinks>
