@@ -230,7 +230,7 @@ SPEED_LIMIT:LREAL:=LREAL#1.5;
     KpY:LREAL:=95;
     KpTht:LREAL:=0.03;
     //Locomotion_1
-    Locomotion_1_modesOfOperation             AT%Q* : SINT := SINT#9;
+    Locomotion_1_modesOfOperation             AT%Q* : SINT := SINT#-3;
     Locomotion_1_error_state_1                 AT%I* : UINT;
     Locomotion_1_error_state_2                 AT%I* : UINT;
     Locomotion_1_statusword                 AT%I* : UINT;
@@ -238,7 +238,7 @@ SPEED_LIMIT:LREAL:=LREAL#1.5;
     Locomotion_1_modesOfOperationDisplay     AT%I* : SINT;
     //Locomotion_2
 
-    Locomotion_2_modesOfOperation             AT%Q* : SINT := SINT#9;
+    Locomotion_2_modesOfOperation             AT%Q* : SINT := SINT#-3;
     Locomotion_2_error_state_1                 AT%I* : UINT;
     Locomotion_2_error_state_2                 AT%I* : UINT;
     Locomotion_2_statusword                 AT%I* : UINT;
