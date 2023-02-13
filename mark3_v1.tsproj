@@ -776,7 +776,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{8A670E50-189C-4F79-ADC2-9034F773F334}" Name="bot53_plccode2" PrjFilePath="bot53_plccode2\bot53_plccode2.plcproj" TmcFilePath="bot53_plccode2\bot53_plccode2.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="bot53_plccode2\bot53_plccode2.tmc" TmcHash="{A6E8E5A2-C99C-89A2-9908-C220AA7D0FF7}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="bot53_plccode2\bot53_plccode2.tmc" TmcHash="{F73F0867-49F3-7D83-1093-1CBCA6921DE3}">
 					<Name>bot53_plccode2 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1" ContextId="1" AreaNo="16">
@@ -848,6 +848,10 @@
 							<Type>DINT</Type>
 						</Var>
 						<Var>
+							<Name>GVL.Locomotion_1_modesOfOperationDisplay</Name>
+							<Type>SINT</Type>
+						</Var>
+						<Var>
 							<Name>GVL.Locomotion_1_error_state_1</Name>
 							<Type>UINT</Type>
 						</Var>
@@ -860,12 +864,12 @@
 							<Type>UINT</Type>
 						</Var>
 						<Var>
-							<Name>GVL.Locomotion_1_modesOfOperationDisplay</Name>
-							<Type>SINT</Type>
-						</Var>
-						<Var>
 							<Name>GVL.Locomotion_1_actual_pos</Name>
 							<Type>DINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.Locomotion_2_modesOfOperationDisplay</Name>
+							<Type>SINT</Type>
 						</Var>
 						<Var>
 							<Name>GVL.Locomotion_2_error_state_1</Name>
@@ -880,12 +884,12 @@
 							<Type>UINT</Type>
 						</Var>
 						<Var>
-							<Name>GVL.Locomotion_2_modesOfOperationDisplay</Name>
-							<Type>SINT</Type>
-						</Var>
-						<Var>
 							<Name>GVL.Locomotion_2_actual_pos</Name>
 							<Type>DINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.Rotator_modesOfOperationDisplay</Name>
+							<Type>SINT</Type>
 						</Var>
 						<Var>
 							<Name>GVL.Rotator_error_state_1</Name>
@@ -900,7 +904,7 @@
 							<Type>UINT</Type>
 						</Var>
 						<Var>
-							<Name>GVL.Rotator_modesOfOperationDisplay</Name>
+							<Name>GVL.Lifter_modesOfOperationDisplay</Name>
 							<Type>SINT</Type>
 						</Var>
 						<Var>
@@ -914,10 +918,6 @@
 						<Var>
 							<Name>GVL.Lifter_statusword</Name>
 							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL.Lifter_modesOfOperationDisplay</Name>
-							<Type>SINT</Type>
 						</Var>
 					</Vars>
 					<Vars VarGrpType="2" ContextId="2" AreaNo="33">

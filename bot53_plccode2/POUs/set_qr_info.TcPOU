@@ -54,11 +54,11 @@ END_VAR
   
   
     robotdata.robot_y := (grid_y * GRID_DIM) + (robotdata.qr_y / 1000.0) + (robotdata.encoder_v * SIN(robotdata.qr_yaw) * PLC_CYCLE);
-    IF( NOT winnerEvaluated AND  ABS(robotdata.imuy_rel-(robotdata.qr_y / 1000.0))<ABS(robotdata.encodery_rel-(robotdata.qr_y / 1000.0))) THEN
+   IF( NOT winnerEvaluated AND  ABS(robotdata.imuy_rel-(robotdata.qr_y / 1000.0))<ABS(robotdata.encodery_rel-(robotdata.qr_y / 1000.0))) THEN
       imuYwins:=TRUE;
     ELSIF( NOT winnerEvaluated AND  ABS(robotdata.imuy_rel-(robotdata.qr_y / 1000.0))>ABS(robotdata.encodery_rel-(robotdata.qr_y / 1000.0))) THEN
       imuYwins:=FALSE;
-	END_IF   
+	END_IF      
   
     winnerEvaluated:=TRUE;
 
@@ -102,7 +102,9 @@ END_VAR
       <LineId Id="162" Count="0" />
       <LineId Id="89" Count="0" />
       <LineId Id="144" Count="0" />
-      <LineId Id="91" Count="5" />
+      <LineId Id="91" Count="0" />
+      <LineId Id="238" Count="3" />
+      <LineId Id="96" Count="0" />
       <LineId Id="101" Count="3" />
       <LineId Id="163" Count="0" />
       <LineId Id="106" Count="0" />
