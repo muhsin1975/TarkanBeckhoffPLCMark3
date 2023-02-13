@@ -17,12 +17,12 @@ END_VAR
       <ST><![CDATA[	slave0_speed := robotdata.Position_Velocity.Locomotion_1_actual_velocity;       
 	slave1_speed := robotdata.Position_Velocity.Locomotion_2_actual_velocity;       
 	slave1_speed:=-1 * slave1_speed;
-	robotdata.encoder_omega := (slave1_speed - slave0_speed) * RPM2MSN / ((ROBOT_RADIUS) * 2.0); //angular velocity
-	robotdata.encoder_v:= (slave1_speed + slave0_speed) * RPM2MSN / 2.0; // linear velocity
+	robotdata.encoder_omega := (slave1_speed - slave0_speed) * KINCO_DEC2MSN / ((ROBOT_RADIUS) * 2.0); //angular velocity
+	robotdata.encoder_v:= (slave1_speed + slave0_speed) * KINCO_DEC2MSN / 2.0; // linear velocity
 
 
-	robotdata.encoder_slave0_speed := slave0_speed * RPM2MSN;
-	robotdata.encoder_slave1_speed := slave1_speed * RPM2MSN;
+	robotdata.encoder_slave0_speed := slave0_speed * KINCO_DEC2MSN;
+	robotdata.encoder_slave1_speed := slave1_speed * KINCO_DEC2MSN;
 	IF (slave0_speed<>slave1_speed) THEN
 	
 		current_x_state := robotdata.encoder_x;

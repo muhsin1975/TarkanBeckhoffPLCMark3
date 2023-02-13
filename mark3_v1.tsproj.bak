@@ -2575,8 +2575,8 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 3 (EtherCAT)^Rotator">
 				<Link VarA="MqttTask Inputs^GVL.robotdata.Position_Velocity.Rotator_position_actual_value" VarB="TXPDO^Actual position"/>
-				<Link VarA="MqttTask Outputs^GVL.robotdata.Position_Velocity.Rotator_target_position" VarB="RxPDO^Target Position"/>
-				<Link VarA="MqttTask Outputs^GVL.robotdata.motorCword[3]" VarB="RxPDO^Control Word"/>
+				<Link VarA="MqttTask Outputs^GVL.robotdata.Position_Velocity.Rotator_target_position" VarB="RxPDO_1^Target Position"/>
+				<Link VarA="MqttTask Outputs^GVL.robotdata.motorCword[3]" VarB="RxPDO_1^Control Word"/>
 				<Link VarA="PlcTask Inputs^GVL.Rotator_modesOfOperationDisplay" VarB="TXPDO^mode of operation display"/>
 				<Link VarA="PlcTask Inputs^GVL.robotdata.motorError[3]" VarB="TXPDO^Error Code"/>
 				<Link VarA="PlcTask Outputs^GVL.Rotator_modesOfOperation" VarB="RxPDO_1^Operation mode"/>
