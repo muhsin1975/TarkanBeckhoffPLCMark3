@@ -776,11 +776,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{8A670E50-189C-4F79-ADC2-9034F773F334}" Name="bot53_plccode2" PrjFilePath="bot53_plccode2\bot53_plccode2.plcproj" TmcFilePath="bot53_plccode2\bot53_plccode2.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-<<<<<<< HEAD
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="bot53_plccode2\bot53_plccode2.tmc" TmcHash="{596B8292-C282-95B5-C3D2-0D23672C2014}">
-=======
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="bot53_plccode2\bot53_plccode2.tmc" TmcHash="{495688B4-E4F3-8D40-31BB-31F5CD728414}">
->>>>>>> b023242dff1fc477f6ff88c6a7deb33738251c21
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="bot53_plccode2\bot53_plccode2.tmc" TmcHash="{841C0E05-175C-A042-DF9F-76DC03C20CFD}">
 					<Name>bot53_plccode2 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1" ContextId="1" AreaNo="16">
@@ -832,6 +828,10 @@
 					<Vars VarGrpType="1" ContextId="2" AreaNo="32">
 						<Name>PlcTask Inputs</Name>
 						<Var>
+							<Name>GVL.batteryVoltageINT</Name>
+							<Type>UDINT</Type>
+						</Var>
+						<Var>
 							<Name>GVL.robotdata.motorError</Name>
 							<Type GUID="{E1E90A9D-2E34-1B23-BC03-A5D169C28CE9}">ARRAY [0..3] OF INT</Type>
 						</Var>
@@ -848,8 +848,8 @@
 							<Type>DINT</Type>
 						</Var>
 						<Var>
-							<Name>GVL.batteryVoltageINT</Name>
-							<Type>UDINT</Type>
+							<Name>GVL.Locomotion_1_modesOfOperationDisplay</Name>
+							<Type>SINT</Type>
 						</Var>
 						<Var>
 							<Name>GVL.Locomotion_1_error_state_1</Name>
@@ -864,12 +864,12 @@
 							<Type>UINT</Type>
 						</Var>
 						<Var>
-							<Name>GVL.Locomotion_1_modesOfOperationDisplay</Name>
-							<Type>SINT</Type>
-						</Var>
-						<Var>
 							<Name>GVL.Locomotion_1_actual_pos</Name>
 							<Type>DINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.Locomotion_2_modesOfOperationDisplay</Name>
+							<Type>SINT</Type>
 						</Var>
 						<Var>
 							<Name>GVL.Locomotion_2_error_state_1</Name>
@@ -884,12 +884,12 @@
 							<Type>UINT</Type>
 						</Var>
 						<Var>
-							<Name>GVL.Locomotion_2_modesOfOperationDisplay</Name>
-							<Type>SINT</Type>
-						</Var>
-						<Var>
 							<Name>GVL.Locomotion_2_actual_pos</Name>
 							<Type>DINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.Rotator_modesOfOperationDisplay</Name>
+							<Type>SINT</Type>
 						</Var>
 						<Var>
 							<Name>GVL.Rotator_error_state_1</Name>
@@ -904,7 +904,7 @@
 							<Type>UINT</Type>
 						</Var>
 						<Var>
-							<Name>GVL.Rotator_modesOfOperationDisplay</Name>
+							<Name>GVL.Lifter_modesOfOperationDisplay</Name>
 							<Type>SINT</Type>
 						</Var>
 						<Var>
@@ -918,10 +918,6 @@
 						<Var>
 							<Name>GVL.Lifter_statusword</Name>
 							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL.Lifter_modesOfOperationDisplay</Name>
-							<Type>SINT</Type>
 						</Var>
 					</Vars>
 					<Vars VarGrpType="2" ContextId="2" AreaNo="33">
@@ -1023,9 +1019,9 @@
 				<Name>Device 3 (EtherCAT)</Name>
 				<AddressInfo>
 					<Pnp>
-						<DeviceDesc>Ethernet 2 (TwinCAT-Intel PCI Ethernet Adapter (Gig</DeviceDesc>
-						<DeviceName>\DEVICE\{D6050B52-F9B7-4038-82C0-D99EAB781CD8}</DeviceName>
-						<DeviceData>0001053d6f37</DeviceData>
+						<DeviceDesc>Ethernet (TwinCAT-Intel PCI Ethernet Adapter (Gigab</DeviceDesc>
+						<DeviceName>\DEVICE\{685AD5ED-FE40-40E4-80AF-EDFF0A72CCC2}</DeviceName>
+						<DeviceData>00010539deae</DeviceData>
 					</Pnp>
 				</AddressInfo>
 				<Image Id="2" AddrType="9" ImageType="3">
@@ -1991,64 +1987,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 							<Entry Name="Operation mode" Index="#x6060">
 								<Type>SINT</Type>
 							</Entry>
-<<<<<<< HEAD
-						</Pdo>
-						<CoeProfile ProfileNo="402"/>
-					</EtherCAT>
-				</Box>
-				<Box Id="6" BoxType="9099" BoxFlags="#x00000020">
-					<Name>Lifter</Name>
-					<ImageId>1006</ImageId>
-					<EtherCAT SlaveType="2" PdiType="#x0e08" MboxDataLinkLayer="true" CycleMBoxPolling="true" CoeType="15" FoeType="1" VendorId="#x000022d2" ProductCode="#x00000201" RevisionNo="#x0a00000c" InfoDataAddr="true" InfoDataSoeDS401="true" TimeoutMailbox2="6000" PortPhys="17" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="SOMANET Node CiA402 Drive" Desc="SOMANET Node" PortABoxInfo="#x01000008">
-						<SyncMan>001000042600010001000000000000000004001026010000</SyncMan>
-						<SyncMan>001400042200010002000000000000000004001422010000</SyncMan>
-						<SyncMan>00182300640001000300000001002c012300001864010000</SyncMan>
-						<SyncMan>001c3500200001000400000001002c012f00001c20010000</SyncMan>
-						<Fmmu>0000000000000000001800020100000001000000000000000000000000000000</Fmmu>
-						<Fmmu>0000000000000000001c00010100000002000000000000000000000000000000</Fmmu>
-						<BootStrapData>0010000400140004</BootStrapData>
-						<DcMode>4672656572756e000000000000000000467265652052756e000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000</DcMode>
-						<DcMode>4443000000000000000000000000000044432d53796e6368726f6e00000000000000000000000000000000000000000040420f000000000000000000ffff00030100000000000000000000000000000000000000000000000000000000000000</DcMode>
-						<Pdo Name="TxPDO Mapping 1" Index="#x1a00" Flags="#x0000" SyncMan="3">
-							<Entry Name="Statusword" Index="#x6041">
-								<Type>UINT</Type>
-							</Entry>
-							<Entry Name="Modes of operation display" Index="#x6061">
-								<Type>SINT</Type>
-							</Entry>
-							<Entry Name="Position actual value" Index="#x6064">
-								<Type>DINT</Type>
-							</Entry>
-							<Entry Name="Velocity actual value" Index="#x606c">
-								<Type>DINT</Type>
-							</Entry>
-							<Entry Name="Torque actual value" Index="#x6077">
-								<Type>INT</Type>
-							</Entry>
-							<Entry Name="Error code" Index="#x603f">
-								<Type>UINT</Type>
-							</Entry>
-							<Entry Name="batteryVoltage" Index="#x6079">
-								<Type>UDINT</Type>
-							</Entry>
-						</Pdo>
-						<Pdo Name="TxPDO Mapping 2" Index="#x1a01" Flags="#x0000" SyncMan="3">
-							<Entry Name="Analog input 1" Index="#x2401">
-								<Type>UINT</Type>
-							</Entry>
-							<Entry Name="Analog input 2" Index="#x2402">
-								<Type>UINT</Type>
-							</Entry>
-							<Entry Name="Analog input 3" Index="#x2403">
-								<Type>UINT</Type>
-							</Entry>
-							<Entry Name="Analog input 4" Index="#x2404">
-								<Type>UINT</Type>
-							</Entry>
-							<Entry Name="Tuning status" Index="#x2702">
-=======
 							<Entry Name="Profile_Acce" Index="#x6083">
->>>>>>> b023242dff1fc477f6ff88c6a7deb33738251c21
 								<Type>UDINT</Type>
 							</Entry>
 							<Entry Name="Profile_Dece" Index="#x6084">
@@ -2181,9 +2120,9 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 				<Name>Device 1 (RT-Ethernet Adapter)</Name>
 				<AddressInfo>
 					<Pnp>
-						<DeviceDesc>Ethernet (TwinCAT-Intel PCI Ethernet Adapter (Gigab</DeviceDesc>
-						<DeviceName>\DEVICE\{D58EF4FD-5C5C-4CEE-A2FE-983DD664EAF0}</DeviceName>
-						<DeviceData>0001053d6f36</DeviceData>
+						<DeviceDesc>Ethernet 2 (TwinCAT-Intel PCI Ethernet Adapter (Gig</DeviceDesc>
+						<DeviceName>\DEVICE\{61F5B452-2098-4133-9EFC-7DD5530543CF}</DeviceName>
+						<DeviceData>00010539deaf</DeviceData>
 					</Pnp>
 				</AddressInfo>
 				<Module Id="#x01010010" KeepUnrestoredLinks="2">
@@ -2599,7 +2538,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 						</InterfacePointerValues>
 					</TmcDesc>
 				</Module>
-				<Ethernet DeviceDesc="Ethernet (TwinCAT-Intel PCI Ethernet Adapter (Gigabit))" Ports="1" VLanIds="0a0014001e00280032003c00460050005a0064006e00780082008c009600a000aa00b400be00c800d200dc00e600f000fa0004010e01180122012c01360140014a0154015e01680172017c01860190019a01a401ae01b801c201cc01d601e001ea01f401fe01080212021c02260230023a0244024e02580262026c0276028002">
+				<Ethernet DeviceDesc="Ethernet 2 (TwinCAT-Intel PCI Ethernet Adapter (Gigabit) #2)" Ports="1" VLanIds="0a0014001e00280032003c00460050005a0064006e00780082008c009600a000aa00b400be00c800d200dc00e600f000fa0004010e01180122012c01360140014a0154015e01680172017c01860190019a01a401ae01b801c201cc01d601e001ea01f401fe01080212021c02260230023a0244024e02580262026c0276028002">
 					<Esl SyncSlaveProtocolPort="-1"/>
 				</Ethernet>
 			</Device>
@@ -2611,27 +2550,16 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 		<MappingInfo Identifier="{08502002-0020-0304-0020-500820000403}" Id="#x02030020" Watchdog="00000000000000000000000000000000"/>
 		<OwnerA Name="TIPC^bot53_plccode2^bot53_plccode2 Instance">
 			<OwnerB Name="TIID^Device 3 (EtherCAT)^Lifter">
-<<<<<<< HEAD
-				<Link VarA="MqttTask Inputs^GVL.robotdata.Position_Velocity.Lifter_position_actual_value" VarB="TxPDO Mapping 1^Position actual value"/>
-				<Link VarA="MqttTask Outputs^GVL.robotdata.Position_Velocity.Lifter_target_position" VarB="RxPDO Mapping 1^Target position"/>
-				<Link VarA="MqttTask Outputs^GVL.robotdata.motorCword[2]" VarB="RxPDO Mapping 1^Controlword"/>
-				<Link VarA="PlcTask Inputs^GVL.Lifter_modesOfOperationDisplay" VarB="TxPDO Mapping 1^Modes of operation display"/>
-				<Link VarA="PlcTask Inputs^GVL.Lifter_statusword" VarB="TxPDO Mapping 1^Statusword"/>
-				<Link VarA="PlcTask Inputs^GVL.batteryVoltageINT" VarB="TxPDO Mapping 1^batteryVoltage"/>
-				<Link VarA="PlcTask Inputs^GVL.robotdata.motorError[2]" VarB="TxPDO Mapping 1^Error code"/>
-				<Link VarA="PlcTask Outputs^GVL.Lifter_modesOfOperation" VarB="RxPDO Mapping 1^Modes of operation"/>
-=======
 				<Link VarA="MqttTask Inputs^GVL.robotdata.Position_Velocity.Lifter_position_actual_value" VarB="TXPDO^Actual position"/>
 				<Link VarA="MqttTask Outputs^GVL.robotdata.Position_Velocity.Lifter_target_position" VarB="RxPDO^Target Position"/>
 				<Link VarA="MqttTask Outputs^GVL.robotdata.motorCword[2]" VarB="RxPDO^Control Word"/>
 				<Link VarA="PlcTask Inputs^GVL.Lifter_modesOfOperationDisplay" VarB="TXPDO^mode of operation display"/>
 				<Link VarA="PlcTask Inputs^GVL.robotdata.motorError[2]" VarB="TXPDO^Error Code"/>
 				<Link VarA="PlcTask Outputs^GVL.Lifter_modesOfOperation" VarB="RxPDO_1^Operation mode"/>
->>>>>>> b023242dff1fc477f6ff88c6a7deb33738251c21
 			</OwnerB>
 			<OwnerB Name="TIID^Device 3 (EtherCAT)^Locomotion_Left">
 				<Link VarA="MqttTask Outputs^GVL.robotdata.Position_Velocity.Locomotion_1_target_velocity" VarB="RxPDO_2^Target velocity"/>
-				<Link VarA="MqttTask Outputs^GVL.robotdata.motorCword[0]" VarB="RxPDO^Control Word"/>
+				<Link VarA="MqttTask Outputs^GVL.robotdata.motorCword[0]" VarB="RxPDO_1^Control Word"/>
 				<Link VarA="PlcTask Inputs^GVL.Locomotion_1_modesOfOperationDisplay" VarB="TXPDO^mode of operation display"/>
 				<Link VarA="PlcTask Inputs^GVL.robotdata.Position_Velocity.Locomotion_1_actual_velocity" VarB="TXPDO^Velocity_actual_value"/>
 				<Link VarA="PlcTask Inputs^GVL.robotdata.motorError[0]" VarB="TXPDO^Error Code"/>
@@ -2639,28 +2567,19 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 3 (EtherCAT)^Locomotion_Right">
 				<Link VarA="MqttTask Outputs^GVL.robotdata.Position_Velocity.Locomotion_2_target_velocity" VarB="RxPDO_2^Target velocity"/>
-				<Link VarA="MqttTask Outputs^GVL.robotdata.motorCword[1]" VarB="RxPDO^Control Word"/>
+				<Link VarA="MqttTask Outputs^GVL.robotdata.motorCword[1]" VarB="RxPDO_1^Control Word"/>
 				<Link VarA="PlcTask Inputs^GVL.Locomotion_2_modesOfOperationDisplay" VarB="TXPDO^mode of operation display"/>
 				<Link VarA="PlcTask Inputs^GVL.robotdata.Position_Velocity.Locomotion_2_actual_velocity" VarB="TXPDO^Velocity_actual_value"/>
 				<Link VarA="PlcTask Inputs^GVL.robotdata.motorError[1]" VarB="TXPDO^Error Code"/>
 				<Link VarA="PlcTask Outputs^GVL.Locomotion_2_modesOfOperation" VarB="RxPDO_1^Operation mode"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 3 (EtherCAT)^Rotator">
-<<<<<<< HEAD
-				<Link VarA="MqttTask Inputs^GVL.robotdata.Position_Velocity.Rotator_position_actual_value" VarB="TxPDO Mapping 1^Position actual value"/>
-				<Link VarA="MqttTask Outputs^GVL.robotdata.Position_Velocity.Rotator_target_position" VarB="RxPDO Mapping 1^Target position"/>
-				<Link VarA="MqttTask Outputs^GVL.robotdata.motorCword[3]" VarB="RxPDO Mapping 1^Controlword"/>
-				<Link VarA="PlcTask Inputs^GVL.Rotator_modesOfOperationDisplay" VarB="TxPDO Mapping 1^Modes of operation display"/>
-				<Link VarA="PlcTask Inputs^GVL.robotdata.motorError[3]" VarB="TxPDO Mapping 1^Error code"/>
-				<Link VarA="PlcTask Outputs^GVL.Rotator_modesOfOperation" VarB="RxPDO Mapping 1^Modes of operation"/>
-=======
 				<Link VarA="MqttTask Inputs^GVL.robotdata.Position_Velocity.Rotator_position_actual_value" VarB="TXPDO^Actual position"/>
 				<Link VarA="MqttTask Outputs^GVL.robotdata.Position_Velocity.Rotator_target_position" VarB="RxPDO^Target Position"/>
 				<Link VarA="MqttTask Outputs^GVL.robotdata.motorCword[3]" VarB="RxPDO^Control Word"/>
 				<Link VarA="PlcTask Inputs^GVL.Rotator_modesOfOperationDisplay" VarB="TXPDO^mode of operation display"/>
 				<Link VarA="PlcTask Inputs^GVL.robotdata.motorError[3]" VarB="TXPDO^Error Code"/>
 				<Link VarA="PlcTask Outputs^GVL.Rotator_modesOfOperation" VarB="RxPDO_1^Operation mode"/>
->>>>>>> b023242dff1fc477f6ff88c6a7deb33738251c21
 			</OwnerB>
 			<OwnerB Name="TIID^Device 3 (EtherCAT)^Term 1 (EK1960-2600)^Term 3 (EL3052)">
 				<Link VarA="PlcTask Inputs^GVL.robotdata.lifterDistance" VarB="AI Standard Channel 1^Value"/>

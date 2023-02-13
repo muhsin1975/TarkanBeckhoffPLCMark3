@@ -23,7 +23,6 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[//LATE/ERROR KONTROLÜ
-robotdata.batteryVoltage:=GVL.batteryVoltageINT/1000;
 IF(calibrationCount<500) THEN
       gyroZSum:=gyroZSum+robotdata.imu_state.hr_gyro_z;
       accXSum:=accXSum+robotdata.imu_state.hr_acc_x;
@@ -99,7 +98,6 @@ END_IF
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="761" Count="0" />
-      <LineId Id="1020" Count="0" />
       <LineId Id="945" Count="3" />
       <LineId Id="951" Count="3" />
       <LineId Id="944" Count="0" />
