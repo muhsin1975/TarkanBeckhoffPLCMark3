@@ -776,7 +776,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{8A670E50-189C-4F79-ADC2-9034F773F334}" Name="bot53_plccode2" PrjFilePath="bot53_plccode2\bot53_plccode2.plcproj" TmcFilePath="bot53_plccode2\bot53_plccode2.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="bot53_plccode2\bot53_plccode2.tmc" TmcHash="{841C0E05-175C-A042-DF9F-76DC03C20CFD}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="bot53_plccode2\bot53_plccode2.tmc" TmcHash="{878B7CC9-DEC1-4ED3-EDEC-7C125AC16B81}">
 					<Name>bot53_plccode2 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1" ContextId="1" AreaNo="16">
@@ -2551,8 +2551,8 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 		<OwnerA Name="TIPC^bot53_plccode2^bot53_plccode2 Instance">
 			<OwnerB Name="TIID^Device 3 (EtherCAT)^Lifter">
 				<Link VarA="MqttTask Inputs^GVL.robotdata.Position_Velocity.Lifter_position_actual_value" VarB="TXPDO^Actual position"/>
-				<Link VarA="MqttTask Outputs^GVL.robotdata.Position_Velocity.Lifter_target_position" VarB="RxPDO^Target Position"/>
-				<Link VarA="MqttTask Outputs^GVL.robotdata.motorCword[2]" VarB="RxPDO^Control Word"/>
+				<Link VarA="MqttTask Outputs^GVL.robotdata.Position_Velocity.Lifter_target_position" VarB="RxPDO_1^Target Position"/>
+				<Link VarA="MqttTask Outputs^GVL.robotdata.motorCword[2]" VarB="RxPDO_1^Control Word"/>
 				<Link VarA="PlcTask Inputs^GVL.Lifter_modesOfOperationDisplay" VarB="TXPDO^mode of operation display"/>
 				<Link VarA="PlcTask Inputs^GVL.robotdata.motorError[2]" VarB="TXPDO^Error Code"/>
 				<Link VarA="PlcTask Outputs^GVL.Lifter_modesOfOperation" VarB="RxPDO_1^Operation mode"/>
@@ -2567,7 +2567,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 3 (EtherCAT)^Locomotion_Right">
 				<Link VarA="MqttTask Outputs^GVL.robotdata.Position_Velocity.Locomotion_2_target_velocity" VarB="RxPDO_2^Target velocity"/>
-				<Link VarA="MqttTask Outputs^GVL.robotdata.motorCword[1]" VarB="RxPDO^Control Word"/>
+				<Link VarA="MqttTask Outputs^GVL.robotdata.motorCword[1]" VarB="RxPDO_1^Control Word"/>
 				<Link VarA="PlcTask Inputs^GVL.Locomotion_2_modesOfOperationDisplay" VarB="TXPDO^mode of operation display"/>
 				<Link VarA="PlcTask Inputs^GVL.robotdata.Position_Velocity.Locomotion_2_actual_velocity" VarB="TXPDO^Velocity_actual_value"/>
 				<Link VarA="PlcTask Inputs^GVL.robotdata.motorError[1]" VarB="TXPDO^Error Code"/>
