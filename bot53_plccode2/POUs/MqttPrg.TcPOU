@@ -7,8 +7,8 @@ VAR
     bSetParameter : BOOL := TRUE;
     bConnect      : BOOL := TRUE;
 	bSubscribed : BOOL;
-	sTopicPub : STRING(255) := 'FBDATA/BOT110';
-	sTopicSub   : STRING(255) := 'COMMAND/BOT110';
+	sTopicPub : STRING(255) := 'FBDATA/BOT120';
+	sTopicSub   : STRING(255) := 'COMMAND/BOT120';
     sPayloadPub : STRING(2000);
 	fbJson         : FB_JsonSaxWriter;
   	fbJsonDataType : FB_JsonReadWriteDataType;
@@ -23,7 +23,7 @@ END_VAR
     bSetParameter              := FALSE;
     fbMqttClient.sHostName     := '192.168.8.80';
     fbMqttClient.nHostPort     := 1883;
-    fbMqttClient.sClientId     := 'BOT110'; 
+    fbMqttClient.sClientId     := 'BOT120'; 
     fbMqttClient.sTopicPrefix  := ''; 
 //  fbMqttClient.nKeepAlive    := 60; 
 //  fbMqttClient.sUserName     := ;
