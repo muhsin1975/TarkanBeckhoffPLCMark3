@@ -43,6 +43,9 @@ sPayloadRcv[nPayloadRcvLen] := 0;  // ensure a null termination of received stri
 IF(fbJsonDataType.SetSymbolFromJson(sPayloadRcv, 'ST_COMMAND', SIZEOF(st_command), ADR(st_command)))THEN
 	robotdata.activecommand:=st_command.command;
 	CASE st_command.command OF
+	COMMAND_STOP:
+		robotdata.motorCword[0]:=43;
+		robotdata.motorCword[1]:=43;
 	COMMAND_LOCOMOTION_DISABLE:
 		fbenadisloco(DRIVER:=0,CWORD:=6);
 	COMMAND_LOCOMOTION_ENABLE:
@@ -96,6 +99,7 @@ OnMqttMessage := S_OK;]]></ST>
       <LineId Id="19" Count="5" />
       <LineId Id="213" Count="0" />
       <LineId Id="233" Count="0" />
+      <LineId Id="290" Count="2" />
       <LineId Id="30" Count="0" />
       <LineId Id="50" Count="0" />
       <LineId Id="53" Count="1" />
