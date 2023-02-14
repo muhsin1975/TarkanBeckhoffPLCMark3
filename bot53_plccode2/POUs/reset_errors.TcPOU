@@ -19,6 +19,7 @@ motion_index:=max_location;
 robotdata.motion_status:=MOTION_ENDED;
 robotdata.Position_Velocity.Locomotion_1_target_velocity:=0;
 robotdata.Position_Velocity.Locomotion_2_target_velocity:=0;
+robotdata.Position_Velocity.Rotator_target_velocity:=0;
 robotdata.Position_Velocity.Lifter_target_position:=robotdata.Position_Velocity.Lifter_position_actual_value;
 robotdata.Position_Velocity.Rotator_target_position:=robotdata.Position_Velocity.Rotator_position_actual_value;
 
@@ -32,6 +33,7 @@ robotdata.activecommand:=0;]]></ST>
       <LineId Id="15" Count="0" />
       <LineId Id="43" Count="0" />
       <LineId Id="45" Count="2" />
+      <LineId Id="81" Count="0" />
       <LineId Id="44" Count="0" />
       <LineId Id="65" Count="0" />
       <LineId Id="64" Count="0" />

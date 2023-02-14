@@ -21,7 +21,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[IF bSetParameter THEN
     bSetParameter              := FALSE;
-    fbMqttClient.sHostName     := '192.168.8.80';
+    fbMqttClient.sHostName     := '192.168.8.104';
     fbMqttClient.nHostPort     := 1883;
     fbMqttClient.sClientId     := 'BOT120'; 
     fbMqttClient.sTopicPrefix  := ''; 

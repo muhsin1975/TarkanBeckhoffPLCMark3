@@ -751,7 +751,7 @@
 		<ImageData Id="1005">424de6000000000000007600000028000000100000000e000000010004000000000070000000000000000000000000000000000000000000000000008000008000000080800080000000800080008080000080808000c0c0c0000000ff0000ff000000ffff00ff000000ff00ff00ffff0000ffffff00ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff9f9f9f9f9f99f9999f9f9f9f99fff9f999ff9f9f99fff9f999ff9f9f99fff9f999ff9f999f99f9999f5fffffffffffff9f9f9fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</ImageData>
 		<ImageData Id="1006">424de6000000000000007600000028000000100000000e000000010004000000000070000000000000000000000000000000000000000000000000008000008000000080800080000000800080008080000080808000c0c0c0000000ff0000ff000000ffff00ff000000ff00ff00ffff0000ffffff00ffffffffffffffffff788833338887ffff78883bb38887ffffffff3bb3ffffffffffff8778fffffffffffffffffffffffffffffffff999ffff78f78fffffffffff78f78ffff999ffff78f7888fffffffff78f78f78f999ffff78f78f78ffffffff78f7888ff999ffffffffffffffffff</ImageData>
 	</ImageDatas>
-	<Project ProjectGUID="{69EC154D-F8E3-40E4-B841-7FB5CA225D24}" TargetNetId="169.254.139.155.1.1" ShowHideConfigurations="#x106">
+	<Project ProjectGUID="{69EC154D-F8E3-40E4-B841-7FB5CA225D24}" TargetNetId="169.254.139.155.1.1" Target64Bit="true" ShowHideConfigurations="#x106">
 		<System>
 			<Settings>
 				<Cpu BaseTime="1000"/>
@@ -776,7 +776,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{8A670E50-189C-4F79-ADC2-9034F773F334}" Name="bot53_plccode2" PrjFilePath="bot53_plccode2\bot53_plccode2.plcproj" TmcFilePath="bot53_plccode2\bot53_plccode2.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="bot53_plccode2\bot53_plccode2.tmc" TmcHash="{65FFFDF3-A401-322B-B187-3A0AC8CC78EE}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="bot53_plccode2\bot53_plccode2.tmc" TmcHash="{0739FFD3-CB15-6E1F-821A-1592CB6607AD}">
 					<Name>bot53_plccode2 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1" ContextId="1" AreaNo="16">
@@ -824,28 +824,16 @@
 							<Name>GVL.robotdata.Position_Velocity.Rotator_target_position</Name>
 							<Type>DINT</Type>
 						</Var>
+						<Var>
+							<Name>GVL.robotdata.Position_Velocity.Rotator_target_velocity</Name>
+							<Type>DINT</Type>
+						</Var>
 					</Vars>
 					<Vars VarGrpType="1" ContextId="2" AreaNo="32">
 						<Name>PlcTask Inputs</Name>
 						<Var>
 							<Name>GVL.batteryVoltageINT</Name>
 							<Type>UDINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL.robotdata.motorError</Name>
-							<Type GUID="{E1E90A9D-2E34-1B23-BC03-A5D169C28CE9}">ARRAY [0..3] OF INT</Type>
-						</Var>
-						<Var>
-							<Name>GVL.robotdata.lifterDistance</Name>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>GVL.robotdata.Position_Velocity.Locomotion_1_actual_velocity</Name>
-							<Type>DINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL.robotdata.Position_Velocity.Locomotion_2_actual_velocity</Name>
-							<Type>DINT</Type>
 						</Var>
 						<Var>
 							<Name>GVL.Locomotion_1_modesOfOperationDisplay</Name>
@@ -919,21 +907,29 @@
 							<Name>GVL.Lifter_statusword</Name>
 							<Type>UINT</Type>
 						</Var>
+						<Var>
+							<Name>GVL.robotdata.motorError</Name>
+							<Type GUID="{E1E90A9D-2E34-1B23-BC03-A5D169C28CE9}">ARRAY [0..3] OF INT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.robotdata.lifterDistance</Name>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.robotdata.Position_Velocity.Locomotion_1_actual_velocity</Name>
+							<Type>DINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.robotdata.Position_Velocity.Locomotion_2_actual_velocity</Name>
+							<Type>DINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.robotdata.Position_Velocity.Rotator_velocity_actual_value</Name>
+							<Type>DINT</Type>
+						</Var>
 					</Vars>
 					<Vars VarGrpType="2" ContextId="2" AreaNo="33">
 						<Name>PlcTask Outputs</Name>
-						<Var>
-							<Name>GVL.robotdata.locomotionQuickStop</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL.robotdata.animationBit_1</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL.robotdata.animationBit_2</Name>
-							<Type>BOOL</Type>
-						</Var>
 						<Var>
 							<Name>GVL.Locomotion_1_modesOfOperation</Name>
 							<Comment><![CDATA[Locomotion_1]]></Comment>
@@ -953,6 +949,18 @@
 							<Name>GVL.Lifter_modesOfOperation</Name>
 							<Comment><![CDATA[Lifter]]></Comment>
 							<Type>SINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.robotdata.locomotionQuickStop</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL.robotdata.animationBit_1</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL.robotdata.animationBit_2</Name>
+							<Type>BOOL</Type>
 						</Var>
 					</Vars>
 					<UnrestoredVarLinks ImportTime="2023-01-27T15:10:12">
@@ -1704,6 +1712,8 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 						<DcData>0003000000000000000000000000000001000000000000000000000000000000</DcData>
 						<DcMode>446353796e633000000000000000000044432d53796e6368726f6e6f7573000000000000000000000000000000000000000000000000000000000000000000030100000000000000000000000000000000000000000000000000000000000000</DcMode>
 						<DcMode>4672656552554e0000000000000000004672656552554e00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</DcMode>
+						<MBoxUserCmdData>020003000a00000000000000030000000000000000000000000000000000000020f9600102000000c80000</MBoxUserCmdData>
+						<MBoxUserCmdData>020003000a00000000000000030000000000000000000000000000000000000020f6600102000000c80000</MBoxUserCmdData>
 						<Pdo Name="TXPDO" Index="#x1a00" Flags="#x0000" SyncMan="3">
 							<Entry Name="Actual position" Index="#x6064">
 								<Type>DINT</Type>
@@ -1810,6 +1820,8 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 						<DcData>0003000000000000000000000000000001000000000000000000000000000000</DcData>
 						<DcMode>446353796e633000000000000000000044432d53796e6368726f6e6f7573000000000000000000000000000000000000000000000000000000000000000000030100000000000000000000000000000000000000000000000000000000000000</DcMode>
 						<DcMode>4672656552554e0000000000000000004672656552554e00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</DcMode>
+						<MBoxUserCmdData>020003000a00000000000000030000000000000000000000000000000000000020f9600102000000c80000</MBoxUserCmdData>
+						<MBoxUserCmdData>020003000a00000000000000030000000000000000000000000000000000000020f6600102000000c80000</MBoxUserCmdData>
 						<Pdo Name="TXPDO" Index="#x1a00" Flags="#x0000" SyncMan="3">
 							<Entry Name="Actual position" Index="#x6064">
 								<Type>DINT</Type>
@@ -2576,8 +2588,10 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 			<OwnerB Name="TIID^Device 3 (EtherCAT)^Rotator">
 				<Link VarA="MqttTask Inputs^GVL.robotdata.Position_Velocity.Rotator_position_actual_value" VarB="TXPDO^Actual position"/>
 				<Link VarA="MqttTask Outputs^GVL.robotdata.Position_Velocity.Rotator_target_position" VarB="RxPDO_1^Target Position"/>
+				<Link VarA="MqttTask Outputs^GVL.robotdata.Position_Velocity.Rotator_target_velocity" VarB="RxPDO_2^Target velocity"/>
 				<Link VarA="MqttTask Outputs^GVL.robotdata.motorCword[3]" VarB="RxPDO_1^Control Word"/>
 				<Link VarA="PlcTask Inputs^GVL.Rotator_modesOfOperationDisplay" VarB="TXPDO^mode of operation display"/>
+				<Link VarA="PlcTask Inputs^GVL.robotdata.Position_Velocity.Rotator_velocity_actual_value" VarB="TXPDO^Velocity_actual_value"/>
 				<Link VarA="PlcTask Inputs^GVL.robotdata.motorError[3]" VarB="TXPDO^Error Code"/>
 				<Link VarA="PlcTask Outputs^GVL.Rotator_modesOfOperation" VarB="RxPDO_1^Operation mode"/>
 			</OwnerB>
