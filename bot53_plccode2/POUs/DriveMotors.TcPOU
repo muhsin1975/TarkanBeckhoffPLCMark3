@@ -9,7 +9,7 @@ END_VAR
       <ST><![CDATA[IF (robotdata.motion_status = MOTION_ANGLE) THEN
 		robotdata.Position_Velocity.Locomotion_1_target_velocity := motion_left[motion_index]*2730;
 		robotdata.Position_Velocity.Locomotion_2_target_velocity:= motion_right[motion_index]*2730;
-		IF(robotdata.lifterDistance<LIFTER_UP) THEN
+		IF(robotdata.lifterDistance>LIFTER_UP) THEN
 			robotdata.Position_Velocity.Rotator_Target_Position:= motion_rotator[motion_index];
 		END_IF
 		motion_index:=motion_index+1;
