@@ -3,8 +3,9 @@
   <POU Name="MqttPrg" Id="{420ba57b-26da-488f-a3a3-d7217117c9e9}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MqttPrg
 VAR
-    fbMqttClient  : FB_Mqtt;
+	fbMqttClient  : FB_Mqtt;
     bSetParameter : BOOL := TRUE;
+	bHostnameSet:BOOL:=FALSE;
     bConnect      : BOOL := TRUE;
 	bSubscribed : BOOL;
 	sTopicPub : STRING(255) := 'FBDATA/BOT110';
@@ -14,25 +15,34 @@ VAR
   	fbJsonDataType : FB_JsonReadWriteDataType;
 	i: UDINT;
     fbTimer : TON := (PT:=T#10MS);
+	hostnameexecuter:TON;
+	gethostname:FB_GetHostName:=(sNetID:='',bExecute:=bHostnameSet);
+
+	
 END_VAR
 
 
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF bSetParameter THEN
+      <ST><![CDATA[IF(HOSTNAME='') THEN
+hostnameexecuter(IN:=TRUE,PT:=T#1S,Q=>bHostnameSet);
+gethostname(sNetID:='',bExecute:=bHostnameSet,sHostName=>HOSTNAME);
+END_IF
+IF  HOSTNAME<>'' AND bSetParameter  AND NOT fbMqttClient.bConnected THEN
     bSetParameter              := FALSE;
     fbMqttClient.sHostName     := '192.168.8.80';
     fbMqttClient.nHostPort     := 1883;
-    fbMqttClient.sClientId     := 'BOT110'; 
+    fbMqttClient.sClientId     := HOSTNAME; 
     fbMqttClient.sTopicPrefix  := ''; 
 //  fbMqttClient.nKeepAlive    := 60; 
 //  fbMqttClient.sUserName     := ;
 //  fbMqttClient.sUserPassword := ; 
 //  fbMqttClient.stWill        := ; 
 //  fbMqttClient.stTLS         := ;
+	fbMqttClient.Execute(bConnect);
 END_IF
 
-fbMqttClient.Execute(bConnect);
+
 IF fbMqttClient.bConnected THEN
     IF NOT bSubscribed THEN
         bSubscribed := fbMqttClient.Subscribe(sTopic:=sTopicSub, eQoS:=TcIotMqttQos.ExactlyOnceDelivery);
@@ -51,7 +61,15 @@ IF fbMqttClient.bConnected THEN
 END_IF]]></ST>
     </Implementation>
     <LineIds Name="MqttPrg">
-      <LineId Id="48" Count="12" />
+      <LineId Id="196" Count="0" />
+      <LineId Id="194" Count="0" />
+      <LineId Id="160" Count="0" />
+      <LineId Id="197" Count="0" />
+      <LineId Id="191" Count="0" />
+      <LineId Id="193" Count="0" />
+      <LineId Id="50" Count="8" />
+      <LineId Id="187" Count="0" />
+      <LineId Id="59" Count="1" />
       <LineId Id="46" Count="0" />
       <LineId Id="66" Count="6" />
       <LineId Id="121" Count="0" />
