@@ -10,7 +10,8 @@ END_VAR
 		robotdata.Position_Velocity.Locomotion_1_target_velocity := motion_left[motion_index];
 		robotdata.Position_Velocity.Locomotion_2_target_velocity:= motion_right[motion_index];
 		IF(robotdata.lifterDistance>LIFTER_UP) THEN
-			robotdata.Position_Velocity.Rotator_Target_Position:= motion_rotator[motion_index];
+			//robotdata.Position_Velocity.Rotator_Target_Position:= motion_rotator[motion_index];
+			robotdata.Position_Velocity.Rotator_Target_Velocity:=LREAL_TO_DINT(-3.16*motion_right[motion_index]);
 		END_IF
 		motion_index:=motion_index+1;
 		IF (motion_index = max_location) THEN
@@ -18,6 +19,7 @@ END_VAR
 			robotdata.activeState:=TURN_ENDED;
 			robotdata.Position_Velocity.Locomotion_1_target_velocity:= 0;
 			robotdata.Position_Velocity.Locomotion_2_target_velocity:= 0;
+			robotdata.Position_Velocity.Rotator_Target_Velocity:=0;
 		END_IF
 ELSIF (robotdata.motion_status = MOTION_ONGOING) THEN
 	
@@ -50,8 +52,10 @@ ELSIF (robotdata.motion_status = MOTION_ROTATE) THEN
 		robotdata.motion_status:=MOTION_ENDED;
 		robotdata.activeState:=ROTATE_ENDED;
 		motion_index:=max_location;
+		robotdata.Position_Velocity.Rotator_Target_Velocity:=0;
 		ELSE
-		robotdata.Position_Velocity.Rotator_Target_Position:= motion_rotator[motion_index];
+		//robotdata.Position_Velocity.Rotator_Target_Position:= motion_rotator[motion_index];
+		robotdata.Position_Velocity.Rotator_Target_Velocity:= motion_rotator[motion_index];
 		motion_index:=motion_index+1;
 	END_IF		
 END_IF]]></ST>
@@ -61,11 +65,13 @@ END_IF]]></ST>
       <LineId Id="11" Count="1" />
       <LineId Id="94" Count="0" />
       <LineId Id="46" Count="0" />
+      <LineId Id="106" Count="0" />
       <LineId Id="95" Count="0" />
       <LineId Id="13" Count="2" />
       <LineId Id="41" Count="0" />
       <LineId Id="21" Count="0" />
       <LineId Id="16" Count="0" />
+      <LineId Id="107" Count="0" />
       <LineId Id="18" Count="0" />
       <LineId Id="28" Count="0" />
       <LineId Id="47" Count="0" />
@@ -79,8 +85,12 @@ END_IF]]></ST>
       <LineId Id="72" Count="0" />
       <LineId Id="76" Count="0" />
       <LineId Id="63" Count="0" />
-      <LineId Id="82" Count="5" />
-      <LineId Id="89" Count="1" />
+      <LineId Id="82" Count="4" />
+      <LineId Id="105" Count="0" />
+      <LineId Id="87" Count="0" />
+      <LineId Id="89" Count="0" />
+      <LineId Id="104" Count="0" />
+      <LineId Id="90" Count="0" />
       <LineId Id="53" Count="0" />
       <LineId Id="9" Count="0" />
     </LineIds>

@@ -11,6 +11,8 @@ STRUCT
 	Lifter_target_position                     AT%Q* : DINT;
 	Rotator_target_position                 AT%Q* : DINT;
 	Rotator_position_actual_value             AT%I* : DINT;
+	Rotator_target_velocity                 AT%Q* : DINT;
+	Rotator_actual_velocity             AT%I* : DINT;
 END_STRUCT
 END_TYPE
 ]]></Declaration>

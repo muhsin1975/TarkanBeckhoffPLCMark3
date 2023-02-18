@@ -32,7 +32,7 @@ MOTION_OBSTACLE:BYTE:=BYTE#7;
 MOTION_ROTATE:BYTE:=BYTE#8;
 CHARGING:BYTE:=BYTE#9;
 LIFTER_UP_LIMIT:INT:=INT#2500;
-LIFTER_DOWN_LIMIT:INT:=INT#1400;
+LIFTER_DOWN_LIMIT:INT:=INT#1200;
 LIFTER_UP:INT:=INT#2000;
 LIFTER_DOWN:INT:=INT#1500;
 
@@ -251,7 +251,7 @@ SPEED_LIMIT:LREAL:=LREAL#1.5;
 	Locomotion_2_actual_pos                 AT%I* : DINT;
     //Rotator
    
-    Rotator_modesOfOperation                 AT%Q* : SINT := SINT#8;
+    Rotator_modesOfOperation                 AT%Q* : SINT := SINT#9;
   
     Rotator_error_state_1                     AT%I* : UINT;
     Rotator_error_state_2                     AT%I* : UINT;
