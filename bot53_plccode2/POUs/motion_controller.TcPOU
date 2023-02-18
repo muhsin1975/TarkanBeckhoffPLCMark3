@@ -124,7 +124,7 @@ END_VAR
 	END_IF
    
   IF(robotdata.qr_tag>0)THEN
-    current_yaw_deg:= LMOD(robotdata.imu_state.imu_euler+2 * PI,2*PI)*180/PI;
+    current_yaw_deg:= LMOD(robotdata.qr_yaw+2 * PI,2*PI)*180/PI;
 	END_IF
   stabilization_yaw_deg:=detectStabilizedAngle(current_yaw:=current_yaw_deg);
  // printf("%d,%lf,%lf,%lf\n",robot_direction,stabilization_yaw_deg,current_yaw_deg,feedback_state->local_yaw_error);

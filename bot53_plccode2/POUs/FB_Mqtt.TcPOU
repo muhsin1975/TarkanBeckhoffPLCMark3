@@ -40,7 +40,7 @@ STRNCPY( ADR(sTopicRcv), ADR(topic), SIZEOF(sTopicRcv) );
 nPayloadRcvLen := MIN(length, DINT_TO_UDINT(SIZEOF(sPayloadRcv))-1);
 MEMCPY( ADR(sPayloadRcv), payload, nPayloadRcvLen );
 sPayloadRcv[nPayloadRcvLen] := 0;  // ensure a null termination of received string
-IF(fbJsonDataType.SetSymbolFromJson(sPayloadRcv, 'ST_COMMAND', SIZEOF(st_command), ADR(st_command)))THEN
+IF(topic=MQTT_COMMAND_TOPIC AND fbJsonDataType.SetSymbolFromJson(sPayloadRcv, 'ST_COMMAND', SIZEOF(st_command), ADR(st_command)))THEN
 	robotdata.activecommand:=st_command.command;
 	CASE st_command.command OF
 	COMMAND_STOP:
@@ -88,6 +88,9 @@ CASE st_command.command OF
 		END_IF
 		
 END_CASE
+ELSIF topic='STOPPER' then
+	robotdata.motorCword[0]:=43;
+	robotdata.motorCword[1]:=43;
 END_IF
 OnMqttMessage := S_OK;]]></ST>
       </Implementation>
@@ -123,6 +126,7 @@ OnMqttMessage := S_OK;]]></ST>
       <LineId Id="242" Count="0" />
       <LineId Id="245" Count="1" />
       <LineId Id="239" Count="0" />
+      <LineId Id="312" Count="2" />
       <LineId Id="236" Count="0" />
       <LineId Id="5" Count="0" />
     </LineIds>
