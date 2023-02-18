@@ -776,7 +776,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{8A670E50-189C-4F79-ADC2-9034F773F334}" Name="bot53_plccode2" PrjFilePath="bot53_plccode2\bot53_plccode2.plcproj" TmcFilePath="bot53_plccode2\bot53_plccode2.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="bot53_plccode2\bot53_plccode2.tmc" TmcHash="{3D0D2A98-303E-9FBC-F073-9E1C23F38E00}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="bot53_plccode2\bot53_plccode2.tmc" TmcHash="{F913C92B-34C4-FC59-4F1D-9A5A75BA5942}">
 					<Name>bot53_plccode2 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1" ContextId="1" AreaNo="16">
@@ -822,6 +822,10 @@
 						</Var>
 						<Var>
 							<Name>GVL.robotdata.Position_Velocity.Rotator_target_position</Name>
+							<Type>DINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.robotdata.Position_Velocity.Rotator_target_velocity</Name>
 							<Type>DINT</Type>
 						</Var>
 					</Vars>
@@ -945,10 +949,6 @@
 							<Name>GVL.Lifter_modesOfOperation</Name>
 							<Comment><![CDATA[Lifter]]></Comment>
 							<Type>SINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL.robotdata.Position_Velocity.Rotator_target_velocity</Name>
-							<Type>DINT</Type>
 						</Var>
 					</Vars>
 					<UnrestoredVarLinks ImportTime="2023-01-27T15:10:12">
@@ -2620,13 +2620,13 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 			<OwnerB Name="TIID^Device 3 (EtherCAT)^Rotator_Driver">
 				<Link VarA="MqttTask Inputs^GVL.robotdata.Position_Velocity.Rotator_position_actual_value" VarB="TxPDO Mapping 1^Position actual value"/>
 				<Link VarA="MqttTask Outputs^GVL.robotdata.Position_Velocity.Rotator_target_position" VarB="RxPDO Mapping 1^Target position"/>
+				<Link VarA="MqttTask Outputs^GVL.robotdata.Position_Velocity.Rotator_target_velocity" VarB="RxPDO Mapping 1^Target velocity"/>
 				<Link VarA="MqttTask Outputs^GVL.robotdata.motorCword[3]" VarB="RxPDO Mapping 1^Controlword"/>
 				<Link VarA="PlcTask Inputs^GVL.Rotator_modesOfOperationDisplay" VarB="TxPDO Mapping 1^Modes of operation display"/>
 				<Link VarA="PlcTask Inputs^GVL.Rotator_statusword" VarB="TxPDO Mapping 1^Statusword"/>
 				<Link VarA="PlcTask Inputs^GVL.robotdata.Position_Velocity.Rotator_actual_velocity" VarB="TxPDO Mapping 1^Velocity actual value"/>
 				<Link VarA="PlcTask Inputs^GVL.robotdata.motorError[3]" VarB="TxPDO Mapping 1^Error code"/>
 				<Link VarA="PlcTask Outputs^GVL.Rotator_modesOfOperation" VarB="RxPDO Mapping 1^Modes of operation"/>
-				<Link VarA="PlcTask Outputs^GVL.robotdata.Position_Velocity.Rotator_target_velocity" VarB="RxPDO Mapping 1^Target velocity"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 3 (EtherCAT)^Term 1 (EK1960-2600)^Term 3 (EL3052)">
 				<Link VarA="PlcTask Inputs^GVL.robotdata.lifterDistance" VarB="AI Standard Channel 1^Value"/>
