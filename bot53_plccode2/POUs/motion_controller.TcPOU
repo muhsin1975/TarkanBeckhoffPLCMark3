@@ -117,7 +117,7 @@ END_VAR
   enc_local_y:=lateral_direction_sign*(stabilization_lateral - enc_local_y);
   //double current_yaw_deg =feedback_state->yaw_state * 180.0 / M_PI;
   
-	IF(TRUE OR imuAngwins)THEN
+	IF(FALSE and imuAngwins)THEN
   		current_yaw_deg :=LMOD(robotdata.imu_state.imu_euler+2 * PI,2*PI)*180/PI;
 	ELSE
 		current_yaw_deg :=LMOD(robotdata.encoder_yaw+2 * PI,2*PI)*180/PI;
@@ -125,7 +125,7 @@ END_VAR
    
   IF(robotdata.qr_tag>0)THEN
     current_yaw_deg:= LMOD(robotdata.qr_yaw+2 * PI,2*PI)*180/PI;
-	END_IF
+  END_IF
   stabilization_yaw_deg:=detectStabilizedAngle(current_yaw:=current_yaw_deg);
  // printf("%d,%lf,%lf,%lf\n",robot_direction,stabilization_yaw_deg,current_yaw_deg,feedback_state->local_yaw_error);
   errTheta := stabilization_yaw_deg - current_yaw_deg;
