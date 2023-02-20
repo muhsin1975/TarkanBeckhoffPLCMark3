@@ -776,7 +776,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{8A670E50-189C-4F79-ADC2-9034F773F334}" Name="bot53_plccode2" PrjFilePath="bot53_plccode2\bot53_plccode2.plcproj" TmcFilePath="bot53_plccode2\bot53_plccode2.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="bot53_plccode2\bot53_plccode2.tmc" TmcHash="{F913C92B-34C4-FC59-4F1D-9A5A75BA5942}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="bot53_plccode2\bot53_plccode2.tmc" TmcHash="{4A141384-DB0E-346A-A721-799E584ECAAF}">
 					<Name>bot53_plccode2 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1" ContextId="1" AreaNo="16">
@@ -832,82 +832,6 @@
 					<Vars VarGrpType="1" ContextId="2" AreaNo="32">
 						<Name>PlcTask Inputs</Name>
 						<Var>
-							<Name>GVL.batteryVoltageINT</Name>
-							<Type>UDINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL.Locomotion_1_modesOfOperationDisplay</Name>
-							<Type>SINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL.Locomotion_1_error_state_1</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL.Locomotion_1_error_state_2</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL.Locomotion_1_statusword</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL.Locomotion_1_actual_pos</Name>
-							<Type>DINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL.Locomotion_2_modesOfOperationDisplay</Name>
-							<Type>SINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL.Locomotion_2_error_state_1</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL.Locomotion_2_error_state_2</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL.Locomotion_2_statusword</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL.Locomotion_2_actual_pos</Name>
-							<Type>DINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL.Rotator_modesOfOperationDisplay</Name>
-							<Type>SINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL.Rotator_error_state_1</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL.Rotator_error_state_2</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL.Rotator_statusword</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL.Lifter_modesOfOperationDisplay</Name>
-							<Type>SINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL.Lifter_error_state_1</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL.Lifter_error_state_2</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL.Lifter_statusword</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
 							<Name>GVL.robotdata.motorError</Name>
 							<Type GUID="{E1E90A9D-2E34-1B23-BC03-A5D169C28CE9}">ARRAY [0..3] OF INT</Type>
 						</Var>
@@ -926,6 +850,50 @@
 						<Var>
 							<Name>GVL.robotdata.Position_Velocity.Rotator_actual_velocity</Name>
 							<Type>DINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.robotdata.Locomotion_1_modesOfOperationDisplay</Name>
+							<Type>SINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.robotdata.Locomotion_2_modesOfOperationDisplay</Name>
+							<Type>SINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.robotdata.Rotator_modesOfOperationDisplay</Name>
+							<Type>SINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.robotdata.Lifter_modesOfOperationDisplay</Name>
+							<Type>SINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.batteryVoltageINT</Name>
+							<Type>UDINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.Locomotion_1_statusword</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.Locomotion_1_actual_pos</Name>
+							<Type>DINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.Locomotion_2_statusword</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.Locomotion_2_actual_pos</Name>
+							<Type>DINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.Rotator_statusword</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.Lifter_statusword</Name>
+							<Type>UINT</Type>
 						</Var>
 					</Vars>
 					<Vars VarGrpType="2" ContextId="2" AreaNo="33">
@@ -962,6 +930,22 @@
 						<OwnerA Name="InputDst" Prefix="TIPC^bot53_plccode2^bot53_plccode2 Instance" Type="1">
 							<OwnerB Name="TIID^Device 3 (EtherCAT)^Lifter_Driver">
 								<Link VarA="GVL.robotdata.batteryVoltage" TypeA="LREAL" InOutA="0" GuidA="{18071995-0000-0000-0000-00000000000E}" VarB="TxPDO Mapping 1^batteryVoltage" Size="32" RestoreInfo="ANotFound"/>
+							</OwnerB>
+						</OwnerA>
+					</UnrestoredVarLinks>
+					<UnrestoredVarLinks ImportTime="2023-02-20T13:23:21">
+						<OwnerA Name="InputDst" Prefix="TIPC^bot53_plccode2^bot53_plccode2 Instance" Type="1">
+							<OwnerB Name="TIID^Device 3 (EtherCAT)^Lifter_Driver">
+								<Link VarA="GVL.Lifter_modesOfOperationDisplay" TypeA="SINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000003}" VarB="TxPDO Mapping 1^Modes of operation display" RestoreInfo="ANotFound"/>
+							</OwnerB>
+							<OwnerB Name="TIID^Device 3 (EtherCAT)^Locomotion_L">
+								<Link VarA="GVL.Locomotion_1_modesOfOperationDisplay" TypeA="SINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000003}" VarB="TxPDO Mapping 1^Modes of operation display" RestoreInfo="ANotFound"/>
+							</OwnerB>
+							<OwnerB Name="TIID^Device 3 (EtherCAT)^Locomotion_R">
+								<Link VarA="GVL.Locomotion_2_modesOfOperationDisplay" TypeA="SINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000003}" VarB="TxPDO Mapping 1^Modes of operation display" RestoreInfo="ANotFound"/>
+							</OwnerB>
+							<OwnerB Name="TIID^Device 3 (EtherCAT)^Rotator_Driver">
+								<Link VarA="GVL.Rotator_modesOfOperationDisplay" TypeA="SINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000003}" VarB="TxPDO Mapping 1^Modes of operation display" RestoreInfo="ANotFound"/>
 							</OwnerB>
 						</OwnerA>
 					</UnrestoredVarLinks>
@@ -1936,6 +1920,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 						<DcMode>4443000000000000000000000000000044432d53796e6368726f6e00000000000000000000000000000000000000000040420f000000000000000000ffff00030100000000000000000000000000000000000000000000000000000000000000</DcMode>
 						<MBoxUserCmdData>0200030009000000080000000300000000000000000000000000000000000000207e60000100000040506f6c617269747900</MBoxUserCmdData>
 						<MBoxUserCmdData>020003000c0000001700000003000000000000000000000000000000000000002085600004000000d0070000517569636b2073746f7020646563656c65726174696f6e00</MBoxUserCmdData>
+						<MBoxUserCmdData>020003000900000000000000030000000000000000000000000000000000000020212001010000000000</MBoxUserCmdData>
 						<Pdo Name="TxPDO Mapping 1" Index="#x1a00" Flags="#x0000" SyncMan="3">
 							<Entry Name="Statusword" Index="#x6041">
 								<Type>UINT</Type>
@@ -2053,6 +2038,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 						<MBoxUserCmdData>0200030009000000080000000300000000000000000000000000000000000000207e60000100000040506f6c617269747900</MBoxUserCmdData>
 						<MBoxUserCmdData>020003000a000000160000000300000000000000000000000000000000000000205a6000020000000600517569636b2073746f70206f7074696f6e20636f646500</MBoxUserCmdData>
 						<MBoxUserCmdData>020003000c0000001700000003000000000000000000000000000000000000002085600004000000d0070000517569636b2073746f7020646563656c65726174696f6e00</MBoxUserCmdData>
+						<MBoxUserCmdData>020003000900000000000000030000000000000000000000000000000000000020212001010000000000</MBoxUserCmdData>
 						<Pdo Name="TxPDO Mapping 1" Index="#x1a00" Flags="#x0000" SyncMan="3">
 							<Entry Name="Statusword" Index="#x6041">
 								<Type>UINT</Type>
@@ -2593,9 +2579,9 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 				<Link VarA="MqttTask Inputs^GVL.robotdata.Position_Velocity.Lifter_position_actual_value" VarB="TxPDO Mapping 1^Position actual value"/>
 				<Link VarA="MqttTask Outputs^GVL.robotdata.Position_Velocity.Lifter_target_position" VarB="RxPDO Mapping 1^Target position"/>
 				<Link VarA="MqttTask Outputs^GVL.robotdata.motorCword[2]" VarB="RxPDO Mapping 1^Controlword"/>
-				<Link VarA="PlcTask Inputs^GVL.Lifter_modesOfOperationDisplay" VarB="TxPDO Mapping 1^Modes of operation display"/>
 				<Link VarA="PlcTask Inputs^GVL.Lifter_statusword" VarB="TxPDO Mapping 1^Statusword"/>
 				<Link VarA="PlcTask Inputs^GVL.batteryVoltageINT" VarB="TxPDO Mapping 1^batteryVoltage"/>
+				<Link VarA="PlcTask Inputs^GVL.robotdata.Lifter_modesOfOperationDisplay" VarB="TxPDO Mapping 1^Modes of operation display"/>
 				<Link VarA="PlcTask Inputs^GVL.robotdata.motorError[2]" VarB="TxPDO Mapping 1^Error code"/>
 				<Link VarA="PlcTask Outputs^GVL.Lifter_modesOfOperation" VarB="RxPDO Mapping 1^Modes of operation"/>
 			</OwnerB>
@@ -2603,7 +2589,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 				<Link VarA="MqttTask Outputs^GVL.robotdata.Position_Velocity.Locomotion_1_target_velocity" VarB="RxPDO Mapping 1^Target velocity"/>
 				<Link VarA="MqttTask Outputs^GVL.robotdata.motorCword[1]" VarB="RxPDO Mapping 1^Controlword"/>
 				<Link VarA="PlcTask Inputs^GVL.Locomotion_1_actual_pos" VarB="TxPDO Mapping 1^Position actual value"/>
-				<Link VarA="PlcTask Inputs^GVL.Locomotion_1_modesOfOperationDisplay" VarB="TxPDO Mapping 1^Modes of operation display"/>
+				<Link VarA="PlcTask Inputs^GVL.robotdata.Locomotion_1_modesOfOperationDisplay" VarB="TxPDO Mapping 1^Modes of operation display"/>
 				<Link VarA="PlcTask Inputs^GVL.robotdata.Position_Velocity.Locomotion_1_actual_velocity" VarB="TxPDO Mapping 1^Velocity actual value"/>
 				<Link VarA="PlcTask Inputs^GVL.robotdata.motorError[1]" VarB="TxPDO Mapping 1^Error code"/>
 				<Link VarA="PlcTask Outputs^GVL.Locomotion_1_modesOfOperation" VarB="RxPDO Mapping 1^Modes of operation"/>
@@ -2612,7 +2598,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 				<Link VarA="MqttTask Outputs^GVL.robotdata.Position_Velocity.Locomotion_2_target_velocity" VarB="RxPDO Mapping 1^Target velocity"/>
 				<Link VarA="MqttTask Outputs^GVL.robotdata.motorCword[0]" VarB="RxPDO Mapping 1^Controlword"/>
 				<Link VarA="PlcTask Inputs^GVL.Locomotion_2_actual_pos" VarB="TxPDO Mapping 1^Position actual value"/>
-				<Link VarA="PlcTask Inputs^GVL.Locomotion_2_modesOfOperationDisplay" VarB="TxPDO Mapping 1^Modes of operation display"/>
+				<Link VarA="PlcTask Inputs^GVL.robotdata.Locomotion_2_modesOfOperationDisplay" VarB="TxPDO Mapping 1^Modes of operation display"/>
 				<Link VarA="PlcTask Inputs^GVL.robotdata.Position_Velocity.Locomotion_2_actual_velocity" VarB="TxPDO Mapping 1^Velocity actual value"/>
 				<Link VarA="PlcTask Inputs^GVL.robotdata.motorError[0]" VarB="TxPDO Mapping 1^Error code"/>
 				<Link VarA="PlcTask Outputs^GVL.Locomotion_2_modesOfOperation" VarB="RxPDO Mapping 1^Modes of operation"/>
@@ -2622,9 +2608,9 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 				<Link VarA="MqttTask Outputs^GVL.robotdata.Position_Velocity.Rotator_target_position" VarB="RxPDO Mapping 1^Target position"/>
 				<Link VarA="MqttTask Outputs^GVL.robotdata.Position_Velocity.Rotator_target_velocity" VarB="RxPDO Mapping 1^Target velocity"/>
 				<Link VarA="MqttTask Outputs^GVL.robotdata.motorCword[3]" VarB="RxPDO Mapping 1^Controlword"/>
-				<Link VarA="PlcTask Inputs^GVL.Rotator_modesOfOperationDisplay" VarB="TxPDO Mapping 1^Modes of operation display"/>
 				<Link VarA="PlcTask Inputs^GVL.Rotator_statusword" VarB="TxPDO Mapping 1^Statusword"/>
 				<Link VarA="PlcTask Inputs^GVL.robotdata.Position_Velocity.Rotator_actual_velocity" VarB="TxPDO Mapping 1^Velocity actual value"/>
+				<Link VarA="PlcTask Inputs^GVL.robotdata.Rotator_modesOfOperationDisplay" VarB="TxPDO Mapping 1^Modes of operation display"/>
 				<Link VarA="PlcTask Inputs^GVL.robotdata.motorError[3]" VarB="TxPDO Mapping 1^Error code"/>
 				<Link VarA="PlcTask Outputs^GVL.Rotator_modesOfOperation" VarB="RxPDO Mapping 1^Modes of operation"/>
 			</OwnerB>

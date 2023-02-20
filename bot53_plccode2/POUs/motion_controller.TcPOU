@@ -169,7 +169,7 @@ END_VAR
   //else
    wc:=robotdata.wc1+robotdata.wc2;   
 
-  IF ((ABS(errY)<Y_DEV_THRESHOLD) OR ABS(vc)<0.2) THEN
+  IF ( (pf_valid=1 AND ABS(errY)<Y_DEV_THRESHOLD) OR ABS(vc)<0.2) THEN
     wc:=0;
   END_IF  
     

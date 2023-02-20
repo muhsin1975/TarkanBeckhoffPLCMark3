@@ -56,8 +56,13 @@ STRUCT
     chargerContactor                        AT%Q* : BOOL := FALSE;
 	lifterDistance AT%I* : INT := INT#0;
 	Position_Velocity:ST_TARGETS;
-	activecommand:int;
-    END_STRUCT
+	activecommand:INT;
+	Locomotion_1_modesOfOperationDisplay    AT%I* : SINT;
+	Locomotion_2_modesOfOperationDisplay    AT%I* : SINT;
+    Rotator_modesOfOperationDisplay         AT%I* : SINT;
+    Lifter_modesOfOperationDisplay          AT%I* : SINT;
+  
+	END_STRUCT
 	END_TYPE]]></Declaration>
   </DUT>
 </TcPlcObject>

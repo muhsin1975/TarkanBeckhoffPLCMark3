@@ -8,7 +8,7 @@ VAR
 	bHostnameSet:BOOL:=FALSE;
     bConnect      : BOOL := TRUE;
 	bSubscribed : BOOL;
-    sPayloadPub : STRING(2000);
+    sPayloadPub : STRING(2500);
 	fbJson         : FB_JsonSaxWriter;
   	fbJsonDataType : FB_JsonReadWriteDataType;
 	i: UDINT;

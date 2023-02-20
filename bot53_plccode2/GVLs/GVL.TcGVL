@@ -192,7 +192,7 @@ SPEED_LIMIT:LREAL:=LREAL#1.5;
 
 	CONTROLLER_TYPE:BYTE:=0;
 	KALMAN_INITIALIZED:BOOL:=FALSE;
-	Y_DEV_THRESHOLD:LREAL:=0.005;
+	Y_DEV_THRESHOLD:LREAL:=0.01;
 	PF_OFFSET:LREAL:=0.2;
 	pf_valid:BYTE:=0;
 	AWAY_COEFF:LREAL:=LREAL#1;
@@ -236,41 +236,27 @@ SPEED_LIMIT:LREAL:=LREAL#1.5;
     KpTht:LREAL:=0.03;
     //Locomotion_1
     Locomotion_1_modesOfOperation             AT%Q* : SINT := SINT#9;
-    Locomotion_1_error_state_1                 AT%I* : UINT;
-    Locomotion_1_error_state_2                 AT%I* : UINT;
     Locomotion_1_statusword                 AT%I* : UINT;
 	Locomotion_1_actual_pos                 AT%I* : DINT;
-    Locomotion_1_modesOfOperationDisplay     AT%I* : SINT;
     //Locomotion_2
 
     Locomotion_2_modesOfOperation             AT%Q* : SINT := SINT#9;
-    Locomotion_2_error_state_1                 AT%I* : UINT;
-    Locomotion_2_error_state_2                 AT%I* : UINT;
     Locomotion_2_statusword                 AT%I* : UINT;
-    Locomotion_2_modesOfOperationDisplay     AT%I* : SINT;
-	Locomotion_2_actual_pos                 AT%I* : DINT;
+   Locomotion_2_actual_pos                 AT%I* : DINT;
     //Rotator
    
     Rotator_modesOfOperation                 AT%Q* : SINT := SINT#9;
-  
-    Rotator_error_state_1                     AT%I* : UINT;
-    Rotator_error_state_2                     AT%I* : UINT;
     Rotator_statusword                         AT%I* : UINT;
-    Rotator_modesOfOperationDisplay         AT%I* : SINT;
     //Lifter
   
     Lifter_modesOfOperation                 AT%Q* : SINT := SINT#8;
-   
-    Lifter_error_state_1                     AT%I* : UINT;
-    Lifter_error_state_2                     AT%I* : UINT;
     Lifter_statusword                         AT%I* : UINT;
-    Lifter_modesOfOperationDisplay             AT%I* : SINT;
     receivedBytes :STRING;
     sendReceiveTrigger : BOOL;
 
     MQTT_ConnState:ETcIotMqttClientState;
     MQTT_Command:FB_IoTCommand;
-
+   
     //Enable Signals for to be switched subsystems
    
 
