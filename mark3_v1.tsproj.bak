@@ -766,7 +766,7 @@
 				<Task Id="3" Priority="1" CycleTime="20000" AmsPort="350" AdtTasks="true">
 					<Name>CanRecTask</Name>
 				</Task>
-				<Task Id="4" Priority="2" CycleTime="100000" AmsPort="351" AdtTasks="true">
+				<Task Id="4" Priority="2" CycleTime="20000" AmsPort="351" AdtTasks="true">
 					<Name>MqttTask</Name>
 				</Task>
 				<Task Id="5" Priority="3" CycleTime="20000" AmsPort="352" AdtTasks="true">
@@ -776,7 +776,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{8A670E50-189C-4F79-ADC2-9034F773F334}" Name="bot53_plccode2" PrjFilePath="bot53_plccode2\bot53_plccode2.plcproj" TmcFilePath="bot53_plccode2\bot53_plccode2.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="bot53_plccode2\bot53_plccode2.tmc" TmcHash="{72D2EA63-57E2-5D11-DA2A-8D774B935D23}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="bot53_plccode2\bot53_plccode2.tmc" TmcHash="{3652A357-629E-B570-6003-66829E1AAD71}">
 					<Name>bot53_plccode2 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1" ContextId="1" AreaNo="16">
@@ -966,7 +966,7 @@
 								<OTCID>#x02010040</OTCID>
 							</ManualConfig>
 							<Priority>2</Priority>
-							<CycleTime>10000000</CycleTime>
+							<CycleTime>2000000</CycleTime>
 						</Context>
 						<Context>
 							<Id NeedCalleeCall="true">2</Id>

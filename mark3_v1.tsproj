@@ -766,7 +766,7 @@
 				<Task Id="3" Priority="1" CycleTime="20000" AmsPort="350" AdtTasks="true">
 					<Name>CanRecTask</Name>
 				</Task>
-				<Task Id="4" Priority="2" CycleTime="100000" AmsPort="351" AdtTasks="true">
+				<Task Id="4" Priority="2" CycleTime="20000" AmsPort="351" AdtTasks="true">
 					<Name>MqttTask</Name>
 				</Task>
 				<Task Id="5" Priority="3" CycleTime="20000" AmsPort="352" AdtTasks="true">
@@ -776,7 +776,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{8A670E50-189C-4F79-ADC2-9034F773F334}" Name="bot53_plccode2" PrjFilePath="bot53_plccode2\bot53_plccode2.plcproj" TmcFilePath="bot53_plccode2\bot53_plccode2.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="bot53_plccode2\bot53_plccode2.tmc" TmcHash="{A172F54C-B7C2-9610-E141-26803F197E78}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="bot53_plccode2\bot53_plccode2.tmc" TmcHash="{3652A357-629E-B570-6003-66829E1AAD71}">
 					<Name>bot53_plccode2 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1" ContextId="1" AreaNo="16">
@@ -966,7 +966,7 @@
 								<OTCID>#x02010040</OTCID>
 							</ManualConfig>
 							<Priority>2</Priority>
-							<CycleTime>10000000</CycleTime>
+							<CycleTime>2000000</CycleTime>
 						</Context>
 						<Context>
 							<Id NeedCalleeCall="true">2</Id>
@@ -1673,7 +1673,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 				<Box Id="5" BoxType="9099" BoxFlags="#x00000020">
 					<Name>Lifter_Driver</Name>
 					<ImageId>1005</ImageId>
-					<EtherCAT SlaveType="2" PdiType="#x0e08" MboxDataLinkLayer="true" CycleMBoxPolling="true" CoeType="15" FoeType="1" VendorId="#x000022d2" ProductCode="#x00000201" RevisionNo="#x0a000002" InfoDataAddr="true" InfoDataSoeDS401="true" TimeoutMailbox2="6000" PortPhys="17" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="SOMANET CiA402 Drive" Desc="CiA402 Motor Control Device" PortABoxInfo="#x02000001">
+					<EtherCAT SlaveType="2" PdiType="#x0e08" MboxDataLinkLayer="true" CycleMBoxPolling="true" CoeType="15" FoeType="1" VendorId="#x000022d2" ProductCode="#x00000201" RevisionNo="#x0a000002" InfoDataAddr="true" InfoDataSoeDS401="true" InfoDataDcTimes="true" TimeoutMailbox2="6000" PortPhys="17" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="SOMANET CiA402 Drive" Desc="CiA402 Motor Control Device" PortABoxInfo="#x02000001">
 						<SyncMan>001000042600010001000000000000000004001026010000</SyncMan>
 						<SyncMan>001400042200010002000000000000000004001422010000</SyncMan>
 						<SyncMan>001823006400010003000000000000000800001864010000</SyncMan>
@@ -1681,6 +1681,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 						<Fmmu>0000000000000000001800020100000001000000000000000000000000000000</Fmmu>
 						<Fmmu>0000000000000000001c00010100000002000000000000000000000000000000</Fmmu>
 						<BootStrapData>0010000400140004</BootStrapData>
+						<DcData>00030000000000000000000000000000ecff0000010000000000000000000000</DcData>
 						<DcMode>4672656572756e000000000000000000467265652052756e000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000</DcMode>
 						<DcMode>4443000000000000000000000000000044432d53796e6368726f6e00000000000000000000000000000000000000000040420f000000000000000000ffff00030100000000000000000000000000000000000000000000000000000000000000</DcMode>
 						<MBoxUserCmdData>0200030009000000080000000300000000000000000000000000000000000000207e60000100000080506f6c617269747900</MBoxUserCmdData>
@@ -1792,7 +1793,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 				<Box Id="13" BoxType="9099" BoxFlags="#x00000020">
 					<Name>Rotator_Driver</Name>
 					<ImageId>1005</ImageId>
-					<EtherCAT SlaveType="2" PdiType="#x0e08" MboxDataLinkLayer="true" CycleMBoxPolling="true" CoeType="15" FoeType="1" VendorId="#x000022d2" ProductCode="#x00000201" RevisionNo="#x0a000002" InfoDataAddr="true" InfoDataSoeDS401="true" TimeoutMailbox2="6000" PortPhys="17" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="SOMANET CiA402 Drive" Desc="CiA402 Motor Control Device" PortABoxInfo="#x01000005">
+					<EtherCAT SlaveType="2" PdiType="#x0e08" MboxDataLinkLayer="true" CycleMBoxPolling="true" CoeType="15" FoeType="1" VendorId="#x000022d2" ProductCode="#x00000201" RevisionNo="#x0a000002" InfoDataAddr="true" InfoDataSoeDS401="true" InfoDataDcTimes="true" TimeoutMailbox2="6000" PortPhys="17" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="SOMANET CiA402 Drive" Desc="CiA402 Motor Control Device" PortABoxInfo="#x01000005">
 						<SyncMan>001000042600010001000000000000000004001026010000</SyncMan>
 						<SyncMan>001400042200010002000000000000000004001422010000</SyncMan>
 						<SyncMan>001823006400010003000000000000000800001864010000</SyncMan>
@@ -1800,6 +1801,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 						<Fmmu>0000000000000000001800020100000001000000000000000000000000000000</Fmmu>
 						<Fmmu>0000000000000000001c00010100000002000000000000000000000000000000</Fmmu>
 						<BootStrapData>0010000400140004</BootStrapData>
+						<DcData>00030000000000000000000000000000ecffffff010000000000000000000000</DcData>
 						<DcMode>4672656572756e000000000000000000467265652052756e000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000</DcMode>
 						<DcMode>4443000000000000000000000000000044432d53796e6368726f6e00000000000000000000000000000000000000000040420f000000000000000000ffff00030100000000000000000000000000000000000000000000000000000000000000</DcMode>
 						<MBoxUserCmdData>0200030009000000080000000300000000000000000000000000000000000000207e60000100000080506f6c617269747900</MBoxUserCmdData>
@@ -1908,7 +1910,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 				<Box Id="6" BoxType="9099" BoxFlags="#x00000020">
 					<Name>Locomotion_R</Name>
 					<ImageId>1005</ImageId>
-					<EtherCAT SlaveType="2" PdiType="#x0e08" MboxDataLinkLayer="true" CycleMBoxPolling="true" CoeType="15" FoeType="1" VendorId="#x000022d2" ProductCode="#x00000201" RevisionNo="#x0a000002" InfoDataAddr="true" InfoDataSoeDS401="true" TimeoutMailbox2="6000" PortPhys="17" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="SOMANET CiA402 Drive" Desc="CiA402 Motor Control Device" PortABoxInfo="#x0100000d">
+					<EtherCAT SlaveType="2" PdiType="#x0e08" MboxDataLinkLayer="true" CycleMBoxPolling="true" CoeType="15" FoeType="1" VendorId="#x000022d2" ProductCode="#x00000201" RevisionNo="#x0a000002" InfoDataAddr="true" InfoDataSoeDS401="true" InfoDataDcTimes="true" TimeoutMailbox2="6000" PortPhys="17" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="SOMANET CiA402 Drive" Desc="CiA402 Motor Control Device" PortABoxInfo="#x0100000d">
 						<SyncMan>001000042600010001000000000000000004001026010000</SyncMan>
 						<SyncMan>001400042200010002000000000000000004001422010000</SyncMan>
 						<SyncMan>001823006400010003000000000000000800001864010000</SyncMan>
@@ -1916,6 +1918,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 						<Fmmu>0000000000000000001800020100000001000000000000000000000000000000</Fmmu>
 						<Fmmu>0000000000000000001c00010100000002000000000000000000000000000000</Fmmu>
 						<BootStrapData>0010000400140004</BootStrapData>
+						<DcData>00030000000000000000000000000000ecffffff010000000000000000000000</DcData>
 						<DcMode>4672656572756e000000000000000000467265652052756e000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000</DcMode>
 						<DcMode>4443000000000000000000000000000044432d53796e6368726f6e00000000000000000000000000000000000000000040420f000000000000000000ffff00030100000000000000000000000000000000000000000000000000000000000000</DcMode>
 						<MBoxUserCmdData>0200030009000000080000000300000000000000000000000000000000000000207e60000100000040506f6c617269747900</MBoxUserCmdData>
@@ -2025,7 +2028,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 				<Box Id="7" BoxType="9099" BoxFlags="#x00000020">
 					<Name>Locomotion_L</Name>
 					<ImageId>1005</ImageId>
-					<EtherCAT SlaveType="2" PdiType="#x0e08" MboxDataLinkLayer="true" CycleMBoxPolling="true" CoeType="15" FoeType="1" VendorId="#x000022d2" ProductCode="#x00000201" RevisionNo="#x0a000002" InfoDataAddr="true" InfoDataSoeDS401="true" TimeoutMailbox2="6000" PortPhys="17" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="SOMANET CiA402 Drive" Desc="CiA402 Motor Control Device" PortABoxInfo="#x01000006">
+					<EtherCAT SlaveType="2" PdiType="#x0e08" MboxDataLinkLayer="true" CycleMBoxPolling="true" CoeType="15" FoeType="1" VendorId="#x000022d2" ProductCode="#x00000201" RevisionNo="#x0a000002" InfoDataAddr="true" InfoDataSoeDS401="true" InfoDataDcTimes="true" TimeoutMailbox2="6000" PortPhys="17" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="SOMANET CiA402 Drive" Desc="CiA402 Motor Control Device" PortABoxInfo="#x01000006">
 						<SyncMan>001000042600010001000000000000000004001026010000</SyncMan>
 						<SyncMan>001400042200010002000000000000000004001422010000</SyncMan>
 						<SyncMan>001823006400010003000000000000000800001864010000</SyncMan>
@@ -2033,6 +2036,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 						<Fmmu>0000000000000000001800020100000001000000000000000000000000000000</Fmmu>
 						<Fmmu>0000000000000000001c00010100000002000000000000000000000000000000</Fmmu>
 						<BootStrapData>0010000400140004</BootStrapData>
+						<DcData>00030000000000000000000000000000ecffffff010000000000000000000000</DcData>
 						<DcMode>4672656572756e000000000000000000467265652052756e000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000</DcMode>
 						<DcMode>4443000000000000000000000000000044432d53796e6368726f6e00000000000000000000000000000000000000000040420f000000000000000000ffff00030100000000000000000000000000000000000000000000000000000000000000</DcMode>
 						<MBoxUserCmdData>0200030009000000080000000300000000000000000000000000000000000000207e60000100000040506f6c617269747900</MBoxUserCmdData>
@@ -2140,7 +2144,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 						<CoeProfile ProfileNo="402"/>
 					</EtherCAT>
 				</Box>
-				<EtherCAT/>
+				<EtherCAT DcSyncMode="3"/>
 			</Device>
 			<Device Id="1" DevType="109" DevFlags="#x0004">
 				<Name>Device 1 (RT-Ethernet Adapter)</Name>

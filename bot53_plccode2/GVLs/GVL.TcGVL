@@ -192,11 +192,11 @@ SPEED_LIMIT:LREAL:=LREAL#1.5;
 
 	CONTROLLER_TYPE:BYTE:=0;
 	KALMAN_INITIALIZED:BOOL:=FALSE;
-	Y_DEV_THRESHOLD:LREAL:=0.008;
+	Y_DEV_THRESHOLD:LREAL:=0.01;
 	PF_OFFSET:LREAL:=0.2;
 	pf_valid:BYTE:=0;
 	AWAY_COEFF:LREAL:=LREAL#1;
-	TOWARDS_COEFF:LREAL:=LREAL#1;
+	TOWARDS_COEFF:LREAL:=LREAL#0.5;
     current_yaw_deg:LREAL;
     ads_lasttime:ULINT;
     lateral_direction_sign:INT;
@@ -232,8 +232,8 @@ SPEED_LIMIT:LREAL:=LREAL#1.5;
     motion  :ARRAY[0..299999] OF DINT;
     deviation_y:LREAL;
     deviation_yaw:LREAL;
-    KpY:LREAL:=105;
-    KpTht:LREAL:=0.03;
+    KpY:LREAL:=55;
+    KpTht:LREAL:=0.06;
     //Locomotion_1
     Locomotion_1_modesOfOperation             AT%Q* : SINT := SINT#9;
     Locomotion_1_statusword                 AT%I* : UINT;

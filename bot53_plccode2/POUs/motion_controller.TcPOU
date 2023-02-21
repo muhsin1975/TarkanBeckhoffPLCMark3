@@ -51,12 +51,12 @@ END_VAR
     IF(imuYwins=0) THEN
       local_y := robotdata.encoder_y;
 	END_IF
-	  
     imu_local_y:=robotdata.imu_state.imu_y;
     enc_local_y:=robotdata.encoder_y;
     IF(imuYwins=1) THEN
       local_y := robotdata.imu_state.imu_y;
 	END_IF
+    //local_y:=PosFdbckY;
     IF(robotdata.qr_tag>0) THEN
       qrError:=(-1)*(robotdata.qr_y)/1000;
 	END_IF
@@ -67,13 +67,14 @@ END_VAR
     IF(imuXwins=0)THEN
       local_y := robotdata.encoder_x;
 	END_IF
- 
+  
     imu_local_y:=robotdata.imu_state.imu_x;
     enc_local_y:=robotdata.encoder_y;
  
     IF(imuXwins=1)THEN
       local_y := robotdata.imu_state.imu_x;
 	END_IF
+	//local_y:=PosFdbckX;
     IF(robotdata.qr_tag>0)THEN
       qrError:=(-1)*(robotdata.qr_x)/1000;
 	END_IF
@@ -169,7 +170,7 @@ END_VAR
   //else
    wc:=robotdata.wc1+robotdata.wc2;   
 
-  IF ( (pf_valid=1 AND ABS(errY)<Y_DEV_THRESHOLD) OR ABS(vc)<0.2) THEN
+  IF ( (pf_valid=1 AND ABS(errY)<Y_DEV_THRESHOLD) OR (pf_valid=0 AND ABS(errY)<Y_DEV_THRESHOLD/2) OR ABS(vc)<0.2) AND away<0 THEN
     wc:=0;
   END_IF  
     
@@ -233,17 +234,20 @@ END_VAR
     <LineIds Name="motion_controller">
       <LineId Id="433" Count="3" />
       <LineId Id="721" Count="1" />
-      <LineId Id="439" Count="2" />
+      <LineId Id="439" Count="0" />
+      <LineId Id="441" Count="0" />
       <LineId Id="710" Count="0" />
       <LineId Id="720" Count="0" />
       <LineId Id="444" Count="0" />
       <LineId Id="703" Count="0" />
+      <LineId Id="766" Count="0" />
       <LineId Id="446" Count="6" />
       <LineId Id="717" Count="1" />
       <LineId Id="455" Count="4" />
       <LineId Id="716" Count="0" />
       <LineId Id="461" Count="0" />
       <LineId Id="706" Count="0" />
+      <LineId Id="765" Count="0" />
       <LineId Id="463" Count="44" />
       <LineId Id="657" Count="0" />
       <LineId Id="659" Count="0" />

@@ -2,7 +2,7 @@
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <Task Name="MqttTask" Id="{40279dc4-5dc1-497e-bb53-6e1af21ab6ef}">
     <!--CycleTime in micro seconds.-->
-    <CycleTime>10000</CycleTime>
+    <CycleTime>2000</CycleTime>
     <Priority>2</Priority>
     <PouCall>
       <Name>MqttPrg</Name>
